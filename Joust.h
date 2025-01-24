@@ -5,7 +5,7 @@
 
 class Joust
 {
-public:
+public:// hello - ricky
 	Joust();
 	~Joust();
 	void run();
