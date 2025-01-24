@@ -133,15 +133,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Intro.cpp" />
-    <ClCompile Include="Joust.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\Intro.cpp" />
+    <ClCompile Include="source\Joust.cpp" />
+    <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Intro.h" />
-    <ClInclude Include="Joust.h" />
+    <ClInclude Include="source\Game.h" />
+    <ClInclude Include="source\Intro.h" />
+    <ClInclude Include="source\Joust.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

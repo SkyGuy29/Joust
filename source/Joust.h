@@ -7,12 +7,10 @@
 //the entire game of Joust, everything happens in here
 class Joust
 {
-public:// hello - ricky
+public: // hello - ricky
 	Joust();
-	~Joust();
 	void run();
 private:
-	//hi
 	sf::RenderWindow window;
 };
 
