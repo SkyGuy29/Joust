@@ -12,8 +12,6 @@ Joust::Joust()
 
 void Joust::run()
 {
-
-
     while (window.isOpen())
     {
         sf::Event event;
