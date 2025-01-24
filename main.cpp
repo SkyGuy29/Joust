@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "Joust.h"
 
 int main()
