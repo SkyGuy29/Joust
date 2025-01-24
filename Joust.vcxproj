@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{0af1cc30-66cc-4976-8e2e-9af774f29a22}</ProjectGuid>
-    <RootNamespace>SFMLTemplate</RootNamespace>
+    <RootNamespace>Joust</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
