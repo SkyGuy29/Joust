@@ -4,7 +4,7 @@
 
 /// <summary>
 /// holds the data needed for a video cutscene (ones with complex animations that we could not recreate) and provides tools to handle said cutscenes.
-/// really the difficulty of this is 
+/// really the difficulty of this is just setting up the images in the folder
 /// </summary>
 class Video
 {

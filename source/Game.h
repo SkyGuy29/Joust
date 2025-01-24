@@ -8,8 +8,9 @@ class Game
 public:
 	Game();
 	void update();
+	void nextRound();
 private:
-	int score, lives;
+	int score, lives, currentRound;
 	Player player[2]; //or just make two variables?
 	//enemies
 	//eggs
