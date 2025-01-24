@@ -1,4 +1,7 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
 
 
 //the entire game of Joust, everything happens in here
@@ -10,5 +13,6 @@ public:
 	void run();
 private:
 	//hi
+	sf::RenderWindow window;
 };
 
