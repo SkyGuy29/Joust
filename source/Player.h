@@ -17,6 +17,8 @@ private:
 	sf::Vector2f vel;
 
 	sf::RectangleShape hitbox;
+
+	bool jumpKeyHeld = false;
 	//player sprite (animated, i think i can make an easy api tho)
 	//player sounds
 	//hitbox (inherited?)

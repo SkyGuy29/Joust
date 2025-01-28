@@ -15,25 +15,36 @@ void Player::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		vel.x = -3.125;
+		if (vel.x > -12)
+			vel.x -= 3;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		vel.x = 3.125;
+		if (vel.x < 12)
+		vel.x += 3;
 	}
 
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Space) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
+	{
+		jumpKeyHeld = true;
+		vel.y -= 3;
+	}
 
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		vel.x = 0;
-	}
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		vel.y = 0;
-	}
+	vel.y += .5;
 
 	hitbox.move(vel);
+
+
+	//Checks if the jump key is held
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		jumpKeyHeld = false;
+	}
 }
 
 
