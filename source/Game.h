@@ -6,7 +6,7 @@
 class Game
 {
 public:
-	Game();
+	//Game();
 	void update();
 	void nextRound();
 private:
