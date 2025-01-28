@@ -30,7 +30,7 @@ void Player::update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
 	{
 		jumpKeyHeld = true;
-		vel.y -= 3;
+		vel.y -= 3.5;
 	}
 
 	vel.y += .5;
