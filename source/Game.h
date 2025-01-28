@@ -9,6 +9,10 @@ public:
 	//Game();
 	void update();
 	void nextRound();
+
+
+	void drawTo(sf::RenderWindow&);
+
 private:
 	int score, lives, currentRound;
 	Player player[2]; //or just make two variables?

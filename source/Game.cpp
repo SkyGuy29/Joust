@@ -3,7 +3,7 @@
 
 void Game::update()
 {
-
+	player[0].update();
 }
 
 
@@ -35,4 +35,14 @@ void Game::nextRound()
 	{
 		//egg round
 	}
+}
+
+
+
+
+
+
+void Game::drawTo(sf::RenderWindow& window)
+{
+	player[0].drawTo(window);
 }
