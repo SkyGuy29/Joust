@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "globals.hpp"
 
 //the player you control, one joystick and a flap button.
 //there are two players.

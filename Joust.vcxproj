@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Animation.cpp" />
     <ClCompile Include="source\Egg.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Game.cpp" />
@@ -142,12 +143,33 @@
     <ClCompile Include="source\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\globals.hpp" />
+    <ClInclude Include="source\Animation.h" />
     <ClInclude Include="source\Egg.h" />
     <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\Game.h" />
     <ClInclude Include="source\Intro.h" />
     <ClInclude Include="source\Joust.h" />
     <ClInclude Include="source\Video.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Art\Joust logo.png" />
+    <Image Include="res\Art\joust sprites.png" />
+    <Image Include="res\Art\joust_screen.jpg" />
+    <Image Include="res\Art\Ledge.png" />
+    <Image Include="res\Art\Platform lower middle.png" />
+    <Image Include="res\Art\Platform middle high.png" />
+    <Image Include="res\Art\Platform middle left.png" />
+    <Image Include="res\Art\Platform middle low.png" />
+    <Image Include="res\Art\Platform middle right high.png" />
+    <Image Include="res\Art\Platform middle right low.png" />
+    <Image Include="res\Art\Platform right high.png" />
+    <Image Include="res\Art\Platform Top Left.png" />
+    <Image Include="res\Art\Scoreboard BG.png" />
+    <Image Include="res\Art\Spawner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\Fonts\Arcade.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

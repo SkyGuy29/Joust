@@ -3,8 +3,7 @@
 
 Joust::Joust()
 {
-    const int windowMult = 3; //we will adress global consts later for now im putting this here
-    window.create(sf::VideoMode(240 * windowMult, 292 * windowMult), "Joust");
+    window.create(sf::VideoMode(240 * windowScaleFactor, 292 * windowScaleFactor), "Joust");
 }
 
 
