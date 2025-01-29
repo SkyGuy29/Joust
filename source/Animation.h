@@ -27,6 +27,7 @@ public:
 	//sets the animation to a certian frame.
 	//does nothing if yout try to set the frame past the max.
 	void setFrame(int newFrameCount);
+	void drawTo(sf::RenderWindow& window) { window.draw(sprite); }
 private:
 	sf::Texture image;
 	sf::Sprite sprite;

@@ -7,6 +7,7 @@ Player::Player()
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
+	//sprite.setTexture("res/Art/joust sprites.png", sf::IntRect())
 }
 
 
@@ -15,14 +16,14 @@ void Player::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		if (vel.x > -12)
-			vel.x -= 3;
+		if (vel.x > -6)
+			vel.x -= 1.5;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		if (vel.x < 12)
-		vel.x += 3;
+		if (vel.x < 6)
+		vel.x += 1.5;
 	}
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
@@ -30,10 +31,10 @@ void Player::update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
 	{
 		jumpKeyHeld = true;
-		vel.y -= 3.5;
+		vel.y -= 2;
 	}
 
-	vel.y += .5;
+	vel.y += .125;
 
 	hitbox.move(vel);
 
@@ -50,5 +51,6 @@ void Player::update()
 
 void Player::drawTo(sf::RenderWindow& window)
 {
+	//sprite.drawTo(window);
 	window.draw(hitbox);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "globals.hpp"
+#include "Animation.h"
 
 //the player you control, one joystick and a flap button.
 //there are two players.
@@ -20,6 +21,7 @@ private:
 
 	bool jumpKeyHeld = false;
 	//player sprite (animated, i think i can make an easy api tho)
+	//Animation sprite;
 	//player sounds
 	//hitbox (inherited?)
 	//iframes
