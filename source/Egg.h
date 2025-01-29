@@ -7,7 +7,7 @@ class Egg
 public:
 	Egg();
 	void hatch();
-	int getTimer();
+	int getTimer() const { return eggTimer.getElapsedTime().asMilliseconds(); }
 private:
 	sf::Clock eggTimer;
 };
