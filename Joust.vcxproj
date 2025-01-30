@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Platform.cpp" />
     <ClCompile Include="source\Animation.cpp" />
     <ClCompile Include="source\Egg.cpp" />
     <ClCompile Include="source\Player.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="source\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Platform.h" />
     <ClInclude Include="source\globals.hpp" />
     <ClInclude Include="source\Animation.h" />
     <ClInclude Include="source\Egg.h" />
