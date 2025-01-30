@@ -1,0 +1,17 @@
+all of the data follows this pattern:
+startPointX, startPointY, spriteWidth, spriteHeight
+
+
+p1 ground running animation:
+246 64 17 18
+
+p1 skid:
+248 84 16 13
+
+p1 flying:
+
+p1 ostrich walking:
+
+p1 ostrich flying:
+
+player death:
