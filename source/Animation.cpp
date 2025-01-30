@@ -6,7 +6,7 @@ void Animation::setTexture(std::string fileName, sf::IntRect spriteRect, int max
 	image.loadFromFile(fileName);
 	sprite.setTexture(image);
 	sprite.setTextureRect(spriteRect);
-	sprite.setScale(sf::Vector2f(windowScaleFactor, windowScaleFactor));
+	sprite.setScale(sf::Vector2f(WINDOW_SCALE, WINDOW_SCALE));
 	//centers the sprite for use with setPosition
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 	maxFrameCount = maxFrames;
