@@ -11,7 +11,12 @@ public:
 	
 	//updates the player movement. user inputs will be handled directly in here.
 	void update();
+
+	sf::RectangleShape getHitbox();
+
 	//death function and reset, remember Game handles lives
+
+
 	void drawTo(sf::RenderWindow&);
 
 private:
