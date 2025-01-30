@@ -16,3 +16,27 @@ Maybe it's not the best practice but it is clean and simple so I love it.
 //#define isKeyPressed sf::Keyboard::isKeyPressed
 
 const static int windowScaleFactor = 3;
+
+
+//returns the distance between the two points.
+static float distBetween(const sf::Vector2f point1, const sf::Vector2f point2)
+{
+    const sf::Vector2f d = point1 - point2;
+    return hypotf(d.x, d.y);
+}
+
+
+//uses the law of cosines to create an angle given the three points.
+//the three points are used to create a triangle, and it finds the angle in that triangle
+//the angle returned is the one that corresponds to the first parameter/point here.
+//the order of the last two does not matter.
+static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Vector2f p3)
+{
+    double a, b, c;
+    a = distBetween(p1, p2);
+    b = distBetween(p1, p3);
+    c = distBetween(p2, p3);
+
+    //the law in states that (the angle opposite of c) = acos((a*a + b*b - c*c) / (2ab))
+    return acos((a * a + c * c - b * b) / (2 * a * c));
+}
