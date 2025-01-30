@@ -11,4 +11,3 @@ public:
 private:
 	sf::Clock eggTimer;
 };
-

@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Platform.cpp" />
     <ClCompile Include="source\Animation.cpp" />
     <ClCompile Include="source\Egg.cpp" />
     <ClCompile Include="source\Player.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="source\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Platform.h" />
     <ClInclude Include="source\globals.hpp" />
     <ClInclude Include="source\Animation.h" />
     <ClInclude Include="source\Egg.h" />
@@ -158,6 +160,7 @@
   <ItemGroup>
     <Image Include="res\Art\Joust logo.png" />
     <Image Include="res\Art\joust sprites.png" />
+    <Image Include="res\Art\joustSprite.png" />
     <Image Include="res\Art\joust_screen.jpg" />
     <Image Include="res\Art\Ledge.png" />
     <Image Include="res\Art\Platform lower middle.png" />
@@ -173,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\Fonts\Arcade.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\Art\spriteData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

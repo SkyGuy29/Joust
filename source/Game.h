@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Platform.h"
 
 
 //handles the actual gameplay of joust, not the intro, leaderboard, stuff like that.
@@ -16,6 +17,8 @@ public:
 private:
 	int score, lives, currentRound;
 	Player player[2]; //or just make two variables?
+
+	Platform platform = Platform(0, "a");
 	//enemies
 	//eggs
 	//birds for the eggs

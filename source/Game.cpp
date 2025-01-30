@@ -45,4 +45,5 @@ void Game::nextRound()
 void Game::drawTo(sf::RenderWindow& window)
 {
 	player[0].drawTo(window);
+	platform.drawTo(window);
 }

@@ -48,6 +48,11 @@ void Player::update()
 	}
 }
 
+sf::RectangleShape Player::getHitbox()
+{
+	return hitbox;
+}
+
 
 void Player::drawTo(sf::RenderWindow& window)
 {
