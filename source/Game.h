@@ -11,10 +11,13 @@ public:
 	void update();
 	void nextRound();
 
-
 	void drawTo(sf::RenderWindow&);
 
 private:
+	//handles collision
+	PlatformCollisionType isTouching(sf::IntRect, sf::ConvexShape);
+
+
 	int score, lives, currentRound;
 	Player player[2]; //or just make two variables?
 

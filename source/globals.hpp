@@ -43,3 +43,24 @@ static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Ve
     //the law in states that (the angle opposite of c) = acos((a*a + b*b - c*c) / (2ab))
     return acos((a * a + c * c - b * b) / (2 * a * c));
 }
+
+
+//enum used for convex shapes
+//makes it easier to choose the point
+enum ConvexCorners 
+{
+    TOP_LEFT = 0,
+    TOP_RIGHT,
+    BOT_RIGHT,
+    BOT_LEFT
+};
+
+
+//enum for type of collision with a platform
+enum class PlatformCollisionType
+{
+    TOP,
+    BOT,
+    LEFT,
+    RIGHT
+};
