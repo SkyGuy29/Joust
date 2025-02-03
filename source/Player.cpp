@@ -7,7 +7,7 @@ Player::Player()
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
-	//sprite.setTexture("res/Art/joust sprites.png", sf::IntRect())
+	sprite.setTexture("res/Art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4);
 }
 
 
@@ -46,6 +46,8 @@ void Player::update()
 	{
 		jumpKeyHeld = false;
 	}
+
+	sprite.setPos(hitbox.getPosition());
 }
 
 sf::RectangleShape Player::getHitbox()
@@ -56,6 +58,6 @@ sf::RectangleShape Player::getHitbox()
 
 void Player::drawTo(sf::RenderWindow& window)
 {
-	//sprite.drawTo(window);
 	window.draw(hitbox);
+	sprite.drawTo(window);
 }

@@ -24,6 +24,8 @@ private:
 
 	sf::RectangleShape hitbox;
 
+	Animation sprite;
+
 	bool jumpKeyHeld = false;
 	//player sprite (animated, i think i can make an easy api tho)
 	//Animation sprite;
