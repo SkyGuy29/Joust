@@ -4,6 +4,8 @@
 Player::Player()
 {
 	hitbox.setSize(sf::Vector2f(50, 50));
+	//TODO:
+	//-change origin to center
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
@@ -23,9 +25,6 @@ void Player::update()
 	{
 		jumpKeyHeld = false;
 	}
-
-
-
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -49,6 +48,8 @@ void Player::update()
 	}
 
 	vel.y += .125;
+
+	sprite.setPos(hitbox.getPosition());
 }
 
 
