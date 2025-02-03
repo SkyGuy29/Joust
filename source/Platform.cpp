@@ -9,10 +9,10 @@ Platform::Platform(int platformID, std::string file)
 	switch (platformID)
 	{
 	case 0:
-		hitbox.setPoint(0, sf::Vector2f(0, 0));
-		hitbox.setPoint(1, sf::Vector2f(300, 0));
-		hitbox.setPoint(2, sf::Vector2f(250, 50));
-		hitbox.setPoint(3, sf::Vector2f(50, 50));
+		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(0, 0));
+		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(300, 0));
+		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(250, 50));
+		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(50, 50));
 		break;
 	case 1:
 

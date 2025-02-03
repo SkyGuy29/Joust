@@ -14,6 +14,8 @@ public:
 
 	sf::RectangleShape getHitbox();
 
+	sf::Vector2f getVelocity();
+
 	//death function and reset, remember Game handles lives
 
 

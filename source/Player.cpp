@@ -13,6 +13,20 @@ Player::Player()
 
 void Player::update()
 {
+	hitbox.move(vel);
+
+
+	//Checks if the jump key is held
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		jumpKeyHeld = false;
+	}
+
+
+
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -35,24 +49,18 @@ void Player::update()
 	}
 
 	vel.y += .125;
-
-	hitbox.move(vel);
-
-
-	//Checks if the jump key is held
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-		!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
-		!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		jumpKeyHeld = false;
-	}
-
-	sprite.setPos(hitbox.getPosition());
 }
+
 
 sf::RectangleShape Player::getHitbox()
 {
 	return hitbox;
+}
+
+
+sf::Vector2f Player::getVelocity()
+{
+	return vel;
 }
 
 

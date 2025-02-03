@@ -47,3 +47,32 @@ void Game::drawTo(sf::RenderWindow& window)
 	player[0].drawTo(window);
 	platform.drawTo(window);
 }
+
+
+//private
+
+
+PlatformCollisionType Game::isTouching(sf::IntRect playerHitbox, sf::ConvexShape platformHitbox)
+{
+	//y axis collision check
+	if (playerHitbox.top <= platformHitbox.getPoint(ConvexCorners::BOT_LEFT).y &&
+		playerHitbox.top + playerHitbox.height >= platformHitbox.getPoint(ConvexCorners::TOP_LEFT).y)
+	{
+		//x axis general collision check 
+		//still may not be a collision if outside the diagonal
+		if (playerHitbox.left <= platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).x &&
+			playerHitbox.left + playerHitbox.width >= platformHitbox.getPoint(ConvexCorners::TOP_LEFT).x)
+		{
+			//specific collision, detirmines behavior of interaction
+			//checks right diagonal
+			if (playerHitbox.left >= platformHitbox.getPoint(ConvexCorners::BOT_RIGHT).x)
+				return PlatformCollisionType::RIGHT;
+			//checks left diagonal
+			else if (playerHitbox.left + playerHitbox.width <= platformHitbox.getPoint(ConvexCorners::BOT_LEFT).x)
+				return PlatformCollisionType::LEFT;
+			//on the bottom
+			else
+				;
+		}
+	}
+}
