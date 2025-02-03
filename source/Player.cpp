@@ -5,7 +5,8 @@ Player::Player()
 {
 	hitbox.setSize(sf::Vector2f(50, 50));
 	//TODO:
-	//-change origin to center
+	// - change origin to center
+	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
@@ -16,7 +17,6 @@ Player::Player()
 void Player::update()
 {
 	hitbox.move(vel);
-
 
 	//Checks if the jump key is held
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
@@ -49,7 +49,7 @@ void Player::update()
 
 	vel.y += .125;
 
-	sprite.setPos(hitbox.getPosition());
+	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
 }
 
 

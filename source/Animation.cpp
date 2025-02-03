@@ -12,6 +12,7 @@ void Animation::setTexture(std::string fileName, sf::IntRect spriteRect, int max
 	maxFrameCount = maxFrames;
 }
 
+
 void Animation::nextFrame()
 {
 	if (currentFrameCount < maxFrameCount) //won't increase if they are equal
@@ -27,6 +28,7 @@ void Animation::nextFrame()
 		sprite.setTextureRect(spriteRect);
 	}
 }
+
 
 void Animation::setFrame(int newFrameCount)
 {
