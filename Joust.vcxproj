@@ -70,9 +70,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\..\..\..\..\Windows\SysWOW64\Tasks\R\C++ testing</OutDir>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -158,27 +156,27 @@
     <ClInclude Include="source\Video.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Art\Joust logo.png" />
-    <Image Include="res\Art\joust sprites.png" />
-    <Image Include="res\Art\joustSprite.png" />
-    <Image Include="res\Art\joust_screen.jpg" />
-    <Image Include="res\Art\Ledge.png" />
-    <Image Include="res\Art\Platform lower middle.png" />
-    <Image Include="res\Art\Platform middle high.png" />
-    <Image Include="res\Art\Platform middle left.png" />
-    <Image Include="res\Art\Platform middle low.png" />
-    <Image Include="res\Art\Platform middle right high.png" />
-    <Image Include="res\Art\Platform middle right low.png" />
-    <Image Include="res\Art\Platform right high.png" />
-    <Image Include="res\Art\Platform Top Left.png" />
-    <Image Include="res\Art\Scoreboard BG.png" />
-    <Image Include="res\Art\Spawner.png" />
+    <Image Include="res\art\Joust logo.png" />
+    <Image Include="res\art\joust sprites.png" />
+    <Image Include="res\art\joustSprite.png" />
+    <Image Include="res\art\joust_screen.jpg" />
+    <Image Include="res\art\Ledge.png" />
+    <Image Include="res\art\Platform lower middle.png" />
+    <Image Include="res\art\Platform middle high.png" />
+    <Image Include="res\art\Platform middle left.png" />
+    <Image Include="res\art\Platform middle low.png" />
+    <Image Include="res\art\Platform middle right high.png" />
+    <Image Include="res\art\Platform middle right low.png" />
+    <Image Include="res\art\Platform right high.png" />
+    <Image Include="res\art\Platform Top Left.png" />
+    <Image Include="res\art\Scoreboard BG.png" />
+    <Image Include="res\art\Spawner.png" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="res\Fonts\Arcade.ttf" />
+    <Font Include="res\fonts\Arcade.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="res\Art\spriteData.txt" />
+    <Text Include="res\misc\spriteData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
