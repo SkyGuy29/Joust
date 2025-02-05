@@ -11,7 +11,7 @@ Player::Player()
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
 	//sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4); //running
-	sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2);
+	sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2); //flying
 }
 
 
@@ -25,6 +25,7 @@ void Player::update()
 		!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		jumpKeyHeld = false;
+		sprite.setFrame(1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
@@ -45,7 +46,7 @@ void Player::update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
 	{
 		jumpKeyHeld = true;
-		sprite.setFrame(1);
+		sprite.setFrame(2);
 		vel.y -= 2;
 	}
 
