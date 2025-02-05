@@ -21,11 +21,11 @@ public:
 	void setMode(Mode newMode) { currentMode = newMode; }
 	void setPos(sf::Vector2f pos) { sprite.setPosition(pos); }
 	//moves the frameCounter to the next frame
-	//hey Ricky guess what =D
+	//GUESS WHO'S BACK =D
 	void nextFrame();
 	
-	//sets the animation to a certian frame.
-	//does nothing if yout try to set the frame past the max.
+	//sets the animation to a certain frame.
+	//does nothing if you try to set the frame past the max.
 	void setFrame(int newFrameCount);
 	void drawTo(sf::RenderWindow& window) { window.draw(sprite); }
 private:

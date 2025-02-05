@@ -29,6 +29,7 @@ private:
 	Animation sprite;
 
 	bool jumpKeyHeld = false;
+	int flapSprite = 0;
 	//player sprite (animated, i think i can make an easy api tho)
 	//Animation sprite;
 	//player sounds

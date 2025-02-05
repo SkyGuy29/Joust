@@ -19,7 +19,7 @@ void Game::nextRound()
 	else if (currentRound % 5 == 2)
 	{
 		//survival round text
-		//end of round 3000 point bonus if player did not not die
+		//end of round 3000 point bonus if player did not die
 		//i forgot how this worked in two player i think its if one of them lives
 	}
 	else if (currentRound % 5 == 3 && currentRound != 3)

@@ -45,6 +45,7 @@ void Player::update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
 	{
 		jumpKeyHeld = true;
+		sprite.setFrame(1);
 		vel.y -= 2;
 	}
 
@@ -64,8 +65,6 @@ void Player::update()
 		vel.y += .125;
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
-
-	sprite.nextFrame();
 }
 
 
