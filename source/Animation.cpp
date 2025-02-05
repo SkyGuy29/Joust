@@ -15,16 +15,18 @@ void Animation::setTexture(std::string fileName, sf::IntRect spriteRect, int max
 
 void Animation::nextFrame()
 {
-	if (currentFrameCount < maxFrameCount) //won't increase if they are equal
+	sf::IntRect spriteRect = sprite.getTextureRect();
+
+	if (currentFrameCount++ < maxFrameCount) //won't increase if they are equal
 	{
-		sf::IntRect spriteRect = sprite.getTextureRect();
-
-		//turn this into a switch statement based on mode
-		//if we do actually use the modes
-		//reverse is weird tho so idk
-
-		currentFrameCount++;
 		spriteRect.left += spriteRect.width;
+		sprite.setTextureRect(spriteRect);
+	}
+	else if (currentMode == Mode::LOOP)
+	{
+		currentFrameCount = 1;
+		spriteRect.left -= spriteRect.width * (maxFrameCount - 1);
+
 		sprite.setTextureRect(spriteRect);
 	}
 }

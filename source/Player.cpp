@@ -50,6 +50,8 @@ void Player::update()
 	vel.y += .125;
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
+
+	sprite.nextFrame();
 }
 
 
