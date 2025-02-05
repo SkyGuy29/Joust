@@ -10,7 +10,8 @@ Player::Player()
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
-	sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4);
+	//sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4); //running
+	sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2);
 }
 
 
