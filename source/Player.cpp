@@ -47,15 +47,28 @@ void Player::update()
 		vel.y -= 2;
 	}
 
-	vel.y += .125;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			vel.y = 1.5;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+		{
+			hitbox.setPosition(100, 100);
+			vel.y = 0;
+			vel.x = 0;
+		}
+	}
+	else
+		vel.y += .125;
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
 }
 
 
-sf::RectangleShape Player::getHitbox()
+sf::FloatRect Player::getHitbox()
 {
-	return hitbox;
+	return hitbox.getGlobalBounds();
 }
 
 

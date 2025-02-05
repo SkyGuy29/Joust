@@ -12,7 +12,7 @@ public:
 	//updates the player movement. user inputs will be handled directly in here.
 	void update();
 
-	sf::RectangleShape getHitbox();
+	sf::FloatRect getHitbox();
 
 	sf::Vector2f getVelocity();
 
