@@ -10,9 +10,9 @@ Platform::Platform(int platformID, std::string file)
 	{
 	case 0:
 		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(0, 0));
-		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(300, 0));
-		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(250, 50));
-		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(50, 50));
+		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(500, 0));
+		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(200, 100));
+		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(100, 100));
 		break;
 	case 1:
 
@@ -46,6 +46,12 @@ Platform::~Platform()
 sf::ConvexShape Platform::getHitbox()
 {
 	return hitbox;
+}
+
+
+sf::Vector2f Platform::getPointPos(ConvexCorners corner)
+{
+	return 	hitbox.getPoint(corner) + hitbox.getPosition();
 }
 
 
