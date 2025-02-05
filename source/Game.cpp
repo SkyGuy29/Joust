@@ -4,7 +4,21 @@
 void Game::update()
 {
 	player[0].update();
-	isTouching(player[0].getHitbox(), platform.getHitbox());
+	switch (isTouching(player[0].getHitbox(), platform))
+	{
+	case PlatformCollisionType::LEFT:
+		std::cout << "left\n";
+		break;
+	case PlatformCollisionType::RIGHT:
+		std::cout << "right\n";
+		break;
+	case PlatformCollisionType::TOP:
+		std::cout << "top\n";
+		break;
+	case PlatformCollisionType::BOT:
+		std::cout << "bot\n";
+		break;
+	}
 }
 
 
@@ -53,41 +67,46 @@ void Game::drawTo(sf::RenderWindow& window)
 //private
 
 
-PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, sf::ConvexShape platformHitbox)
+PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform platform)
 {
 	//y axis collision check
-	if (playerHitbox.top <= platformHitbox.getPoint(ConvexCorners::BOT_LEFT).y &&
-		playerHitbox.top + playerHitbox.height >= platformHitbox.getPoint(ConvexCorners::TOP_LEFT).y)
+	if (playerHitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
+		playerHitbox.top + playerHitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 	{
-		std::cout << "y-axis";
+		//std::cout << "y-axis\n";
 		//x axis general collision check 
 		//still may not be a collision if outside the diagonal
-		if (playerHitbox.left <= platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).x &&
-			playerHitbox.left + playerHitbox.width >= platformHitbox.getPoint(ConvexCorners::TOP_LEFT).x)
+		if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
+			playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 		{
-			std::cout << "x-axis";
+			if (playerHitbox.top <= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+			{ 
+				return PlatformCollisionType::TOP;
+			}
+			//std::cout << "x-axis\n";
 			//specific collision, detirmines behavior of interaction
 			//checks right diagonal
-			if (playerHitbox.left >= platformHitbox.getPoint(ConvexCorners::BOT_RIGHT).x)
-				if (playerHitbox.left >= ((playerHitbox.top - platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).y)
-					* (platformHitbox.getPoint(ConvexCorners::BOT_RIGHT).x - platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).x))
-					/ (platformHitbox.getPoint(ConvexCorners::BOT_RIGHT).y - platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).y)
-					+ platformHitbox.getPoint(ConvexCorners::TOP_RIGHT).x)
-					//return PlatformCollisionType::RIGHT;
-					std::cout << "Right";
+			else if (playerHitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
+			{
+				if (playerHitbox.left <= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+					/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+					+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
+					return PlatformCollisionType::RIGHT;
+			}
 			//checks left diagonal
-				else if (playerHitbox.left + playerHitbox.width <= platformHitbox.getPoint(ConvexCorners::BOT_LEFT).x)
-					if ((playerHitbox.left + playerHitbox.width) >= ((playerHitbox.top - platformHitbox.getPoint(ConvexCorners::TOP_LEFT).y)
-						* (platformHitbox.getPoint(ConvexCorners::BOT_LEFT).x - platformHitbox.getPoint(ConvexCorners::TOP_LEFT).x))
-						/ (platformHitbox.getPoint(ConvexCorners::BOT_LEFT).y - platformHitbox.getPoint(ConvexCorners::TOP_LEFT).y)
-						+ platformHitbox.getPoint(ConvexCorners::TOP_LEFT).x)
-						std::cout << "left";
-					//return PlatformCollisionType::LEFT; 
+			else if (playerHitbox.left + playerHitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
+			{
+				if ((playerHitbox.left + playerHitbox.width) >= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
+					/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+					+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
+					return PlatformCollisionType::LEFT;
+			}
 			//on the bottom
 			else
-				;
+				return PlatformCollisionType::BOT;
 		}
 	}
-	std::cout << "none";
-	return PlatformCollisionType::LEFT;
+	//std::cout << "none";
 }

@@ -10,6 +10,8 @@ public:
 
 	sf::ConvexShape getHitbox();
 
+	sf::Vector2f getPointPos(ConvexCorners);
+
 	void drawTo(sf::RenderWindow&);
 
 private:
