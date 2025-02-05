@@ -1,21 +1,21 @@
 all of the data follows this pattern:
-startPointX, startPointY, spriteWidth, spriteHeight, frameCount
+(startPointX, startPointY, spriteWidth, spriteHeight) frameCount
 
 
 p1 ground running animation (2 wide transparent space):
-247 64 15 18 4
+(247, 64, 15, 18) 4
 
 p1 skid (no space):
-247 84 13 16 1
+(247, 84, 13, 16) 1
 
 p1 flying (2w space):
-247 102 15 12 2
+(247, 102, 15, 12) 2
 
 p1 ostrich walking:
-247 136 13 18 4
+(247, 136, 13, 18) 4
 
 p1 ostrich flying:
-247 156 15 12 2
+(247, 156, 15, 12) 2
 
 player death:
-247 170 13 13 3
+(247, 170, 13, 13) 3
