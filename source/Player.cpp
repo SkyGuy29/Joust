@@ -11,8 +11,7 @@ Player::Player()
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setImage("res/art/joustSprite.png");
-	sprite.setAnimation(DataNames::P1_BIRD_GROUND);
-	//sprite.setAnimation(DataNames::P1_FLY);
+	sprite.setAnimation(DataNames::P1_GROUND);
 }
 
 

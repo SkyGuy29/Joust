@@ -15,17 +15,16 @@ class Animation
 {
 public:
 	Animation();
-	//sets the texture of the animation and initializes a bunch of stuff.
-	//the IntRect can be made something like this:
-	//sf::IntRect(topLeftCorner (Vector2f), size (Vector2f))
+	//sets the texture of the animation with a filename. Must be called before setting the animation.
 	void setImage(std::string);
+	//changes which animation you are using, allows for quick swapping within an image.
 	void setAnimation(DataNames);
+	//sets the end behavior of an animation.
 	void setMode(Mode newMode) { currentMode = newMode; }
 	void setPos(sf::Vector2f pos) { sprite.setPosition(pos); }
 	//moves the frameCounter to the next frame
 	//GUESS WHO'S BACK =D
 	void nextFrame();
-	
 	//sets the animation to a certain frame.
 	//does nothing if you try to set the frame past the max.
 	void setFrame(int newFrameCount);

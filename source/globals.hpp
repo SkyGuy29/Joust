@@ -77,15 +77,15 @@ enum DataNames
 };
 
 
-//container for all of the sprite data. please use the dataNames enum with this.
+//container for all of the sprite data. please use the DataNames enum with this.
 static const SpriteData spriteData[DataNames::DATA_COUNT] = 
 {
     //all of the data follows this pattern:
-    //(startPointX, startPointY, spriteWidth, spriteHeight), frameCount
-    {sf::IntRect(247, 64, 15, 18), 4},  // P1_GROUND
-    {sf::IntRect(247, 84, 13, 16), 1},  // P1_SKID
-    {sf::IntRect(247, 102, 15, 12), 2},  // P1_FLY
-    {sf::IntRect(247, 136, 13, 18), 4},  // P1_BIRD_GROUND
-    {sf::IntRect(247, 156, 15, 12), 2},  // P1_BIRD_FLY
-    {sf::IntRect(247, 170, 13, 13), 3}   // DEATH
+    //(startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
+    {sf::IntRect(247, 64, 15, 18), 4},  //P1_GROUND
+    {sf::IntRect(248, 84, 13, 16), 1},  //P1_SKID
+    {sf::IntRect(247, 102, 15, 12), 2},  //P1_FLY
+    {sf::IntRect(248, 136, 13, 18), 4},  //P1_BIRD_GROUND
+    {sf::IntRect(247, 156, 15, 12), 2},  //P1_BIRD_FLY
+    {sf::IntRect(248, 170, 13, 13), 3}   //DEATH
 };
