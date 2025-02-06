@@ -14,7 +14,7 @@ void Animation::setImage(std::string fileName)
 }
 
 
-void Animation::setAnimation(DataNames data)
+void Animation::setAnimation(AnimationNames data)
 {
 	currentAnimation = data;
 	sprite.setTextureRect(spriteData[data].bounds);

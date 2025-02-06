@@ -65,7 +65,7 @@ struct SpriteData
 
 
 //names for the data you want.
-enum DataNames
+enum AnimationNames
 {
     P1_GROUND,
     P1_SKID,
@@ -78,7 +78,7 @@ enum DataNames
 
 
 //container for all of the sprite data. please use the DataNames enum with this.
-static const SpriteData spriteData[DataNames::DATA_COUNT] = 
+static const SpriteData spriteData[AnimationNames::DATA_COUNT] = 
 {
     //all of the data follows this pattern:
     //(startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
@@ -87,5 +87,5 @@ static const SpriteData spriteData[DataNames::DATA_COUNT] =
     {sf::IntRect(247, 102, 15, 12), 2},  //P1_FLY
     {sf::IntRect(248, 136, 13, 18), 4},  //P1_BIRD_GROUND
     {sf::IntRect(247, 156, 15, 12), 2},  //P1_BIRD_FLY
-    {sf::IntRect(248, 170, 13, 13), 3}   //DEATH
+    {sf::IntRect(247, 173, 13, 13), 3}   //DEATH
 };

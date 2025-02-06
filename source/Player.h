@@ -12,9 +12,9 @@ public:
 	//updates the player movement. user inputs will be handled directly in here.
 	void update();
 
-	sf::FloatRect getHitbox();
+	sf::FloatRect getHitbox() const { return hitbox.getGlobalBounds(); }
 
-	sf::Vector2f getVelocity();
+	sf::Vector2f getVelocity() const { return vel; }
 
 	//death function and reset, remember Game handles lives
 
@@ -30,11 +30,7 @@ private:
 
 	bool jumpKeyHeld = false;
 	int flapSprite = 0;
-	//player sprite (animated, i think i can make an easy api tho)
-	//Animation sprite;
 	//player sounds
-	//hitbox (inherited?)
-	//iframes
+	//iframes timer
 	//much more i'm forgetting
 };
-

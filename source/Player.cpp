@@ -11,7 +11,7 @@ Player::Player()
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setImage("res/art/joustSprite.png");
-	sprite.setAnimation(DataNames::P1_GROUND);
+	sprite.setAnimation(AnimationNames::P1_GROUND);
 }
 
 
@@ -51,7 +51,7 @@ void Player::update()
 		vel.y -= 2;
 	}
 
-
+	//debug keys
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
@@ -67,24 +67,12 @@ void Player::update()
 	else
 		vel.y += .125;
 
-	//sprite.nextFrame();
-	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
+	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2,
+		hitbox.getPosition().y + hitbox.getSize().y / 2));
 }
 
 
-sf::FloatRect Player::getHitbox()
-{
-	return hitbox.getGlobalBounds();
-}
-
-
-sf::Vector2f Player::getVelocity()
-{
-	return vel;
-}
-
-
-void Player::drawTo(sf::RenderWindow& window)
+void Player::drawTo(sf::RenderWindow& window) 
 {
 	window.draw(hitbox);
 	sprite.drawTo(window);

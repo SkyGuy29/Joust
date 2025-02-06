@@ -43,18 +43,6 @@ Platform::~Platform()
 }
 
 
-sf::ConvexShape Platform::getHitbox()
-{
-	return hitbox;
-}
-
-
-sf::Vector2f Platform::getPointPos(ConvexCorners corner)
-{
-	return 	hitbox.getPoint(corner) + hitbox.getPosition();
-}
-
-
 void Platform::drawTo(sf::RenderWindow& window)
 {
 	window.draw(hitbox);

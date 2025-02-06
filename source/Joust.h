@@ -10,6 +10,7 @@ class Joust
 public: // hello - ricky    //do NOT delete this comment under any circumstance
 	Joust();
 	void run();
+	//no more publics after this
 private:
 	sf::RenderWindow window;
 	Game game;

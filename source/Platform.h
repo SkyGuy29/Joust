@@ -8,9 +8,12 @@ public:
 	Platform(int platformID, std::string);
 	~Platform();
 
-	sf::ConvexShape getHitbox();
-
-	sf::Vector2f getPointPos(ConvexCorners);
+	sf::ConvexShape getHitbox() const { return hitbox; }
+	
+	sf::Vector2f getPointPos(ConvexCorners corner) const 
+	{ 
+		return hitbox.getPoint(corner) + hitbox.getPosition();
+	}
 
 	void drawTo(sf::RenderWindow&);
 
