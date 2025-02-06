@@ -3,15 +3,16 @@
 
 Player::Player()
 {
-	hitbox.setSize(sf::Vector2f(50, 50));
+	hitbox.setSize(sf::Vector2f(54, 54)); //not exact lol
 	//TODO:
 	// - change origin to center
 	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(0, 0);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
-	//sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4); //running
-	sprite.setTexture("res/art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2); //flying
+	sprite.setImage("res/art/joustSprite.png");
+	sprite.setAnimation(DataNames::P1_BIRD_GROUND);
+	//sprite.setAnimation(DataNames::P1_FLY);
 }
 
 
@@ -25,7 +26,7 @@ void Player::update()
 		!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		jumpKeyHeld = false;
-		sprite.setFrame(1);
+		//sprite.setFrame(0); //flapping, wings up
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || 
@@ -41,14 +42,16 @@ void Player::update()
 		vel.x += 1.5;
 	}
 
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+	if (!jumpKeyHeld && (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Space) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && jumpKeyHeld == false)
+		sf::Keyboard::isKeyPressed(sf::Keyboard::W)))
 	{
 		jumpKeyHeld = true;
-		sprite.setFrame(2);
+		//sprite.setFrame(1); //flapping, wings down
+		sprite.nextFrame();
 		vel.y -= 2;
 	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
@@ -65,6 +68,7 @@ void Player::update()
 	else
 		vel.y += .125;
 
+	//sprite.nextFrame();
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2, hitbox.getPosition().y + hitbox.getSize().y / 2));
 }
 

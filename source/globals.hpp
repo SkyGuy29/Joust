@@ -1,20 +1,8 @@
 #pragma once
-
-/*
-Adressing global constants now:
-
-I like making a file specifically for global stuff.
-In basically any header file, put include this file and it will get all of the includes we need,
-all of the global constants we use, any macros we set up, any very useful functions, etc.
-Maybe it's not the best practice but it is clean and simple so I love it.
-*/
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
 
-//I use this sometimes but we don't need to use it
-//#define isKeyPressed sf::Keyboard::isKeyPressed
 
 static constexpr auto PI = 3.1415926535897932;
 static constexpr int WINDOW_SCALE = 3;
@@ -43,10 +31,11 @@ static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Ve
     //the law in states that (the angle opposite of c) = acos((a*a + b*b - c*c) / (2ab))
     return acos((a * a + c * c - b * b) / (2 * a * c));
 }
+//aaaaand we didnt even use it LOL
 
 
-//enum used for convex shapes
-//makes it easier to choose the point
+//enum used for convex shapes.
+//makes it easier to choose the point.
 enum ConvexCorners 
 {
     TOP_LEFT = 0,
@@ -56,11 +45,47 @@ enum ConvexCorners
 };
 
 
-//enum for type of collision with a platform
+//enum for type of collision with a platform.
 enum class PlatformCollisionType
 {
     TOP,
     BOT,
     LEFT,
     RIGHT
+};
+
+
+//simple data class for use with the spriteData array.
+struct SpriteData
+{
+    SpriteData(sf::IntRect a, int b) { bounds = a; frameCount = b; }
+    sf::IntRect bounds;
+    int frameCount;
+};
+
+
+//names for the data you want.
+enum DataNames
+{
+    P1_GROUND,
+    P1_SKID,
+    P1_FLY,
+    P1_BIRD_GROUND,
+    P1_BIRD_FLY,
+    DEATH,
+    DATA_COUNT //this helps make sure array size matches enum count
+};
+
+
+//container for all of the sprite data. please use the dataNames enum with this.
+static const SpriteData spriteData[DataNames::DATA_COUNT] = 
+{
+    //all of the data follows this pattern:
+    //(startPointX, startPointY, spriteWidth, spriteHeight), frameCount
+    {sf::IntRect(247, 64, 15, 18), 4},  // P1_GROUND
+    {sf::IntRect(247, 84, 13, 16), 1},  // P1_SKID
+    {sf::IntRect(247, 102, 15, 12), 2},  // P1_FLY
+    {sf::IntRect(247, 136, 13, 18), 4},  // P1_BIRD_GROUND
+    {sf::IntRect(247, 156, 15, 12), 2},  // P1_BIRD_FLY
+    {sf::IntRect(247, 170, 13, 13), 3}   // DEATH
 };

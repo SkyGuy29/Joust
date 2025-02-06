@@ -1,15 +1,27 @@
 #include "Animation.h"
 
 
-void Animation::setTexture(std::string fileName, sf::IntRect spriteRect, int maxFrames)
+Animation::Animation()
+{
+	sprite.setScale(sf::Vector2f(WINDOW_SCALE, WINDOW_SCALE));
+}
+
+
+void Animation::setImage(std::string fileName)
 {
 	image.loadFromFile(fileName);
 	sprite.setTexture(image);
-	sprite.setTextureRect(spriteRect);
+}
+
+
+void Animation::setAnimation(DataNames data)
+{
+	currentAnimation = data;
+	sprite.setTextureRect(spriteData[data].bounds);
 	sprite.setScale(sf::Vector2f(WINDOW_SCALE, WINDOW_SCALE));
 	//centers the sprite for use with setPosition
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-	maxFrameCount = maxFrames;
+	maxFrame = spriteData[data].frameCount;
 }
 
 
@@ -17,29 +29,28 @@ void Animation::nextFrame()
 {
 	sf::IntRect spriteRect = sprite.getTextureRect();
 
-	if (currentFrameCount++ < maxFrameCount) //won't increase if they are equal
+	if (currentFrame++ < (maxFrame - 1)) //if not out of bounds...
 	{
 		spriteRect.left += spriteRect.width;
-		sprite.setTextureRect(spriteRect);
 	}
-	else if (currentMode == Mode::LOOP)
+	else if (currentMode == Mode::LOOP) //if set to loop, reset the counter and rect
 	{
-		currentFrameCount = 1;
-		spriteRect.left -= spriteRect.width * (maxFrameCount - 1);
-
-		sprite.setTextureRect(spriteRect);
+		currentFrame = 0;
+		spriteRect = spriteData[currentAnimation].bounds;
 	}
+
+	sprite.setTextureRect(spriteRect);
 }
 
 
-void Animation::setFrame(int newFrameCount)
+void Animation::setFrame(int newFrame)
 {
-	if (currentFrameCount > 0 && currentFrameCount <= maxFrameCount)
+	if (newFrame >= 0 && newFrame < maxFrame)
 	{
 		sf::IntRect spriteRect = sprite.getTextureRect();
-		int frameDiff = newFrameCount - currentFrameCount;
+		int frameDiff = newFrame - currentFrame;
 
-		currentFrameCount = newFrameCount;
+		currentFrame = newFrame;
 		spriteRect.left += spriteRect.width * frameDiff;
 		sprite.setTextureRect(spriteRect);
 	}
