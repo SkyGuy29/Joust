@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 
 class Egg
@@ -10,4 +10,5 @@ public:
 	int getTimer() const { return eggTimer.getElapsedTime().asMilliseconds(); }
 private:
 	sf::Clock eggTimer;
+	Animation sprite;
 };

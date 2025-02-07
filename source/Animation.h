@@ -39,7 +39,8 @@ public:
 	void nextFrame();
 
 	//sets the animation to a given frame.
-	//does nothing if you try to set the frame past the max.
+	//you are fully allowed to set this past the max. 
+	//The max is simply there for looping or other ends.
 	void setFrame(int newFrameCount);
 
 	//draws the animation to the passed in window.

@@ -45,13 +45,9 @@ void Animation::nextFrame()
 
 void Animation::setFrame(int newFrame)
 {
-	if (newFrame >= 0 && newFrame < maxFrame)
-	{
-		sf::IntRect spriteRect = sprite.getTextureRect();
-		int frameDiff = newFrame - currentFrame;
-
-		currentFrame = newFrame;
-		spriteRect.left += spriteRect.width * frameDiff;
-		sprite.setTextureRect(spriteRect);
-	}
+	sf::IntRect spriteRect = sprite.getTextureRect();
+	int frameDiff = newFrame - currentFrame;
+	currentFrame = newFrame;
+	spriteRect.left += spriteRect.width * frameDiff;
+	sprite.setTextureRect(spriteRect);
 }

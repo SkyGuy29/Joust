@@ -73,6 +73,7 @@ enum AnimationNames
     P1_BIRD_GROUND,
     P1_BIRD_FLY,
     DEATH,
+    EGG_FALL,
     DATA_COUNT //this helps make sure array size matches enum count
 };
 
@@ -84,8 +85,9 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     //(startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
     {sf::IntRect(247, 64, 15, 18), 4},  //P1_GROUND
     {sf::IntRect(248, 84, 13, 16), 1},  //P1_SKID
-    {sf::IntRect(247, 102, 15, 12), 2},  //P1_FLY
-    {sf::IntRect(248, 136, 13, 18), 4},  //P1_BIRD_GROUND
-    {sf::IntRect(247, 156, 15, 12), 2},  //P1_BIRD_FLY
-    {sf::IntRect(247, 173, 13, 13), 3}   //DEATH
+    {sf::IntRect(247, 102, 15, 12), 2}, //P1_FLY
+    {sf::IntRect(248, 136, 13, 18), 4}, //P1_BIRD_GROUND
+    {sf::IntRect(247, 156, 15, 12), 2}, //P1_BIRD_FLY
+    {sf::IntRect(247, 173, 13, 13), 3}, //DEATH
+    {sf::IntRect(248, 286, 7, 6), 3}    //EGG_FALL
 };
