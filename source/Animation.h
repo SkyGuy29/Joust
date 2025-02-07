@@ -34,6 +34,9 @@ public:
 	//sets the position of the animation like any other SFML drawable
 	void setPos(sf::Vector2f pos) { sprite.setPosition(pos); }
 
+	//makes the sprite face right or left depending on the bool you put in it
+	void faceRight(bool);
+
 	//moves the frameCounter to the next frame
 	//GUESS WHO'S BACK =D
 	void nextFrame();
@@ -50,6 +53,7 @@ private:
 	sf::Sprite sprite;
 	int maxFrame = 5, //this is how many sprites there are in the animation 
 		currentFrame = 0; //THE FIRST FRAME IS 0 LIKE AN ARRAY
+	bool facingRight = true;
 	Mode currentMode = Mode::LOOP;
 	AnimationNames currentAnimation = AnimationNames::DATA_COUNT;
 };

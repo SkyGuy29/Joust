@@ -13,11 +13,13 @@ void Game::update()
 		std::cout << "right\n";
 		break;
 	case PlatformCollisionType::TOP:
-		std::cout << "top\n";
+		player[0].setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
 		break;
 	case PlatformCollisionType::BOT:
 		std::cout << "bot\n";
 		break;
+	case PlatformCollisionType::NONE:
+		player[0].setOffGround();
 	}
 }
 
@@ -108,5 +110,6 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 				return PlatformCollisionType::BOT;
 		}
 	}
+	return PlatformCollisionType::NONE;
 	//std::cout << "none";
 }
