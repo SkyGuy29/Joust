@@ -20,7 +20,6 @@ void Animation::setAnimation(AnimationNames data)
 	{
 		currentAnimation = data;
 		sprite.setTextureRect(spriteData[data].bounds);
-		sprite.setScale(sf::Vector2f(WINDOW_SCALE, WINDOW_SCALE));
 		//centers the sprite for use with setPosition
 		sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 		maxFrame = spriteData[data].frameCount;

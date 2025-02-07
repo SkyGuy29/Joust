@@ -15,10 +15,10 @@ public:
 
 	sf::Vector2f getVelocity() const { return vel; }
 
-	//puts the player on top of a platform and lets it run and stuff
+	//puts the player on top of a platform and lets it run on it.
 	void setOnGround(float);
 
-	//
+	//lets player know that it is no longer on the ground.
 	void setOffGround() { onGround = false; sprite.setAnimation(AnimationNames::P1_FLY); }
 
 	//death function and reset, remember Game handles lives

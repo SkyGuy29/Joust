@@ -23,7 +23,8 @@ void Player::update()
 	if (!isJumpPressed())
 	{
 		jumpKeyHeld = false;
-		//sprite.setFrame(0); //flapping, wings up
+		if(!onGround)
+			sprite.setFrame(0); //flapping, wings up
 	}
 
 	if (onGround) 
@@ -43,12 +44,12 @@ void Player::update()
 	if (!jumpKeyHeld && isJumpPressed())
 	{
 		jumpKeyHeld = true;
-		//sprite.setFrame(1); //flapping, wings down
-		sprite.nextFrame();
 		vel.y -= 2;
 
 		if (!onGround)
 		{
+			sprite.setFrame(1); //flapping, wings down
+
 			if (isLeftPressed())
 			{
 				if (vel.x > -6)
@@ -83,6 +84,9 @@ void Player::update()
 		sprite.faceRight(true);
 	else if (vel.x < 0)
 		sprite.faceRight(false);
+
+	if(onGround)
+		sprite.nextFrame();
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2,
 		hitbox.getPosition().y + hitbox.getSize().y / 2));
