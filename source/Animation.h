@@ -19,7 +19,9 @@ public:
 	//sets the texture of the animation with a filename. Must be called before setting the animation.
 	void setImage(std::string);
 	
-	//changes which animation you are using, allows for quick swapping within an image.
+	//changes and which animation you are using, allows for quick swapping within an image.
+	//this does reset the animation. if you need it to start at a particular spot you will
+	//need to set it again.
 	void setAnimation(AnimationNames);
 
 	//gets the name of the sprite's current animation.

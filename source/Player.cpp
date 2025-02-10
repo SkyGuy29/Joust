@@ -85,6 +85,7 @@ void Player::update()
 	else if (vel.x < 0)
 		sprite.faceRight(false);
 
+	
 	if(onGround)
 		sprite.nextFrame();
 

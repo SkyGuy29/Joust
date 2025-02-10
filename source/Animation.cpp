@@ -19,7 +19,7 @@ void Animation::setAnimation(AnimationNames data)
 	if (data != currentAnimation)
 	{
 		currentAnimation = data;
-		sprite.setTextureRect(spriteData[data].bounds);
+		reset();
 		//centers the sprite for use with setPosition
 		sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 		maxFrame = spriteData[data].frameCount;
