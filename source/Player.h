@@ -1,5 +1,6 @@
 #pragma once
 #include "Animation.h"
+#include "Platform.h"
 
 //the player you control, one joystick and a flap button.
 //there are two players.
@@ -23,7 +24,12 @@ public:
 	void setOffGround() { onGround = false; sprite.setAnimation(AnimationNames::P1_FLY); }
 
 	//death function and reset, remember Game handles lives
+	void setPosition(sf::Vector2f);
+	void bounceSetLeft(Platform);
+	void bounceSetRight(Platform);
 
+	void bounceX();
+	void bounceY();
 
 	void drawTo(sf::RenderWindow&);
 

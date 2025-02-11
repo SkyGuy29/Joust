@@ -7,7 +7,7 @@ Player::Player()
 	//TODO:
 	// - change origin to center
 	// - set sprite to hitbox position instead of the offset
-	hitbox.setOrigin(0, 0);
+	hitbox.setOrigin(hitbox.getSize().x / 2, hitbox.getSize().y / 2);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setImage("res/art/joustSprite.png");
@@ -27,7 +27,7 @@ void Player::update()
 			sprite.setFrame(0); //flapping, wings up
 	}
 
-	if (onGround) 
+	if (onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		if (isLeftPressed())
 		{
@@ -86,11 +86,11 @@ void Player::update()
 		sprite.faceRight(false);
 
 	
-	if(onGround)
+	if (onGround)
 		sprite.nextFrame();
 
-	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2,
-		hitbox.getPosition().y + hitbox.getSize().y / 2));
+	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
+		hitbox.getPosition().y));
 }
 
 
@@ -99,12 +99,49 @@ void Player::setOnGround(float newYValue)
 	onGround = true;
 
 	vel.y = 0;
-	hitbox.setPosition(hitbox.getPosition().x, newYValue - hitbox.getGlobalBounds().height - 0.1);
+	hitbox.setPosition(hitbox.getPosition().x, newYValue - hitbox.getGlobalBounds().height - 0.1 + hitbox.getSize().y / 2.f);
 	sprite.setAnimation(AnimationNames::P1_GROUND);
-	sprite.setPos(sf::Vector2f(hitbox.getPosition().x + hitbox.getSize().x / 2,
-		hitbox.getPosition().y + hitbox.getSize().y / 2));
+	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
+		hitbox.getPosition().y));
 
 }
+
+
+void Player::setPosition(sf::Vector2f newPos)
+{
+	hitbox.setPosition(newPos);
+}
+
+
+void Player::bounceSetLeft(Platform platform)
+{
+	hitbox.setPosition((((hitbox.getPosition().x) - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+		* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+		/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x, hitbox.getPosition().y);
+}
+
+
+void Player::bounceSetRight(Platform platform)
+{
+	hitbox.setPosition((((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+		* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+		/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x, hitbox.getPosition().y);
+}
+
+
+void Player::bounceX()
+{
+	vel.x *= -1;
+}
+
+
+void Player::bounceY()
+{
+	vel.y *= -1;
+}
+
 
 void Player::drawTo(sf::RenderWindow& window)
 {
