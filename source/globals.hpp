@@ -75,6 +75,22 @@ enum AnimationNames
     P1_BIRD_FLY,
     DEATH,
     EGG_FALL,
+    EGG_HATCH,
+    BOUNDER_WALK,
+    BOUNDER_FLY,
+    BOUNDER_BIRD_WALK,
+    BOUNDER_BIRD_FLY,
+    BOUNDER_BIRD_SKID,
+	HUNTER_WALK,
+    HUNTER_FLY,
+    HUNTER_BIRD_WALK,
+    HUNTER_BIRD_FLY,
+    HUNTER_BIRD_SKID,
+	SHADOW_WALK,
+    SHADOW_FLY,
+    SHADOW_BIRD_WALK,
+    SHADOW_BIRD_FLY,
+    SHADOW_BIRD_SKID,
     DATA_COUNT //this helps make sure array size matches enum count
 };
 
@@ -90,5 +106,22 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {sf::IntRect(248, 136, 13, 18), 4}, //P1_BIRD_GROUND
     {sf::IntRect(247, 156, 15, 12), 2}, //P1_BIRD_FLY
     {sf::IntRect(247, 173, 13, 13), 3}, //DEATH
-    {sf::IntRect(248, 286, 7, 6), 3}    //EGG_FALL
+    {sf::IntRect(248, 286, 7, 6), 3},   //EGG_FALL
+	{sf::IntRect(247, 64, 15, 18), 4},  //EGG_HATCH
+    {sf::IntRect(247, 64, 15, 18), 4},  //BOUNDER_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //BOUNDER_FLY *
+    {sf::IntRect(247, 194, 15, 18), 4}, //BOUNDER_BIRD_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //BOUNDER_BIRD_FLY *
+    {sf::IntRect(247, 64, 15, 18), 4},  //BOUNDER_BIRD_SKID *
+    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_FLY *
+    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_FLY *
+    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_SKID *
+    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_FLY *
+    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_WALK *
+    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_FLY *
+    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_SKID *
+	//*UNFINISHED DO NOT USED
 };
