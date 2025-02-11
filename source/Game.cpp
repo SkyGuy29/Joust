@@ -7,19 +7,25 @@ void Game::update()
 	switch (isTouching(player[0].getHitbox(), platform))
 	{
 	case PlatformCollisionType::LEFT:
+		player[0].bounceX();
+		player[0].bounceSetLeft(platform);
 		std::cout << "left\n";
 		break;
 	case PlatformCollisionType::RIGHT:
+		player[0].bounceX();
+		player[0].bounceSetRight(platform);
 		std::cout << "right\n";
 		break;
 	case PlatformCollisionType::TOP:
 		player[0].setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
 		break;
 	case PlatformCollisionType::BOT:
+		player[0].bounceY();
 		std::cout << "bot\n";
 		break;
 	case PlatformCollisionType::NONE:
-		player[0].setOffGround();
+		if (isTouchingX(player[0].getHitbox(), platform) == false)
+			player[0].setOffGround();
 	}
 }
 
@@ -78,8 +84,7 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 		//std::cout << "y-axis\n";
 		//x axis general collision check 
 		//still may not be a collision if outside the diagonal
-		if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
-			playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
+		if (isTouchingX(playerHitbox, platform) == true)
 		{
 			if (playerHitbox.top <= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 			{ 
@@ -112,4 +117,13 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 	}
 	return PlatformCollisionType::NONE;
 	//std::cout << "none";
+}
+
+
+bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
+{
+	if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
+		playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
+		return true;
+	return false;
 }

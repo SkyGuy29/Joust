@@ -16,6 +16,7 @@ public:
 private:
 	//handles collision
 	PlatformCollisionType isTouching(sf::FloatRect, Platform);
+	bool isTouchingX(sf::FloatRect, Platform);
 
 
 	int score, lives, currentRound;
