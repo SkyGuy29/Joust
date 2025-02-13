@@ -3,7 +3,7 @@
 
 Joust::Joust()
 {
-    window.create(sf::VideoMode(292 * WINDOW_SCALE, 240 * WINDOW_SCALE), "Joust");
+    window.create(sf::VideoMode(WINDOW_X * WINDOW_SCALE, WINDOW_Y * WINDOW_SCALE), "Joust");
     window.setFramerateLimit(FPS);
 }
 

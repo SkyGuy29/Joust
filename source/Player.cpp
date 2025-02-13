@@ -7,7 +7,7 @@ Player::Player()
 	//TODO:
 	// - change origin to center
 	// - set sprite to hitbox position instead of the offset
-	hitbox.setOrigin(hitbox.getSize().x / 2, hitbox.getSize().y / 2);
+	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(0, 550);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setImage("res/art/joustSprite.png");
@@ -31,13 +31,13 @@ void Player::update()
 	{
 		if (isLeftPressed())
 		{
-			if (vel.x > -6)
-				vel.x -= 1.5;
+			if (vel.x > -SPEED_MAX_X)
+				vel.x -= SPEED_INC_X;
 		}
 		if (isRightPressed())
 		{
-			if (vel.x < 6)
-				vel.x += 1.5;
+			if (vel.x < SPEED_MAX_X)
+				vel.x += SPEED_INC_X;
 		}
 	}
 
@@ -52,13 +52,13 @@ void Player::update()
 
 			if (isLeftPressed())
 			{
-				if (vel.x > -6)
-					vel.x -= 1.5;
+				if (vel.x > -SPEED_MAX_X)
+					vel.x -= SPEED_INC_X;
 			}
 			else if (isRightPressed())
 			{
-				if (vel.x < 6)
-					vel.x += 1.5;
+				if (vel.x < SPEED_MAX_X)
+					vel.x += SPEED_INC_X;
 			}
 		}
 		else
@@ -69,7 +69,7 @@ void Player::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		if (isDownPressed())
-			vel.y = 1.5;
+			vel.y = SPEED_INC_X;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
 		{
 			hitbox.setPosition(100, 100);
@@ -78,7 +78,7 @@ void Player::update()
 		}
 	}
 	else if (!onGround) //gravity
-		vel.y += .125;
+		vel.y += .125 * (WINDOW_SCALE / 3);
 
 	if (vel.x > 0)
 		sprite.faceRight(true);
@@ -115,10 +115,10 @@ void Player::setPosition(sf::Vector2f newPos)
 
 void Player::bounceSetLeft(Platform platform)
 {
-	hitbox.setPosition((((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-		* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
+	hitbox.setPosition(((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_LEFT).y) 
+		* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 		/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-		+ platform.getPointPos(ConvexCorners::TOP_LEFT).x, hitbox.getPosition().y);
+		+ platform.getPointPos(ConvexCorners::TOP_LEFT).x - 50, hitbox.getPosition().y);
 }
 
 
@@ -127,7 +127,7 @@ void Player::bounceSetRight(Platform platform)
 	hitbox.setPosition((((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 		* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
 		/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
-		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x, hitbox.getPosition().y);
+		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x + 50, hitbox.getPosition().y);
 }
 
 

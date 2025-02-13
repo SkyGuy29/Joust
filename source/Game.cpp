@@ -4,6 +4,7 @@
 void Game::update()
 {
 	player[0].update();
+	isTouchingBounds();
 	switch (isTouching(player[0].getHitbox(), platform))
 	{
 	case PlatformCollisionType::LEFT:
@@ -117,6 +118,19 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 	}
 	return PlatformCollisionType::NONE;
 	//std::cout << "none";
+}
+
+
+void Game::isTouchingBounds()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		if (player[i].getHitbox().getPosition().y < 0)
+			player[i].bounceY();
+
+		if (player[i].getHitbox().getPosition().x < 0)
+			player[i].setPosition(sf::Vector2f(player[i].getHitbox().getPosition().x + WINDOW_X * WINDOW_SCALE, player[i].getHitbox().getPosition().y + player[i].getHitbox().getSize().y / 2.f));
+	}
 }
 
 
