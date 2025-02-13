@@ -5,7 +5,7 @@
 //simple data class for use with the spriteData array.
 struct SpriteData
 {
-    SpriteData(sf::IntRect bounds, int frameCount) { a = bounds; b = frameCount; }
+    SpriteData(const sf::IntRect bounds, const int frameCount) { a = bounds; b = frameCount; }
     sf::IntRect a;
     int b;
 };
@@ -53,21 +53,21 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {sf::IntRect(247, 156, 15, 12), 2}, //P1_BIRD_FLY
     {sf::IntRect(247, 173, 13, 13), 3}, //DEATH
     {sf::IntRect(248, 286, 7, 6), 3},   //EGG_FALL
-    {sf::IntRect(247, 64, 15, 18), 4},  //EGG_HATCH *   //this one is super weird
+	{sf::IntRect(0, 0, 0, 0), 0},  //EGG_HATCH *   //this one is super weird
     {sf::IntRect(247, 194, 15, 18), 4}, //BOUNDER_WALK
     {sf::IntRect(247, 214, 15, 12), 2}, //BOUNDER_FLY
     {sf::IntRect(247, 228, 14, 13), 4}, //BOUNDER_BIRD_WALK
     {sf::IntRect(247, 243, 15, 12), 2}, //BOUNDER_BIRD_FLY
     {sf::IntRect(247, 257, 15, 12), 1}, //BOUNDER_BIRD_SKID
-    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_WALK *
-    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_FLY *
-    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_WALK *
-    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_FLY *
-    {sf::IntRect(247, 64, 15, 18), 4},  //HUNTER_BIRD_SKID *
-    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_WALK *
-    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_FLY *
-    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_WALK *
-    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_FLY *
-    {sf::IntRect(247, 64, 15, 18), 4},  //SHADOW_BIRD_SKID *
+    {sf::IntRect(0, 0, 0, 0), 0},       //HUNTER_WALK *
+    {sf::IntRect(0, 0, 0, 0), 0},  //HUNTER_FLY *
+    {sf::IntRect(0, 0, 0, 0), 0},  //HUNTER_BIRD_WALK *
+	{sf::IntRect(0, 0, 0, 0), 0},  //HUNTER_BIRD_FLY *
+    {sf::IntRect(0, 0, 0, 0), 0},  //HUNTER_BIRD_SKID *
+    {sf::IntRect(0, 0, 0, 0), 0}, //SHADOW_WALK *
+    {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_FLY *
+    {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_WALK *
+    {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_FLY *
+    {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_SKID *
     //* INDICATES UNFINISHED DO NOT USE
 };
