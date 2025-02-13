@@ -155,6 +155,7 @@
     <ClInclude Include="source\Game.h" />
     <ClInclude Include="source\Intro.h" />
     <ClInclude Include="source\Joust.h" />
+    <ClInclude Include="source\SpriteData.h" />
     <ClInclude Include="source\Video.h" />
   </ItemGroup>
   <ItemGroup>
