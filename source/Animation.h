@@ -1,5 +1,5 @@
 #pragma once
-#include "globals.hpp"
+#include "SpriteData.h"
 
 
 enum class Mode

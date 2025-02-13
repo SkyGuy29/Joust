@@ -62,7 +62,7 @@ void Player::update()
 			}
 		}
 		else
-			onGround = false;
+			setOffGround();
 	}
 
 	//debug keys
