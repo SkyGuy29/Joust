@@ -5,9 +5,8 @@
 //simple data class for use with the spriteData array.
 struct SpriteData
 {
-    SpriteData(const sf::IntRect bounds, const int frameCount) { a = bounds; b = frameCount; }
-    sf::IntRect a;
-    int b;
+    sf::IntRect bounds;
+    int frameCount;
 };
 
 
