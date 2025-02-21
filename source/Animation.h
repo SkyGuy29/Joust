@@ -27,6 +27,9 @@ public:
 	//gets the name of the sprite's current animation.
 	AnimationNames getAnimation() const { return currentAnimation; }
 
+	//returns the box for the animation sprite.
+	sf::IntRect getBounds() const { return spriteData[currentAnimation].bounds; }
+
 	//resets the animation. that should be obvious.
 	void reset() { currentFrame = 0; sprite.setTextureRect(spriteData[currentAnimation].bounds); }
 
