@@ -36,6 +36,7 @@ enum AnimationNames
     SHADOW_BIRD_WALK,
     SHADOW_BIRD_FLY,
     SHADOW_BIRD_SKID,
+    TEMP_BACKGROUND,
     DATA_COUNT //this helps make sure array size matches enum count
 };
 
@@ -68,5 +69,6 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_WALK *
     {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_FLY *
     {sf::IntRect(0, 0, 0, 0), 0},  //SHADOW_BIRD_SKID *
+    {sf::IntRect(2, 44, 237, 195), 1}  //TEMP_BACKGROUND *
     //* INDICATES UNFINISHED DO NOT USE
 };

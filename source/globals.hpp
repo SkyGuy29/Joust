@@ -6,8 +6,8 @@
 
 static constexpr auto PI = 3.1415926535897932;
 static constexpr int WINDOW_SCALE = 6;
-static constexpr int WINDOW_X = 292;
-static constexpr int WINDOW_Y = 240;
+static constexpr int WINDOW_X = 236; //old is 292
+static constexpr int WINDOW_Y = 194; //old is 240
 static constexpr int SPEED_INC_X = .5 * WINDOW_SCALE;
 static constexpr int SPEED_MAX_X = 2 * WINDOW_SCALE;
 static constexpr int FPS = 60;
