@@ -25,6 +25,7 @@ public:
 
 	//death function and reset, remember Game handles lives
 	void setPosition(sf::Vector2f);
+	sf::Vector2f getPosition();
 	void bounceSetLeft(Platform);
 	void bounceSetRight(Platform);
 

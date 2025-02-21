@@ -7,9 +7,21 @@ void Game::update()
 	isTouchingBounds();
 	switch (isTouching(player[0].getHitbox(), platform))
 	{
+	case PlatformCollisionType::TOP:
+		player[0].setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
+		break;
+	case PlatformCollisionType::BOT:
+		player[0].bounceY();
+		std::cout << "bot\n";
+		break;
 	case PlatformCollisionType::LEFT:
 		player[0].bounceX();
 		player[0].bounceSetLeft(platform);
+		std::cout << "left\n";
+		break;
+	case PlatformCollisionType::LEFT_HIGH:
+		player[0].bounceX();
+		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_LEFT).x, player[0].getPosition().y));
 		std::cout << "left\n";
 		break;
 	case PlatformCollisionType::RIGHT:
@@ -17,12 +29,10 @@ void Game::update()
 		player[0].bounceSetRight(platform);
 		std::cout << "right\n";
 		break;
-	case PlatformCollisionType::TOP:
-		player[0].setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
-		break;
-	case PlatformCollisionType::BOT:
-		player[0].bounceY();
-		std::cout << "bot\n";
+	case PlatformCollisionType::RIGHT_HIGH:
+		player[0].bounceX();
+		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_RIGHT).x, player[0].getPosition().y));
+		std::cout << "right\n";
 		break;
 	case PlatformCollisionType::NONE:
 		if (isTouchingX(player[0].getHitbox(), platform) == false)
@@ -89,7 +99,25 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 		{
 			if (playerHitbox.top <= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 			{ 
-				return PlatformCollisionType::TOP;
+				if (playerHitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
+				{
+					if (playerHitbox.left <= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+						* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+						/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+						+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
+						return PlatformCollisionType::RIGHT_HIGH;
+				}
+				//checks left diagonal
+				else if (playerHitbox.left + playerHitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
+				{
+					if ((playerHitbox.left + playerHitbox.width) >= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+						* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
+						/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+						+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
+						return PlatformCollisionType::LEFT_HIGH;
+				}
+				else
+					return PlatformCollisionType::TOP;
 			}
 			//std::cout << "x-axis\n";
 			//specific collision, detirmines behavior of interaction

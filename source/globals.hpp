@@ -55,6 +55,8 @@ enum class PlatformCollisionType
     TOP,
     BOT,
     LEFT,
+    LEFT_HIGH,
     RIGHT,
+    RIGHT_HIGH,
     NONE
 };

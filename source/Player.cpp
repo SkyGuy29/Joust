@@ -114,6 +114,11 @@ void Player::setPosition(sf::Vector2f newPos)
 	hitbox.setPosition(newPos);
 }
 
+sf::Vector2f Player::getPosition()
+{
+	return hitbox.getPosition();
+}
+
 
 void Player::bounceSetLeft(Platform platform)
 {
