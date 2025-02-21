@@ -19,8 +19,7 @@ private:
 	void isTouchingBounds();
 	bool isTouchingX(sf::FloatRect, Platform);
 
-
-	int score, lives, currentRound;
+	int score = 0, lives = 5, currentRound = 1;
 	Player player[2]; //or just make two variables?
 
 	Platform platform = Platform(0, "a");
@@ -28,7 +27,6 @@ private:
 	//enemies
 	//eggs
 	//birds for the eggs
-	//
 };
 
 // okay
