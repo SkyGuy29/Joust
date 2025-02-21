@@ -3,20 +3,22 @@
 
 Player::Player()
 {
-	hitbox.setSize(sf::Vector2f(54, 54)); //not exact lol
 	//TODO:
 	// - change origin to center
 	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	hitbox.setPosition(0, 550);
+	hitbox.setPosition(100, 100);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setImage("res/art/joustSprite.png");
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	sprite.setAnimation(AnimationNames::P1_GROUND);
 }
 
 
 void Player::update()
 {
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
+	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.move(vel);
 
 	//Checks if the jump key is held
@@ -44,7 +46,7 @@ void Player::update()
 	if (!jumpKeyHeld && isJumpPressed())
 	{
 		jumpKeyHeld = true;
-		vel.y -= 2 * (WINDOW_SCALE / 3);
+		vel.y -= 2 * (WINDOW_SCALE / 3.f);
 
 		if (!onGround)
 		{
@@ -78,7 +80,7 @@ void Player::update()
 		}
 	}
 	else if (!onGround) //gravity
-		vel.y += .125 * (WINDOW_SCALE / 3);
+		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	if (vel.x > 0)
 		sprite.faceRight(true);

@@ -139,8 +139,11 @@ void Game::isTouchingBounds()
 		if (player[i].getHitbox().getPosition().y < 0)
 			player[i].bounceY();
 
-		if (player[i].getHitbox().getPosition().x < 0)
+		if (player[i].getHitbox().getPosition().x < 0 - player[i].getHitbox().getSize().y)
 			player[i].setPosition(sf::Vector2f(player[i].getHitbox().getPosition().x + WINDOW_X * WINDOW_SCALE, player[i].getHitbox().getPosition().y + player[i].getHitbox().getSize().y / 2.f));
+		
+		if (player[i].getHitbox().getPosition().x > WINDOW_X * WINDOW_SCALE)
+			player[i].setPosition(sf::Vector2f(0, player[i].getHitbox().getPosition().y + player[i].getHitbox().getSize().y / 2.f));
 	}
 }
 
