@@ -7,7 +7,7 @@
 class Game
 {
 public:
-	//Game();
+	Game();
 	void update();
 	void nextRound();
 
@@ -24,6 +24,7 @@ private:
 	Player player[2]; //or just make two variables?
 
 	Platform platform = Platform(0, "a");
+	Animation background;
 	//enemies
 	//eggs
 	//birds for the eggs

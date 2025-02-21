@@ -1,6 +1,14 @@
 #include "Game.h"
 
 
+Game::Game()
+{
+	background.setImage("res/Art/joustSprite.png");
+	background.setAnimation(AnimationNames::TEMP_BACKGROUND);
+	background.setPos(sf::Vector2f(WINDOW_X * WINDOW_SCALE / 2.f + WINDOW_SCALE / 2.f, WINDOW_Y * WINDOW_SCALE / 2.f)); //ignore this LOL
+}
+
+
 void Game::update()
 {
 	player[0].update();
@@ -78,6 +86,7 @@ void Game::nextRound()
 
 void Game::drawTo(sf::RenderWindow& window)
 {
+	background.drawTo(window);
 	player[0].drawTo(window);
 	platform.drawTo(window);
 }
