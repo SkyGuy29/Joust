@@ -44,7 +44,7 @@ void Player::update()
 	if (!jumpKeyHeld && isJumpPressed())
 	{
 		jumpKeyHeld = true;
-		vel.y -= 2;
+		vel.y -= 2 * (WINDOW_SCALE / 3);
 
 		if (!onGround)
 		{
