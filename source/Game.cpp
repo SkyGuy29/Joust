@@ -21,6 +21,7 @@ void Game::update()
 		break;
 	case PlatformCollisionType::BOT:
 		player[0].bounceY();
+		player[0].setPosition(sf::Vector2f(player[0].getPosition().x, platform.getPointPos(BOT_LEFT).y + (player[0].getSize().y / 2.f)));
 		std::cout << "bot\n";
 		break;
 	case PlatformCollisionType::LEFT:
