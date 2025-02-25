@@ -17,6 +17,7 @@ private:
 	//handles collision
 	PlatformCollisionType isTouching(sf::FloatRect, Platform);
 	bool isTouchingX(sf::FloatRect, Platform);
+	void collisionUpdate(Player&, Platform); //will eventually take Collidable instead of player
 
 	int score = 0, lives = 5, currentRound = 1;
 	Player player[2]; //or just make two variables?

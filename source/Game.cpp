@@ -13,40 +13,7 @@ Game::Game()
 void Game::update()
 {
 	player[0].update();
-	switch (isTouching(player[0].getHitbox(), platform))
-	{
-	case PlatformCollisionType::TOP:
-		player[0].setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
-		break;
-	case PlatformCollisionType::BOT:
-		player[0].bounceY();
-		player[0].setPosition(sf::Vector2f(player[0].getPosition().x, platform.getPointPos(BOT_LEFT).y + (player[0].getSize().y / 2.f)));
-		std::cout << "bot\n";
-		break;
-	case PlatformCollisionType::LEFT:
-		player[0].bounceX();
-		player[0].bounceSetLeft(platform);
-		std::cout << "left\n";
-		break;
-	case PlatformCollisionType::LEFT_HIGH:
-		player[0].bounceX();
-		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_LEFT).x - (player[0].getSize().x / 2.f), player[0].getPosition().y));
-		std::cout << "left high\n";
-		break;
-	case PlatformCollisionType::RIGHT:
-		player[0].bounceX();
-		player[0].bounceSetRight(platform);
-		std::cout << "right\n";
-		break;
-	case PlatformCollisionType::RIGHT_HIGH:
-		player[0].bounceX();
-		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_RIGHT).x + (player[0].getSize().x / 2.f), player[0].getPosition().y));
-		std::cout << "right high\n";
-		break;
-	case PlatformCollisionType::NONE:
-		if (isTouchingX(player[0].getHitbox(), platform) == false)
-			player[0].setOffGround();
-	}
+	collisionUpdate(player[0], platform);
 }
 
 
@@ -79,8 +46,6 @@ void Game::nextRound()
 		//egg round
 	}
 }
-
-
 
 
 void Game::drawTo(sf::RenderWindow& window)
@@ -168,4 +133,46 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 		playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 		return true;
 	return false;
+}
+
+
+void Game::collisionUpdate(Player& collidable, Platform platform)
+{
+	switch (isTouching(collidable.getHitbox(), platform))
+	{
+	case PlatformCollisionType::TOP:
+		collidable.setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
+		break;
+	case PlatformCollisionType::BOT:
+		collidable.bounceY();
+		collidable.setPosition(sf::Vector2f(collidable.getPosition().x, 
+			platform.getPointPos(BOT_LEFT).y + (collidable.getSize().y / 2.f)));
+		std::cout << "bot\n";
+		break;
+	case PlatformCollisionType::LEFT:
+		collidable.bounceX();
+		collidable.bounceSetLeft(platform);
+		std::cout << "left\n";
+		break;
+	case PlatformCollisionType::LEFT_HIGH:
+		collidable.bounceX();
+		collidable.setPosition(sf::Vector2f(platform.getPointPos(TOP_LEFT).x - (collidable.getSize().x / 2.f), 
+			collidable.getPosition().y));
+		std::cout << "left high\n";
+		break;
+	case PlatformCollisionType::RIGHT:
+		collidable.bounceX();
+		collidable.bounceSetRight(platform);
+		std::cout << "right\n";
+		break;
+	case PlatformCollisionType::RIGHT_HIGH:
+		collidable.bounceX();
+		collidable.setPosition(sf::Vector2f(platform.getPointPos(TOP_RIGHT).x + (collidable.getSize().x / 2.f), 
+			collidable.getPosition().y));
+		std::cout << "right high\n";
+		break;
+	case PlatformCollisionType::NONE:
+		if (isTouchingX(collidable.getHitbox(), platform) == false)
+			collidable.setOffGround();
+	}
 }
