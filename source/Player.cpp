@@ -120,6 +120,12 @@ sf::Vector2f Player::getPosition()
 }
 
 
+sf::Vector2f Player::getSize()
+{
+	return hitbox.getSize();
+}
+
+
 void Player::bounceSetLeft(Platform platform)
 {
 	hitbox.setPosition(((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_LEFT).y) 

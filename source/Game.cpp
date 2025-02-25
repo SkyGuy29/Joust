@@ -30,8 +30,8 @@ void Game::update()
 		break;
 	case PlatformCollisionType::LEFT_HIGH:
 		player[0].bounceX();
-		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_LEFT).x, player[0].getPosition().y));
-		std::cout << "left\n";
+		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_LEFT).x - (player[0].getSize().x / 2.f), player[0].getPosition().y));
+		std::cout << "left high\n";
 		break;
 	case PlatformCollisionType::RIGHT:
 		player[0].bounceX();
@@ -40,8 +40,8 @@ void Game::update()
 		break;
 	case PlatformCollisionType::RIGHT_HIGH:
 		player[0].bounceX();
-		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_RIGHT).x, player[0].getPosition().y));
-		std::cout << "right\n";
+		player[0].setPosition(sf::Vector2f(platform.getPointPos(TOP_RIGHT).x + (player[0].getSize().x / 2.f), player[0].getPosition().y));
+		std::cout << "right high\n";
 		break;
 	case PlatformCollisionType::NONE:
 		if (isTouchingX(player[0].getHitbox(), platform) == false)
@@ -109,19 +109,23 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 			{ 
 				if (playerHitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 				{
-					if (playerHitbox.left <= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+					if (playerHitbox.left <= ((playerHitbox.top + playerHitbox.height - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 						* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
 						/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 						+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
+						return PlatformCollisionType::TOP;
+					else
 						return PlatformCollisionType::RIGHT_HIGH;
 				}
 				//checks left diagonal
 				else if (playerHitbox.left + playerHitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
 				{
-					if ((playerHitbox.left + playerHitbox.width) >= ((playerHitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+					if ((playerHitbox.left + playerHitbox.width) >= ((playerHitbox.top + playerHitbox.height - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 						* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
 						/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 						+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
+						return PlatformCollisionType::TOP;
+					else
 						return PlatformCollisionType::LEFT_HIGH;
 				}
 				else
