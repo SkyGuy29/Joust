@@ -25,7 +25,7 @@ void Player::update()
 	if (!isJumpPressed())
 	{
 		jumpKeyHeld = false;
-		if(!onGround)
+		if (!onGround)
 			sprite.setFrame(0); //flapping, wings up
 	}
 
@@ -86,14 +86,18 @@ void Player::update()
 	else if (!onGround) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
-	/*
-	if (vel.x > 0)
-		sprite.faceRight(true);
-	else if (vel.x < 0)
-		sprite.faceRight(false);
-	 */
+	//formerly "isTouchingBounds()" from Game, moving to here made more sense
+	if (hitbox.getPosition().y < 0)
+		bounceY();
 
-	
+	if (hitbox.getPosition().x < 0 - hitbox.getSize().y)
+		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
+			hitbox.getPosition().y + hitbox.getSize().y / 2.f));
+
+	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
+		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y + hitbox.getSize().y / 2.f));
+
+
 	if (onGround)
 		sprite.nextFrame();
 

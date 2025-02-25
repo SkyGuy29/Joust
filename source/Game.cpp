@@ -13,7 +13,6 @@ Game::Game()
 void Game::update()
 {
 	player[0].update();
-	isTouchingBounds();
 	switch (isTouching(player[0].getHitbox(), platform))
 	{
 	case PlatformCollisionType::TOP:
@@ -161,21 +160,6 @@ PlatformCollisionType Game::isTouching(sf::FloatRect playerHitbox, Platform plat
 	//std::cout << "none";
 }
 
-
-void Game::isTouchingBounds()
-{
-	for (int i = 0; i < 2; i++)
-	{
-		if (player[i].getHitbox().getPosition().y < 0)
-			player[i].bounceY();
-
-		if (player[i].getHitbox().getPosition().x < 0 - player[i].getHitbox().getSize().y)
-			player[i].setPosition(sf::Vector2f(player[i].getHitbox().getPosition().x + WINDOW_X * WINDOW_SCALE, player[i].getHitbox().getPosition().y + player[i].getHitbox().getSize().y / 2.f));
-		
-		if (player[i].getHitbox().getPosition().x > WINDOW_X * WINDOW_SCALE)
-			player[i].setPosition(sf::Vector2f(0, player[i].getHitbox().getPosition().y + player[i].getHitbox().getSize().y / 2.f));
-	}
-}
 
 
 bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
