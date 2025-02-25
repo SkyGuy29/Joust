@@ -35,11 +35,13 @@ void Player::update()
 		{
 			if (vel.x > -SPEED_MAX_X)
 				vel.x -= SPEED_INC_X;
+			sprite.faceRight(false);
 		}
 		if (isRightPressed())
 		{
 			if (vel.x < SPEED_MAX_X)
 				vel.x += SPEED_INC_X;
+			sprite.faceRight(true);
 		}
 	}
 
@@ -56,11 +58,13 @@ void Player::update()
 			{
 				if (vel.x > -SPEED_MAX_X)
 					vel.x -= SPEED_INC_X;
+				sprite.faceRight(false);
 			}
 			else if (isRightPressed())
 			{
 				if (vel.x < SPEED_MAX_X)
 					vel.x += SPEED_INC_X;
+				sprite.faceRight(true);
 			}
 		}
 		else
@@ -82,10 +86,12 @@ void Player::update()
 	else if (!onGround) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
+	/*
 	if (vel.x > 0)
 		sprite.faceRight(true);
 	else if (vel.x < 0)
 		sprite.faceRight(false);
+	 */
 
 	
 	if (onGround)
