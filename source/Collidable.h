@@ -7,12 +7,12 @@ class Collidable
 {
 public:
 	virtual void update() {}
-	void setOnGround(float);
+	virtual void setOnGround(float);
+	virtual void setOffGround() { onGround = false; }
 	void bounceX() { vel.x *= -1; }
 	void bounceY() { vel.y *= -1; }
 	void bounceSetLeft(Platform);
 	void bounceSetRight(Platform);
-	void setOffGround() { onGround = false; }
 	void setPosition(sf::Vector2f newPos) { hitbox.setPosition(newPos); }
 
 	sf::Vector2f getPosition() const { return hitbox.getPosition(); }

@@ -110,7 +110,6 @@ void Player::setOnGround(float newYValue)
 {
 	Collidable::setOnGround(newYValue);
 	sprite.setAnimation(AnimationNames::P1_GROUND);
-	std::cout << " AAAAAAAAAAAAAAAAAAAA";
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 }
 

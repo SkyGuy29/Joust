@@ -140,7 +140,6 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform)
 	switch (isTouching(collidable->getHitbox(), platform))
 	{
 	case PlatformCollisionType::TOP:
-		std::cout << "hi";
 		collidable->setOnGround(platform.getPointPos(ConvexCorners::TOP_LEFT).y);
 		break;
 	case PlatformCollisionType::BOT:
@@ -172,7 +171,6 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform)
 		std::cout << "right high\n";
 		break;
 	case PlatformCollisionType::NONE:
-		std::cout << "die";
 		if (isTouchingX(collidable->getHitbox(), platform) == false)
 			collidable->setOffGround();
 	}
