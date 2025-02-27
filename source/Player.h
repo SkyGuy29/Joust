@@ -1,10 +1,10 @@
 #pragma once
 #include "Animation.h"
-#include "Platform.h"
+#include "Collidable.h"
 
 //the player you control, one joystick and a flap button.
 //there are two players.
-class Player
+class Player : public Collidable
 {
 public:
 	Player();

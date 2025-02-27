@@ -9,8 +9,8 @@ Player::Player()
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(100, 100);
 	hitbox.setFillColor(sf::Color::Green);
-	sprite.setImage("res/art/joustSprite.png");
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+	sprite.setImage("res/art/joustSprite.png");
 	sprite.setAnimation(AnimationNames::P1_GROUND);
 }
 
@@ -115,7 +115,6 @@ void Player::setOnGround(float newYValue)
 	sprite.setAnimation(AnimationNames::P1_GROUND);
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
 		hitbox.getPosition().y));
-
 }
 
 
