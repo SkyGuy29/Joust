@@ -9,9 +9,9 @@ Player::Player()
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(100, 100);
 	hitbox.setFillColor(sf::Color::Green);
-	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	sprite.setImage("res/art/joustSprite.png");
-	sprite.setAnimation(AnimationNames::P1_GROUND);
+	sprite.setAnimation(AnimationNames::P1_FLY);
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 }
 
 
@@ -108,30 +108,16 @@ void Player::update()
 
 void Player::setOnGround(float newYValue)
 {
-	onGround = true;
-
-	vel.y = 0;
-	hitbox.setPosition(hitbox.getPosition().x, newYValue - hitbox.getGlobalBounds().height - 0.1 + hitbox.getSize().y / 2.f);
+	Collidable::setOnGround(newYValue);
 	sprite.setAnimation(AnimationNames::P1_GROUND);
-	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
-		hitbox.getPosition().y));
+	std::cout << " AAAAAAAAAAAAAAAAAAAA";
+	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 }
 
 
 void Player::setPosition(sf::Vector2f newPos)
 {
 	hitbox.setPosition(newPos);
-}
-
-sf::Vector2f Player::getPosition()
-{
-	return hitbox.getPosition();
-}
-
-
-sf::Vector2f Player::getSize()
-{
-	return hitbox.getSize();
 }
 
 
@@ -150,18 +136,6 @@ void Player::bounceSetRight(Platform platform)
 		* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
 		/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x + 50, hitbox.getPosition().y);
-}
-
-
-void Player::bounceX()
-{
-	vel.x *= -1;
-}
-
-
-void Player::bounceY()
-{
-	vel.y *= -1;
 }
 
 

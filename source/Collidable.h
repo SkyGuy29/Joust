@@ -15,9 +15,9 @@ public:
 	void setOffGround() { onGround = false; }
 	void setPosition(sf::Vector2f newPos) { hitbox.setPosition(newPos); }
 
-	sf::Vector2f getPosition() { return hitbox.getPosition(); }
+	sf::Vector2f getPosition() const { return hitbox.getPosition(); }
 	sf::Vector2f getVelocity() const { return vel; }
-	sf::Vector2f getSize() { return hitbox.getSize(); }
+	sf::Vector2f getSize() const { return hitbox.getSize(); }
 
 	sf::FloatRect getHitbox() const { return hitbox.getGlobalBounds(); }
 	 
@@ -26,5 +26,5 @@ protected:
 
 	sf::RectangleShape hitbox;
 
-	bool onGround;
+	bool onGround = false;
 };

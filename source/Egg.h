@@ -1,8 +1,9 @@
 #pragma once
 #include "Animation.h"
+#include "Collidable.h"
 
 
-class Egg
+class Egg : public Collidable
 {
 public:
 	Egg();
