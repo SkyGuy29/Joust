@@ -33,15 +33,25 @@ void Player::update()
 	{
 		if (isLeftPressed())
 		{
-			if (vel.x > -SPEED_MAX_X)
-				vel.x -= SPEED_INC_X;
-			sprite.faceRight(false);
+			if (leftTimer >= 8)
+			{
+				if (vel.x > -SPEED_MAX_X)
+					vel.x -= SPEED_INC_X;
+				sprite.faceRight(false);
+				leftTimer = 0;
+			}
+			else leftTimer++;
 		}
 		if (isRightPressed())
 		{
-			if (vel.x < SPEED_MAX_X)
-				vel.x += SPEED_INC_X;
-			sprite.faceRight(true);
+			if (rightTimer >= 8)
+			{
+				if (vel.x < SPEED_MAX_X)
+					vel.x += SPEED_INC_X;
+				sprite.faceRight(true);
+				rightTimer = 0;
+			}
+			else rightTimer++;
 		}
 	}
 
@@ -56,15 +66,17 @@ void Player::update()
 
 			if (isLeftPressed())
 			{
-				if (vel.x > -SPEED_MAX_X)
-					vel.x -= SPEED_INC_X;
-				sprite.faceRight(false);
+	
+					if (vel.x > -SPEED_MAX_X)
+						vel.x -= SPEED_INC_X;
+					sprite.faceRight(false);
 			}
 			else if (isRightPressed())
 			{
-				if (vel.x < SPEED_MAX_X)
-					vel.x += SPEED_INC_X;
-				sprite.faceRight(true);
+
+					if (vel.x < SPEED_MAX_X)
+						vel.x += SPEED_INC_X;
+					sprite.faceRight(true);
 			}
 		}
 		else
@@ -87,15 +99,15 @@ void Player::update()
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	//formerly "isTouchingBounds()" from Game, moving to here made more sense
-	if (hitbox.getPosition().y < 0)
+	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 		bounceY();
 
-	if (hitbox.getPosition().x < 0 - hitbox.getSize().y)
+	if (hitbox.getPosition().x < 0)
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
-			hitbox.getPosition().y + hitbox.getSize().y / 2.f));
+			hitbox.getPosition().y));
 
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
-		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y + hitbox.getSize().y / 2.f));
+		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
 
 	if (onGround)
@@ -140,7 +152,8 @@ void Player::bounceSetRight(Platform platform)
 
 void Player::drawTo(sf::RenderWindow& window)
 {
-	window.draw(hitbox);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+		window.draw(hitbox);
 	sprite.drawTo(window);
 }
 

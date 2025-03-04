@@ -71,5 +71,6 @@ Platform::~Platform()
 
 void Platform::drawTo(sf::RenderWindow& window)
 {
-	window.draw(hitbox);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+		window.draw(hitbox);
 }
