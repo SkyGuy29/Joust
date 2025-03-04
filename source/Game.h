@@ -17,12 +17,12 @@ private:
 	//handles collision
 	PlatformCollisionType isTouching(sf::FloatRect, Platform);
 	bool isTouchingX(sf::FloatRect, Platform);
-	void collisionUpdate(Collidable*, Platform); //will eventually take Collidable instead of player
+	void collisionUpdate(Collidable*, Platform);
 
 	int score = 0, lives = 5, currentRound = 1;
 	Player player[2]; //or just make two variables?
 
-	Platform platform = Platform(0, "a");
+	Platform platform[8];
 	Animation background;
 	//enemies
 	//eggs

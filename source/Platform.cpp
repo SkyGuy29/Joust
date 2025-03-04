@@ -1,11 +1,19 @@
 #include "Platform.h"
 
 
-Platform::Platform(int platformID, std::string file)
+Platform::Platform()
 {
 	hitbox.setPointCount(4);
 	hitbox.setOrigin(0, 0);
 	hitbox.setFillColor(sf::Color::Red);
+}
+
+
+Platform::~Platform() = default;
+
+
+void Platform::setPlatform(int platformID, std::string file)
+{
 	switch (platformID)
 	{
 	case 0: //top middle
@@ -60,12 +68,6 @@ Platform::Platform(int platformID, std::string file)
 
 	img.loadFromFile(file);
 	sprite.setTexture(img);
-}
-
-
-Platform::~Platform()
-{
-
 }
 
 

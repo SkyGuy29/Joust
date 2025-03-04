@@ -4,9 +4,10 @@
 class Platform
 {
 public:
-	Platform() = delete;
-	Platform(int platformID, std::string);
+	Platform();
 	~Platform();
+
+	void setPlatform(int, std::string);
 
 	sf::ConvexShape getHitbox() const { return hitbox; }
 	
