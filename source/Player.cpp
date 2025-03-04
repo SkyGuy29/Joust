@@ -109,9 +109,21 @@ void Player::update()
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
+	speed = vel.x / SPEED_INC_X;
+	if (speed < 0)
+		speed *= -1;
 
-	if (onGround)
+	if (onGround && frameCounter + speed * 2 >= 10)
+	{
 		sprite.nextFrame();
+		frameCounter = 0;
+		if (speed == 0)
+			sprite.setFrame(3);
+	}
+	else
+		frameCounter++;
+	//if (onGround)
+		//sprite.nextFrame();
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
 		hitbox.getPosition().y));
