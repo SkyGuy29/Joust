@@ -6,14 +6,21 @@ Game::Game()
 	background.setImage("res/Art/joustSprite.png");
 	background.setAnimation(AnimationNames::TEMP_BACKGROUND);
 	background.setPos(sf::Vector2f(WINDOW_X * WINDOW_SCALE / 2.f + WINDOW_SCALE / 2.f, 
-		WINDOW_Y * WINDOW_SCALE / 2.f)); //dont worry about it, it works guys
+		WINDOW_Y * WINDOW_SCALE / 2.f)); //don't worry about it, it works guys
+	for (int i = 0; i < PLATFORM_COUNT; i++)
+	{
+		platform[i].setPlatform(i, "a");
+	}
 }
 
 
 void Game::update()
 {
 	player[0].update();
-	collisionUpdate(&player[0], platform);
+	for (const auto& i : platform)
+	{
+		collisionUpdate(&player[0], i);
+	}
 }
 
 
@@ -29,11 +36,11 @@ void Game::nextRound()
 	{
 		//survival round text
 		//end of round 3000 point bonus if player did not die
-		//i forgot how this worked in two player i think its if one of them lives
+		//I forgot how this worked in two player I think it's if one of them lives
 	}
 	else if (currentRound % 5 == 3 && currentRound != 3)
 	{
-		//beware of the “unbeatable?” pterodactyl
+		//beware of the "unbeatable?" pterodactyl
 		//spawn a pterodactyl at the beginning of the round
 	}
 	else if (currentRound % 5 == 4 /* && two players */)
@@ -52,7 +59,10 @@ void Game::drawTo(sf::RenderWindow& window)
 {
 	background.drawTo(window);
 	player[0].drawTo(window);
-	platform.drawTo(window);
+	for (auto& i : platform)
+	{
+		i.drawTo(window);
+	}
 }
 
 
@@ -97,7 +107,7 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 					return PlatformCollisionType::TOP;
 			}
 			//std::cout << "x-axis\n";
-			//specific collision, detirmines behavior of interaction
+			//specific collision, determines behavior of interaction
 			//checks right diagonal
 			else if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 			{

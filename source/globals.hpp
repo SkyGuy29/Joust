@@ -11,6 +11,7 @@ static constexpr int WINDOW_Y = 194; //old is 240
 static constexpr float SPEED_INC_X = .5 * WINDOW_SCALE;
 static constexpr float SPEED_MAX_X = 2 * WINDOW_SCALE;
 static constexpr int FPS = 60;
+static constexpr int PLATFORM_COUNT = 8;
 
 
 //returns the distance between two points.
