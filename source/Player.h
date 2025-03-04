@@ -36,7 +36,7 @@ private:
 	Animation sprite;
 
 	bool jumpKeyHeld = false;
-	int leftTimer = 0, rightTimer = 0;
+	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter;
 	//player sounds
 	//iframes timer
 	//much more i'm forgetting
