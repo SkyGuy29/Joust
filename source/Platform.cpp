@@ -68,7 +68,6 @@ void Platform::setPlatform(const int platformID, std::string file)
 	}
 
 	//offsetting hitboxes to fit the window scale and be positioned correctly
-	//there definitely is a mathematical way to do this but that would just be harder to look at
 	for (int i = 0; i < 4; i++)
 	{
 		hitbox.setPoint(i, sf::Vector2f(hitbox.getPoint(i).x * WINDOW_SCALE, hitbox.getPoint(i).y * WINDOW_SCALE));
