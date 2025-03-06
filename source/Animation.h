@@ -34,13 +34,14 @@ public:
 	void reset() { currentFrame = 0; sprite.setTextureRect(spriteData[currentAnimation].bounds); }
 
 	//sets the end behavior of an animation.
-	void setMode(Mode newMode) { currentMode = newMode; }
+	void setMode(const Mode newMode) { currentMode = newMode; }
 
 	//sets the position of the animation like any other SFML drawable
-	void setPos(sf::Vector2f pos) { sprite.setPosition(pos); }
+	void setPos(const sf::Vector2f pos) { sprite.setPosition(pos); }
 
 	//makes the sprite face right or left depending on the bool you put in it
-	void faceRight(bool);
+	void setFaceRight(bool);
+	bool getFaceRight() const { return facingRight; }
 
 	//moves the frameCounter to the next frame
 	//GUESS WHO'S BACK =D

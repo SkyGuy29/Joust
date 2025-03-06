@@ -37,7 +37,7 @@ void Player::update()
 			{
 				if (vel.x > -SPEED_MAX_X)
 					vel.x -= SPEED_INC_X;
-				sprite.faceRight(false);
+				sprite.setFaceRight(false);
 				leftTimer = 0;
 			}
 			else leftTimer++;
@@ -48,7 +48,7 @@ void Player::update()
 			{
 				if (vel.x < SPEED_MAX_X)
 					vel.x += SPEED_INC_X;
-				sprite.faceRight(true);
+				sprite.setFaceRight(true);
 				rightTimer = 0;
 			}
 			else rightTimer++;
@@ -69,14 +69,14 @@ void Player::update()
 	
 					if (vel.x > -SPEED_MAX_X)
 						vel.x -= SPEED_INC_X;
-					sprite.faceRight(false);
+					sprite.setFaceRight(false);
 			}
 			else if (isRightPressed())
 			{
 
 					if (vel.x < SPEED_MAX_X)
 						vel.x += SPEED_INC_X;
-					sprite.faceRight(true);
+					sprite.setFaceRight(true);
 			}
 		}
 		else

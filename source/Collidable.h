@@ -9,11 +9,11 @@ public:
 	virtual void update() {}
 	virtual void setOnGround(float);
 	virtual void setOffGround() { onGround = false; }
-	void bounceX() { vel.x *= -1; }
-	void bounceY() { vel.y *= -1; }
-	void bounceSetLeft(Platform);
-	void bounceSetRight(Platform);
-	void setPosition(sf::Vector2f newPos) { hitbox.setPosition(newPos); }
+	virtual void bounceX() { vel.x *= -1; }
+	virtual void bounceY() { vel.y *= -1; }
+	virtual void bounceSetLeft(Platform);
+	virtual void bounceSetRight(Platform);
+	virtual void setPosition(const sf::Vector2f newPos) { hitbox.setPosition(newPos); }
 
 	sf::Vector2f getPosition() const { return hitbox.getPosition(); }
 	sf::Vector2f getVelocity() const { return vel; }

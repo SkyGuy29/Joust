@@ -10,19 +10,24 @@ public:
 	Player();
 	
 	//updates the player movement. user inputs will be handled directly in here.
-	void update();
+	void update() override;
+
+	//bounces the player off of a platform or other player
+	void bounceX() override
+	{ Collidable::bounceX(); sprite.setFaceRight(!sprite.getFaceRight()); }
 
 	//puts the player on top of a platform and lets it run on it.
 	//the parameter is the top of the platform.
-	void setOnGround(float);
+	void setOnGround(float) override;
 
 	//lets player know that it is no longer on the ground.
-	void setOffGround() { Collidable::setOffGround(); sprite.setAnimation(AnimationNames::P1_FLY); }
+	void setOffGround() override
+	{ Collidable::setOffGround(); sprite.setAnimation(AnimationNames::P1_FLY); }
 
 	//death function and reset, remember Game handles lives
-	void setPosition(sf::Vector2f);
-	void bounceSetLeft(Platform);
-	void bounceSetRight(Platform);
+	void setPosition(sf::Vector2f) override;
+	void bounceSetLeft(Platform) override;
+	void bounceSetRight(Platform) override;
 
 	void drawTo(sf::RenderWindow&);
 
