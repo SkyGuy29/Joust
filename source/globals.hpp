@@ -28,10 +28,7 @@ static float distBetween(const sf::Vector2f point1, const sf::Vector2f point2)
 //the order of the last two does not matter.
 static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Vector2f p3)
 {
-    double a, b, c;
-    a = distBetween(p1, p2);
-    b = distBetween(p1, p3);
-    c = distBetween(p2, p3);
+	const double a = distBetween(p1, p2), b = distBetween(p1, p3), c = distBetween(p2, p3);
 
     //the law in states that (the angle opposite of c) = acos((a*a + b*b - c*c) / (2ab))
     return acos((a * a + c * c - b * b) / (2 * a * c));

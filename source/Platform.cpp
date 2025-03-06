@@ -12,7 +12,7 @@ Platform::Platform()
 Platform::~Platform() = default;
 
 
-void Platform::setPlatform(int platformID, std::string file)
+void Platform::setPlatform(const int platformID, std::string file)
 {
 	//loading raw hitbox pixel data
 	switch (platformID)
@@ -91,6 +91,8 @@ void Platform::setPlatform(int platformID, std::string file)
 			hitbox.setPoint(i, sf::Vector2f(hitbox.getPoint(i).x + WINDOW_SCALE,
 				hitbox.getPoint(i).y + WINDOW_SCALE / 2.f));
 			break;
+		default: 
+			break;
 		}
 	}
 
@@ -99,7 +101,7 @@ void Platform::setPlatform(int platformID, std::string file)
 }
 
 
-void Platform::drawTo(sf::RenderWindow& window)
+void Platform::drawTo(sf::RenderWindow& window) const
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
 		window.draw(hitbox);
