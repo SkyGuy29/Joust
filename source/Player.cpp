@@ -135,6 +135,7 @@ void Player::setOnGround(float newYValue)
 	Collidable::setOnGround(newYValue);
 	sprite.setAnimation(AnimationNames::P1_GROUND);
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
+	sprite.setFaceRight(vel.x > 0);
 }
 
 
