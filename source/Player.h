@@ -12,10 +12,6 @@ public:
 	//updates the player movement. user inputs will be handled directly in here.
 	void update() override;
 
-	//bounces the player off of a platform or other player
-	void bounceX() override
-	{ Collidable::bounceX(); sprite.setFaceRight(!sprite.getFaceRight()); }
-
 	//puts the player on top of a platform and lets it run on it.
 	//the parameter is the top of the platform.
 	void setOnGround(float) override;
@@ -40,8 +36,8 @@ private:
 
 	Animation sprite;
 
-	bool jumpKeyHeld = false;
-	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter;
+	bool jumpKeyHeld = false, skid = false;
+	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0;
 	//player sounds
 	//iframes timer
 	//much more i'm forgetting

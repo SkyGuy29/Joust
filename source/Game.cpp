@@ -143,13 +143,11 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 
 void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
-	bool offG = false;
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		switch (isTouching(collidable->getHitbox(), platform[i]))
 		{
 		case PlatformCollisionType::TOP:
-			//offG = true;
 			currentFloor = i;
 			collidable->setOnGround(platform[currentFloor].getPointPos(ConvexCorners::TOP_LEFT).y);
 			break;
@@ -182,10 +180,6 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			std::cout << "right high\n";
 			break;
 		case PlatformCollisionType::NONE:
-			//if (isTouchingX(collidable->getHitbox(), platform[i]) == true)
-				//collidable->setOffGround();
-		//	if (isTouchingX(collidable->getHitbox(), platform[currentFloor]) == false)
-
 			//may need to change, the player is set off ground when screen wrapping
 			if (currentFloor >= 0 && currentFloor <= 8)
 				if (collidable->getHitbox().left > platform[currentFloor].getPointPos(TOP_RIGHT).x || 
@@ -194,7 +188,4 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			break;
 		}
 	}
-
-	//if (!offG)
-		//collidable->setOffGround();
 }

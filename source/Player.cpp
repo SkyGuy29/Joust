@@ -30,30 +30,45 @@ void Player::update()
 
 	if (onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
-		if (isLeftPressed())
+		if (isLeftPressed() || (skid == true && vel.x > 0))
 		{
 			if (leftTimer >= 8)
 			{
+				sprite.setFaceRight(false);
 				if (vel.x > -SPEED_MAX_X)
 					vel.x -= SPEED_INC_X;
-				sprite.setFaceRight(false);
+				if (vel.x >= SPEED_INC_X * 2)
+				{
+					skid = true;
+					sprite.setAnimation(P1_SKID);
+				}
 				leftTimer = 0;
 			}
 			else leftTimer++;
 		}
-		if (isRightPressed())
+		if (isRightPressed() || (skid == true && vel.x < 0))
 		{
 			if (rightTimer >= 8)
 			{
+				sprite.setFaceRight(true);
 				if (vel.x < SPEED_MAX_X)
 					vel.x += SPEED_INC_X;
-				sprite.setFaceRight(true);
+				if (vel.x <= -SPEED_INC_X * 2)
+				{
+					skid = true;
+					sprite.setAnimation(P1_SKID);
+				}
 				rightTimer = 0;
 			}
 			else rightTimer++;
 		}
 	}
-
+	if (skid == true && vel.x == 0)
+	{
+		skid = false;
+		sprite.setAnimation(AnimationNames::P1_GROUND);
+	}
+	
 	if (!jumpKeyHeld && isJumpPressed())
 	{
 		jumpKeyHeld = true;
@@ -65,17 +80,15 @@ void Player::update()
 
 			if (isLeftPressed())
 			{
-	
-					if (vel.x > -SPEED_MAX_X)
-						vel.x -= SPEED_INC_X;
-					sprite.setFaceRight(false);
+				sprite.setFaceRight(false);
+				if (vel.x > -SPEED_MAX_X)
+					vel.x -= SPEED_INC_X;
 			}
 			else if (isRightPressed())
 			{
-
-					if (vel.x < SPEED_MAX_X)
-						vel.x += SPEED_INC_X;
-					sprite.setFaceRight(true);
+				sprite.setFaceRight(true);
+				if (vel.x < SPEED_MAX_X)
+					vel.x += SPEED_INC_X;
 			}
 		}
 		else
@@ -99,7 +112,10 @@ void Player::update()
 
 	//formerly "isTouchingBounds()" from Game, moving to here made more sense
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
+	{
 		bounceY();
+		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x, (hitbox.getSize().y / 2.f)));
+	}
 
 	if (hitbox.getPosition().x < 0)
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
@@ -111,7 +127,6 @@ void Player::update()
 	speed = vel.x / SPEED_INC_X;
 	if (speed < 0)
 		speed *= -1;
-
 	if (onGround && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();
@@ -132,8 +147,13 @@ void Player::update()
 void Player::setOnGround(float newYValue)
 {
 	Collidable::setOnGround(newYValue);
-	sprite.setAnimation(AnimationNames::P1_GROUND);
+	if (skid == false)
+		sprite.setAnimation(AnimationNames::P1_GROUND);
+	else
+		sprite.setAnimation(AnimationNames::P1_SKID);
+
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
+	sprite.setFaceRight(vel.x > 0);
 }
 
 
