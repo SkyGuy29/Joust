@@ -27,7 +27,7 @@ void Animation::setAnimation(AnimationNames data)
 }
 
 
-void Animation::faceRight(bool right)
+void Animation::setFaceRight(bool right)
 {
 	if (facingRight != right)
 	{
