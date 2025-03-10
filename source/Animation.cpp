@@ -7,17 +7,15 @@ Animation::Animation()
 }
 
 
-void Animation::setImage(std::string fileName)
-{
-	image.loadFromFile(fileName);
-	sprite.setTexture(image);
-}
-
-
-void Animation::setAnimation(AnimationNames data)
+void Animation::setAnimation(const AnimationNames data)
 {
 	if (data != currentAnimation)
 	{
+		if (spriteData[data].fileName != spriteData[currentAnimation].fileName)
+		{
+			image.loadFromFile(spriteData[data].fileName);
+			sprite.setTexture(image);
+		}
 		currentAnimation = data;
 		reset();
 		//centers the sprite for use with setPosition
@@ -27,7 +25,7 @@ void Animation::setAnimation(AnimationNames data)
 }
 
 
-void Animation::setFaceRight(bool right)
+void Animation::setFaceRight(const bool right)
 {
 	if (facingRight != right)
 	{
@@ -42,7 +40,7 @@ void Animation::nextFrame()
 {
 	sf::IntRect spriteRect = sprite.getTextureRect();
 
-	if (currentFrame++ < (maxFrame - 1)) //if not out of bounds...
+	if (currentFrame++ < maxFrame - 1) //if not out of bounds...
 	{
 		spriteRect.left += spriteRect.width;
 	}
@@ -56,10 +54,10 @@ void Animation::nextFrame()
 }
 
 
-void Animation::setFrame(int newFrame)
+void Animation::setFrame(const int newFrame)
 {
 	sf::IntRect spriteRect = sprite.getTextureRect();
-	int frameDiff = newFrame - currentFrame;
+	const int frameDiff = newFrame - currentFrame;
 	currentFrame = newFrame;
 	spriteRect.left += spriteRect.width * frameDiff;
 	sprite.setTextureRect(spriteRect);

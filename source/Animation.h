@@ -10,14 +10,11 @@ enum class Mode
 };
 
 
-//Easy api to handle animated sprites. Only works with spritesheets.
+//Easy api to handle animated sprites. Only works with sprite sheets.
 class Animation
 {
 public:
 	Animation();
-
-	//sets the texture of the animation with a filename. Must be called before setting the animation.
-	void setImage(std::string);
 	
 	//changes and which animation you are using, allows for quick swapping within an image.
 	//this does reset the animation. if you need it to start at a particular spot you will
@@ -53,7 +50,7 @@ public:
 	void setFrame(int newFrameCount);
 
 	//draws the animation to the passed in window.
-	void drawTo(sf::RenderWindow& window) { window.draw(sprite); }
+	void drawTo(sf::RenderWindow& window) const { window.draw(sprite); }
 private:
 	sf::Texture image;
 	sf::Sprite sprite;

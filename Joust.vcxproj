@@ -159,6 +159,7 @@
     <ClInclude Include="source\Video.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\Art\enemyAnimations.png" />
     <Image Include="res\art\Joust logo.png" />
     <Image Include="res\art\joust sprites.png" />
     <Image Include="res\art\joustSprite.png" />
