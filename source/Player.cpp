@@ -28,6 +28,7 @@ void Player::update()
 			sprite.setFrame(0); //flapping, wings up
 	}
 
+	//velocity increase and skidding
 	if (onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		if (isLeftPressed() || (skid == true && vel.x > 0))
@@ -69,6 +70,7 @@ void Player::update()
 		sprite.setAnimation(AnimationNames::P1_GROUND);
 	}
 	
+	//flight
 	if (!jumpKeyHeld && isJumpPressed())
 	{
 		jumpKeyHeld = true;
@@ -110,7 +112,7 @@ void Player::update()
 	else if (!onGround) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
-	//formerly "isTouchingBounds()" from Game, moving to here made more sense
+	//next three ifs were formerly "isTouchingBounds()" from Game, moving to here made more sense
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 	{
 		bounceY();
@@ -124,9 +126,10 @@ void Player::update()
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
+	//player run animation based on speed
 	speed = vel.x / SPEED_INC_X;
 	if (speed < 0)
-		speed *= -1;
+		speed *= -1; //absolute value
 	if (onGround && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();

@@ -11,12 +11,13 @@ enum class Mode
 
 
 //Easy api to handle animated sprites. Only works with sprite sheets.
+//With how this is set up, animations must be done horizontally and must be spaced evenly.
 class Animation
 {
 public:
 	Animation();
 	
-	//changes and which animation you are using, allows for quick swapping within an image.
+	//changes and which animation you are using, allows for quick swapping.
 	//this does reset the animation. if you need it to start at a particular spot you will
 	//need to set it again.
 	void setAnimation(AnimationNames);
