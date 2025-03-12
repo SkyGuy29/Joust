@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Platform.h"
+#include "Enemy.h"
 
 
 //handles the actual gameplay of joust, not the intro, leaderboard, stuff like that.
@@ -22,6 +23,7 @@ private:
 	int score = 0, lives = 5, currentRound = 1, currentFloor = -1;
 	Player player[2]; //or just make two variables?
 
+	std::vector<Enemy*> enemyVec;
 	Platform platform[8];
 	Animation background;
 	//enemies

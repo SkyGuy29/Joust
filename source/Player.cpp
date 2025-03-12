@@ -4,7 +4,7 @@
 Player::Player()
 {
 	//TODO:
-	// - change origin to center
+	// - change origin to center -- done?
 	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(100, 100);
@@ -127,9 +127,8 @@ void Player::update()
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
 	//player run animation based on speed
-	speed = vel.x / SPEED_INC_X;
-	if (speed < 0)
-		speed *= -1; //absolute value
+	speed = abs(vel.x) / SPEED_INC_X;
+	
 	if (onGround && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();

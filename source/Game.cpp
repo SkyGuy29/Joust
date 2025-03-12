@@ -10,13 +10,20 @@ Game::Game()
 	{
 		platform[i].setPlatform(i, "a");
 	}
+	enemyVec.emplace_back(new Enemy);
 }
 
 
 void Game::update()
 {
 	player[0].update();
+	for (int i = 0; enemyVec.size() > i; i++)
+		enemyVec.at(i)->update();
+
 	collisionUpdate(&player[0], platform);
+
+	for (int i = 0; enemyVec.size() > i; i++)
+		collisionUpdate(&player[0], platform);
 }
 
 
@@ -55,6 +62,10 @@ void Game::drawTo(sf::RenderWindow& window)
 {
 	background.drawTo(window);
 	player[0].drawTo(window);
+	for (int i = 0; enemyVec.size() > i; i++)
+	{
+		enemyVec.at(i)->drawTo(window);
+	}
 	for (auto& i : platform)
 	{
 		i.drawTo(window);

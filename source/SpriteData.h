@@ -22,14 +22,14 @@ enum AnimationNames
     DEATH,
     EGG_FALL,
     EGG_HATCH,
-    BOUNDER_WALK,
+    BOUNDER_GROUND,
     BOUNDER_FLY,
-    ENEMY_BIRD_WALK,
+    ENEMY_BIRD_GROUND,
     ENEMY_BIRD_FLY,
     ENEMY_BIRD_SKID,
-    HUNTER_WALK,
+    HUNTER_GROUND,
     HUNTER_FLY,
-    SHADOW_WALK,
+    SHADOW_GROUND,
     SHADOW_FLY,
     TEMP_BACKGROUND,
     DATA_COUNT //this helps make sure array size matches enum count
@@ -49,14 +49,14 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/joustSprite.png", sf::IntRect(247, 173, 13, 13), 3},  //DEATH
     {"res/Art/joustSprite.png", sf::IntRect(248, 286, 7, 6), 3},    //EGG_FALL
 	{"res/Art/joustSprite.png", sf::IntRect(0, 0, 0, 0), 0},    //EGG_HATCH *   //this one is super weird
-    {"res/Art/joustSprite.png", sf::IntRect(247, 194, 15, 18), 4},  //BOUNDER_WALK
+    {"res/Art/joustSprite.png", sf::IntRect(247, 194, 15, 18), 4},  //BOUNDER_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(247, 214, 15, 12), 2},  //BOUNDER_FLY
-    {"res/Art/joustSprite.png", sf::IntRect(247, 228, 14, 13), 4},  //ENEMY_BIRD_WALK
+    {"res/Art/joustSprite.png", sf::IntRect(247, 228, 14, 13), 4},  //ENEMY_BIRD_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(247, 243, 15, 12), 2},  //ENEMY_BIRD_FLY
     {"res/Art/joustSprite.png", sf::IntRect(247, 257, 15, 12), 1},  //ENEMY_BIRD_SKID
-    {"res/Art/enemyAnimations.png", sf::IntRect(0, 0, 13, 18), 4},  //HUNTER_WALK 
+    {"res/Art/enemyAnimations.png", sf::IntRect(0, 0, 13, 18), 4},  //HUNTER_GROUND 
     {"res/Art/enemyAnimations.png", sf::IntRect(0, 18, 13, 12), 2}, //HUNTER_FLY 
-    {"res/Art/enemyAnimations.png", sf::IntRect(52, 0, 13, 18), 4}, //SHADOW_WALK 
+    {"res/Art/enemyAnimations.png", sf::IntRect(52, 0, 13, 18), 4}, //SHADOW_GROUND 
     {"res/Art/enemyAnimations.png", sf::IntRect(52, 18, 13, 12), 2},//SHADOW_FLY 
     {"res/Art/joustSprite.png", sf::IntRect(2, 44, 237, 195), 1}    //TEMP_BACKGROUND *
     //* INDICATES UNFINISHED DO NOT USE

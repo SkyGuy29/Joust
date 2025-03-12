@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Enemy.cpp" />
     <ClCompile Include="source\Collidable.cpp" />
     <ClCompile Include="source\Platform.cpp" />
     <ClCompile Include="source\Animation.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="source\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Enemy.h" />
     <ClInclude Include="source\Collidable.h" />
     <ClInclude Include="source\Platform.h" />
     <ClInclude Include="source\globals.hpp" />
