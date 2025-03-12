@@ -40,7 +40,6 @@ public:
 	//makes the sprite face right or left depending on the bool you put in it
 	void setFaceRight(bool);
 	bool getFaceRight() const { return facingRight; }
-	void SKiDS(bool);
 
 	//moves the frameCounter to the next frame
 	//GUESS WHO'S BACK =D
