@@ -140,10 +140,10 @@
     <ClCompile Include="source\Egg.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Game.cpp" />
-    <ClCompile Include="source\Intro.cpp" />
+    <ClCompile Include="source\unusedClasses\Intro.cpp" />
     <ClCompile Include="source\Joust.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\Video.cpp" />
+    <ClCompile Include="source\unusedClasses\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Collidable.h" />
@@ -153,10 +153,10 @@
     <ClInclude Include="source\Egg.h" />
     <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\Game.h" />
-    <ClInclude Include="source\Intro.h" />
+    <ClInclude Include="source\unusedClasses\Intro.h" />
     <ClInclude Include="source\Joust.h" />
     <ClInclude Include="source\SpriteData.h" />
-    <ClInclude Include="source\Video.h" />
+    <ClInclude Include="source\unusedClasses\Video.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Art\enemyAnimations.png" />
