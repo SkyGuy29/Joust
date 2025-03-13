@@ -1,6 +1,5 @@
 #pragma once
 #include "Game.h"
-#include "Intro.h"
 
 
 //the entire game of Joust, everything happens in here
@@ -14,5 +13,5 @@ public: // hello - ricky    //do NOT delete this comment under any circumstance
 private:
 	sf::RenderWindow window;
 	Game game;
-	Intro intro;
+	//Intro intro;
 };

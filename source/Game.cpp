@@ -17,13 +17,14 @@ Game::Game()
 void Game::update()
 {
 	player[0].update();
-	for (int i = 0; enemyVec.size() > i; i++)
-		enemyVec.at(i)->update();
+
+	for (auto& enemy : enemyVec)
+		enemy->update();
 
 	collisionUpdate(&player[0], platform);
 
-	for (int i = 0; enemyVec.size() > i; i++)
-		collisionUpdate(&player[0], platform);
+	for (auto& enemy : enemyVec)
+		collisionUpdate(enemy, platform);
 }
 
 

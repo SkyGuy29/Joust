@@ -19,6 +19,7 @@ public:
 	{
 		//out of bounds error if called
 		Collidable::setOffGround(); sprite.setAnimation(AnimationNames::DATA_COUNT);
+		//this does get called right now so um yeah that's fun
 	}
 
 	//death function and reset, remember Game handles lives
