@@ -8,6 +8,7 @@ Enemy::Enemy()
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::BOUNDER_FLY);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+	vel.x = SPEED_INC_X;
 }
 
 
@@ -24,16 +25,31 @@ void Enemy::update()
 	}
 
 	if (hitbox.getPosition().x < 0)
+	{
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
 			hitbox.getPosition().y));
+		if (onGround == P_TOP_LEFT)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_RIGHT);
+		else if (onGround == P_LEFT_SIDE)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_RIGHT_SIDE_SMALL);
+	}
 
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
+	{
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
+		if (onGround == P_TOP_RIGHT)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_LEFT);
+		else if (onGround == P_RIGHT_SIDE_SMALL)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_LEFT_SIDE);
+	}
+
+	if (onGround == -1) //gravity
+		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	speed = abs(vel.x) / SPEED_INC_X;
 
-	if (onGround && frameCounter + speed * 2 >= 10)
+	if (onGround >= 0 && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();
 		frameCounter = 0;
@@ -48,15 +64,16 @@ void Enemy::update()
 }
 
 
-void Enemy::setOnGround(float newYValue)
+void Enemy::setOnGround(float newYValue, int platform)
 {
-	Collidable::setOnGround(newYValue);
+	Collidable::setOnGround(newYValue, platform);
 
 	sprite.setAnimation(AnimationNames::BOUNDER_GROUND);
 
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 	sprite.setFaceRight(vel.x > 0);
+	std::cout << "enemy\n";
 }
 
 
