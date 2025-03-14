@@ -42,7 +42,7 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     //all data follows this pattern:
     //(startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
     {"res/Art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4},   //P1_GROUND
-    {"res/Art/joustSprite.png", sf::IntRect(248, 84, 13, 16), 1},   //P1_SKID
+    {"res/Art/joustSprite.png", sf::IntRect(248, 82, 13, 18), 1},   //P1_SKID
     {"res/Art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2},  //P1_FLY
     {"res/Art/joustSprite.png", sf::IntRect(248, 136, 13, 18), 4},  //P1_BIRD_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(247, 156, 15, 12), 2},  //P1_BIRD_FLY

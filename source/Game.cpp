@@ -18,12 +18,12 @@ void Game::update()
 {
 	player[0].update();
 
-	for (auto& enemy : enemyVec)
+	for (const auto& enemy : enemyVec)
 		enemy->update();
 
 	collisionUpdate(&player[0], platform);
 
-	for (auto& enemy : enemyVec)
+	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
 }
 
