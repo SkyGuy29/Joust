@@ -20,7 +20,7 @@ private:
 	bool isTouchingX(sf::FloatRect, Platform);
 	void collisionUpdate(Collidable*, Platform[]);
 
-	int score = 0, lives = 5, currentRound = 1, currentFloor = -1;
+	int score = 0, lives = 5, currentRound = 1;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;
