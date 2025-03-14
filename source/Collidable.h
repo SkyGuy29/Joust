@@ -7,8 +7,9 @@ class Collidable
 {
 public:
 	virtual void update() {}
-	virtual void setOnGround(float);
-	virtual void setOffGround() { onGround = false; }
+	virtual void setOnGround(float, int);
+	virtual void setOffGround() { onGround = -1; }
+	virtual int getGrounded() { return onGround; }
 	virtual void bounceX() { vel.x *= -1; }
 	virtual void bounceY() { vel.y *= -1; }
 	virtual void bounceSetLeft(Platform);
@@ -26,5 +27,5 @@ protected:
 
 	sf::RectangleShape hitbox;
 
-	bool onGround = false;
+	int onGround = -1;
 };

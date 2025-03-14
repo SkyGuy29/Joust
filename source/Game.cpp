@@ -160,8 +160,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 		switch (isTouching(collidable->getHitbox(), platform[i]))
 		{
 		case PlatformCollisionType::TOP:
-			currentFloor = i;
-			collidable->setOnGround(platform[currentFloor].getPointPos(ConvexCorners::TOP_LEFT).y);
+			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
 			break;
 		case PlatformCollisionType::BOT:
 			collidable->bounceY();
@@ -176,7 +175,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			break;
 		case PlatformCollisionType::LEFT_HIGH:
 			collidable->bounceX();
-			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(TOP_LEFT).x - (collidable->getSize().x / 2.f),
+			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_LEFT).x - (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
 			std::cout << "left high\n";
 			break;
@@ -187,15 +186,15 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			break;
 		case PlatformCollisionType::RIGHT_HIGH:
 			collidable->bounceX();
-			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(TOP_RIGHT).x + (collidable->getSize().x / 2.f),
+			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_RIGHT).x + (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
 			std::cout << "right high\n";
 			break;
 		case PlatformCollisionType::NONE:
 			//may need to change, the player is set off ground when screen wrapping
-			if (currentFloor >= 0 && currentFloor <= 8)
-				if (collidable->getHitbox().left > platform[currentFloor].getPointPos(TOP_RIGHT).x || 
-					collidable->getHitbox().left + collidable->getHitbox().width < platform[currentFloor].getPointPos(TOP_LEFT).x)
+			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
+				if (collidable->getHitbox().left > platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x ||
+					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
 					collidable->setOffGround();
 			break;
 		}
