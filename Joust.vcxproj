@@ -177,6 +177,7 @@
     <Image Include="res\art\Platform Top Left.png" />
     <Image Include="res\art\Scoreboard BG.png" />
     <Image Include="res\art\Spawner.png" />
+    <Image Include="res\art\topCenterPlat.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\Arcade.ttf" />
