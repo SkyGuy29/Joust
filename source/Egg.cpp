@@ -15,7 +15,7 @@ void Egg::update()
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.move(vel);
-
+	//uwu
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 	{
 		bounceY();
@@ -30,7 +30,7 @@ void Egg::update()
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
 	if (currentPlatform == -1)
-		sprite.nextFrame();
+		sprite.nextFrame(10);
 
 	if (currentPlatform == -1)//gravity? who gives a crap about gravity?? ME!!
 	{

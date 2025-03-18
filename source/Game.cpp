@@ -9,10 +9,8 @@ Game::Game()
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		platform[i].setPlatform(i, "a");
-	}
-	enemyVec.emplace_back(new Hunter);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Shadow);
+	}// hohoho
+	enemyVec.emplace_back(new Enemy);
 }
 
 
