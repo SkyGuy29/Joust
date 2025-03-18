@@ -64,8 +64,8 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/enemyAnimations.png", sf::IntRect(52, 18, 13, 12), 2},//SHADOW_FLY 
     {"res/Art/joustSprite.png", sf::IntRect(2, 44, 237, 195), 1},   //TEMP_BACKGROUND
     {"res/Art/topCenterPlat.png", sf::IntRect(0, 0, 88, 9), 7},     //PLAT_TOP_CENTER_ANIM
-    {"res/Art/joustSprite.png", sf::IntRect(0, 0, 237, 195), 1},    //PLAT_TOP_LEFT_ANIM *
-    {"res/Art/joustSprite.png", sf::IntRect(0, 0, 237, 195), 1},    //PLAT_TOP_RIGHT_ANIM *
+    {"res/Art/topSidePlats.png", sf::IntRect(0, 8, 30, 7), 2},    //PLAT_TOP_LEFT_ANIM
+    {"res/Art/topSidePlats.png", sf::IntRect(0, 0, 46, 8), 6},    //PLAT_TOP_RIGHT_ANIM
     {"res/Art/joustSprite.png", sf::IntRect(0, 0, 237, 195), 1}     //PLAT_CENTER_ANIM *
     //* INDICATES UNFINISHED DO NOT USE
 };
