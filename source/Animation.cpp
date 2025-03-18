@@ -21,6 +21,7 @@ void Animation::setAnimation(const AnimationNames data)
 		//centers the sprite for use with setPosition
 		sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 		maxFrame = spriteData[data].frameCount;
+		delayCount = 0;
 	}
 }
 
@@ -36,21 +37,25 @@ void Animation::setFaceRight(const bool right)
 }
 
 
-void Animation::nextFrame()
+void Animation::nextFrame(int delay)
 {
-	sf::IntRect spriteRect = sprite.getTextureRect();
-
-	if (currentFrame++ < maxFrame - 1) //if not out of bounds...
+	if(++delayCount % delay == 0)
 	{
-		spriteRect.left += spriteRect.width;
-	}
-	else if (currentMode == Mode::LOOP) //if set to loop, reset the counter and rect
-	{
-		currentFrame = 0;
-		spriteRect = spriteData[currentAnimation].bounds;
-	}
+		delayCount = 0;
+		sf::IntRect spriteRect = sprite.getTextureRect();
 
-	sprite.setTextureRect(spriteRect);
+		if (currentFrame++ < maxFrame - 1) //if not out of bounds...
+		{
+			spriteRect.left += spriteRect.width;
+		}
+		else if (currentMode == Mode::LOOP) //if set to loop, reset the counter and rect
+		{
+			currentFrame = 0;
+			spriteRect = spriteData[currentAnimation].bounds;
+		}
+
+		sprite.setTextureRect(spriteRect);
+	}
 }
 
 

@@ -42,8 +42,10 @@ public:
 	bool getFaceRight() const { return facingRight; }
 
 	//moves the frameCounter to the next frame
-	//GUESS WHO'S BACK =D
-	void nextFrame();
+	//optional delay parameter slows down frame changes,
+	//every (delay) frames it advances the animation.
+	//default value is 1, advances every frame
+	void nextFrame(int = 1);
 
 	//sets the animation to a given frame.
 	//you are fully allowed to set this past the max. 
@@ -56,7 +58,8 @@ private:
 	sf::Texture image;
 	sf::Sprite sprite;
 	int maxFrame = 5, //this is how many sprites there are in the animation 
-		currentFrame = 0; //THE FIRST FRAME IS 0 LIKE AN ARRAY
+		currentFrame = 0, //THE FIRST FRAME IS 0 LIKE AN ARRAY
+		delayCount = 0;  
 	bool facingRight = true;
 	Mode currentMode = Mode::LOOP;
 	AnimationNames currentAnimation = AnimationNames::DATA_COUNT;

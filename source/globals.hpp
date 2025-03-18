@@ -59,3 +59,17 @@ enum class PlatformCollisionType
     RIGHT_HIGH,
     NONE
 };
+
+
+//enum for the names of each platform
+enum PlatformNames
+{
+	P_TOP_MIDDLE = 0,
+    P_RIGHT_SIDE,
+    P_RIGHT_SIDE_SMALL,
+    P_LEFT_SIDE,
+	P_BOTTOM_MIDDLE,
+	P_TOP_LEFT,
+	P_TOP_RIGHT,
+	P_GROUND,
+};

@@ -1,9 +1,9 @@
 #include "Collidable.h"
 
 
-void Collidable::setOnGround(float newYValue)
+void Collidable::setOnGround(float newYValue, int platform)
 {
-	onGround = true;
+	onGround = platform;
 	vel.y = 0;
 	hitbox.setPosition(hitbox.getPosition().x, 
 		newYValue - hitbox.getGlobalBounds().height - 0.1 + hitbox.getSize().y / 2.f);

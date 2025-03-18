@@ -24,12 +24,12 @@ void Player::update()
 	if (!isJumpPressed())
 	{
 		jumpKeyHeld = false;
-		if (!onGround)
+		if (onGround == -1)
 			sprite.setFrame(0); //flapping, wings up
 	}
 
 	//velocity increase and skidding
-	if (onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if (onGround >= 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	{
 		if (isLeftPressed() || (skid == true && vel.x > 0))
 		{
@@ -76,7 +76,7 @@ void Player::update()
 		jumpKeyHeld = true;
 		vel.y -= 2 * (WINDOW_SCALE / 3.f);
 
-		if (!onGround)
+		if (onGround == -1)
 		{
 			sprite.setFrame(1); //flapping, wings down
 
@@ -109,7 +109,7 @@ void Player::update()
 			vel.x = 0;
 		}
 	}
-	else if (!onGround) //gravity
+	else if (onGround == -1) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	//next three ifs were formerly "isTouchingBounds()" from Game, moving to here made more sense
@@ -120,16 +120,29 @@ void Player::update()
 	}
 
 	if (hitbox.getPosition().x < 0)
+	{
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
 			hitbox.getPosition().y));
+		if (onGround == P_TOP_LEFT)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_RIGHT);
+		else if (onGround == P_LEFT_SIDE)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_RIGHT_SIDE_SMALL);
+	}
 
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
+	{
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
+
+		if (onGround == P_TOP_RIGHT)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_LEFT);
+		else if (onGround == P_RIGHT_SIDE_SMALL)
+			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_LEFT_SIDE);
+	}
 
 	//player run animation based on speed
 	speed = abs(vel.x) / SPEED_INC_X;
 	
-	if (onGround && frameCounter + speed * 2 >= 10)
+	if (onGround >= 0 && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();
 		frameCounter = 0;
@@ -146,9 +159,9 @@ void Player::update()
 }
 
 
-void Player::setOnGround(float newYValue)
+void Player::setOnGround(float newYValue, int platform)
 {
-	Collidable::setOnGround(newYValue);
+	Collidable::setOnGround(newYValue, platform);
 	if (skid == false)
 		sprite.setAnimation(AnimationNames::P1_GROUND);
 	else
@@ -156,6 +169,7 @@ void Player::setOnGround(float newYValue)
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 	sprite.setFaceRight(vel.x > 0);
+	std::cout << "Player\n";
 }
 
 
