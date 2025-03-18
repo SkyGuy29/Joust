@@ -29,10 +29,10 @@ void Egg::update()
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
-	if (!onGround)
+	if (onGround == -1)
 		sprite.nextFrame();
 
-	if (!onGround)//gravity? who gives a crap about gravity?? ME!!
+	if (onGround == -1)//gravity? who gives a crap about gravity?? ME!!
 	{
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 		//vel.x = 2 * (WINDOW_SCALE / 3.f);
