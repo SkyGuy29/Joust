@@ -17,11 +17,13 @@ Game::Game()
 void Game::update()
 {
 	player[0].update();
+	egg.update();
 
 	for (const auto& enemy : enemyVec)
 		enemy->update();
 
 	collisionUpdate(&player[0], platform);
+	collisionUpdate(&egg, platform);
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
@@ -63,6 +65,7 @@ void Game::drawTo(sf::RenderWindow& window)
 {
 	background.drawTo(window);
 	player[0].drawTo(window);
+	egg.drawTo(window);
 	for (int i = 0; enemyVec.size() > i; i++)
 	{
 		enemyVec.at(i)->drawTo(window);
