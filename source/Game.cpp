@@ -10,7 +10,9 @@ Game::Game()
 	{
 		platform[i].setPlatform(i, "a");
 	}
-	enemyVec.emplace_back(new Enemy);
+	enemyVec.emplace_back(new Hunter);
+	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Shadow);
 }
 
 

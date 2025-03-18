@@ -3,6 +3,9 @@
 #include "Platform.h"
 #include "Enemy.h"
 #include "Egg.h"
+#include "enemyTypes/Bounder.h"
+#include "enemyTypes/Hunter.h"
+#include "enemyTypes/Shadow.h"
 
 
 //handles the actual gameplay of joust, not the intro, leaderboard, stuff like that.

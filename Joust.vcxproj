@@ -134,6 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\enemyTypes\Bounder.cpp" />
+    <ClCompile Include="source\enemyTypes\Hunter.cpp" />
+    <ClCompile Include="source\enemyTypes\Shadow.cpp" />
     <ClCompile Include="source\Enemy.cpp" />
     <ClCompile Include="source\Collidable.cpp" />
     <ClCompile Include="source\Platform.cpp" />
@@ -147,6 +150,9 @@
     <ClCompile Include="source\unusedClasses\Video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\enemyTypes\Bounder.h" />
+    <ClInclude Include="source\enemyTypes\Hunter.h" />
+    <ClInclude Include="source\enemyTypes\Shadow.h" />
     <ClInclude Include="source\Enemy.h" />
     <ClInclude Include="source\Collidable.h" />
     <ClInclude Include="source\Platform.h" />
