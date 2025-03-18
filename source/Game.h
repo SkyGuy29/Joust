@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Platform.h"
 #include "Enemy.h"
+#include "Egg.h"
 
 
 //handles the actual gameplay of joust, not the intro, leaderboard, stuff like that.
@@ -28,6 +29,7 @@ private:
 	Animation background;
 	//enemies
 	//eggs
+	Egg egg; //implement as a vector later
 	//birds for the eggs
 };
 
