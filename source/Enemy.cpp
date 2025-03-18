@@ -29,9 +29,9 @@ void Enemy::update()
 	{
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
 			hitbox.getPosition().y));
-		if (onGround == P_TOP_LEFT)
+		if (currentPlatform == P_TOP_LEFT)
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_RIGHT);
-		else if (onGround == P_LEFT_SIDE)
+		else if (currentPlatform == P_LEFT_SIDE)
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_RIGHT_SIDE_SMALL);
 	}
 
@@ -39,20 +39,20 @@ void Enemy::update()
 	{
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
-		if (onGround == P_TOP_RIGHT)
+		if (currentPlatform == P_TOP_RIGHT)
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_LEFT);
-		else if (onGround == P_RIGHT_SIDE_SMALL)
+		else if (currentPlatform == P_RIGHT_SIDE_SMALL)
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_LEFT_SIDE);
 	}
 
 
-	if (onGround == -1) //gravity
+	if (currentPlatform == -1) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	//animation speed
 	speed = abs(vel.x) / SPEED_INC_X;
 
-	if (onGround >= 0 && frameCounter + speed * 2 >= 10)
+	if (currentPlatform >= 0 && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();
 		frameCounter = 0;

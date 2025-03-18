@@ -3,7 +3,7 @@
 
 void Collidable::setOnGround(float newYValue, int platform)
 {
-	onGround = platform;
+	currentPlatform = platform;
 	vel.y = 0;
 	hitbox.setPosition(hitbox.getPosition().x, 
 		newYValue - hitbox.getGlobalBounds().height - 0.1 + hitbox.getSize().y / 2.f);
