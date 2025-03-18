@@ -18,6 +18,7 @@ void Enemy::update()
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.move(vel);
 
+	//same as in player.cpp, screen boundary collision
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 	{
 		bounceY();
@@ -44,9 +45,11 @@ void Enemy::update()
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_LEFT_SIDE);
 	}
 
+
 	if (onGround == -1) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
+	//animation speed
 	speed = abs(vel.x) / SPEED_INC_X;
 
 	if (onGround >= 0 && frameCounter + speed * 2 >= 10)
