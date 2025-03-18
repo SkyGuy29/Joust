@@ -30,7 +30,7 @@ void Egg::update()
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
 	if (currentPlatform == -1)
-		sprite.nextFrame();
+		sprite.nextFrame(10);
 
 	if (currentPlatform == -1)//gravity? who gives a crap about gravity?? ME!!
 	{
