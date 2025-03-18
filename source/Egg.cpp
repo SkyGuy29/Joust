@@ -15,7 +15,7 @@ void Egg::update()
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.move(vel);
-	// uwu
+	//uwu
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 	{
 		bounceY();
