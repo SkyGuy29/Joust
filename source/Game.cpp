@@ -9,7 +9,7 @@ Game::Game()
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		platform[i].setPlatform(i, "a");
-	}
+	}// hohoho
 	enemyVec.emplace_back(new Enemy);
 }
 
