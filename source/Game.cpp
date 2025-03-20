@@ -63,17 +63,16 @@ void Game::nextRound()
 
 void Game::drawTo(sf::RenderWindow& window)
 {
-	background.drawTo(window);
+	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::BackSlash))
+		background.drawTo(window);
 	player[0].drawTo(window);
 	egg.drawTo(window);
 	for (int i = 0; enemyVec.size() > i; i++)
-	{
 		enemyVec.at(i)->drawTo(window);
-	}
-	for (auto& i : platform)
-	{
-		i.drawTo(window);
-	}
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSlash))
+		for (auto& i : platform)
+			i.drawTo(window);
 }
 
 

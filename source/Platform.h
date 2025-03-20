@@ -1,5 +1,6 @@
 #pragma once
-#include "Globals.hpp"
+#include "Animation.h"
+
 
 class Platform
 {
@@ -22,8 +23,6 @@ private:
 	sf::ConvexShape hitbox;
 
 	bool destroyed = false;
-	sf::Sprite sprite;
-	sf::Texture img;
-
+	Animation sprite;
 };
 
