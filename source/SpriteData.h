@@ -71,9 +71,9 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/topSidePlats.png", sf::IntRect(0, 8, 30, 7), 2},              //PLAT_TOP_LEFT_ANIM
     {"res/Art/topSidePlats.png", sf::IntRect(0, 0, 46, 8), 6},              //PLAT_TOP_RIGHT_ANIM
     {"res/Art/centerPlat.png", sf::IntRect(0, 0, 64, 8), 6},                //PLAT_CENTER_ANIM
-	{"res/Art/topCenterPlat.png", sf::IntRect(0, 0, 88, 9), 7},             //PLAT_LEFT *
-    {"res/Art/topSidePlats.png", sf::IntRect(0, 8, 30, 7), 2},              //PLAT_RIGHT *
-    {"res/Art/topSidePlats.png", sf::IntRect(0, 0, 46, 8), 6},              //PLAT_RIGHT_SMALL *
-    {"res/Art/centerPlat.png", sf::IntRect(0, 0, 64, 8), 6}                 //PLAT_GROUND *
+	{"res/Art/leftSide.png", sf::IntRect(0, 0, 60, 8), 1},                  //PLAT_LEFT
+    {"res/Art/rightSide.png", sf::IntRect(0, 8, 58, 11), 1},                //PLAT_RIGHT
+    {"res/Art/rightSideSmall.png", sf::IntRect(0, 0, 42, 7), 1},            //PLAT_RIGHT_SMALL
+    {"res/Art/ground.png", sf::IntRect(0, 0, 186, 33), 1}                   //PLAT_GROUND
     //* INDICATES UNFINISHED DO NOT USE
 };
