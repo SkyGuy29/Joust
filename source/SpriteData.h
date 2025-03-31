@@ -36,6 +36,10 @@ enum AnimationNames
     PLAT_TOP_LEFT_ANIM,
     PLAT_TOP_RIGHT_ANIM,
     PLAT_CENTER_ANIM,
+    PLAT_LEFT,
+    PLAT_RIGHT,
+	PLAT_RIGHT_SMALL,
+    PLAT_GROUND,
     DATA_COUNT //this helps make sure array size matches enum count
 };
 
@@ -43,7 +47,7 @@ enum AnimationNames
 //container for all sprite data. please use the DataNames enum with this.
 static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
 {
-    //all of the data follows this pattern:
+    //all the data follows this pattern:
     //fileName, (startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
     {"res/Art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4},           //P1_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(248, 82, 13, 18), 1},           //P1_SKID
@@ -66,6 +70,10 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/topCenterPlat.png", sf::IntRect(0, 0, 88, 9), 7},             //PLAT_TOP_CENTER_ANIM
     {"res/Art/topSidePlats.png", sf::IntRect(0, 8, 30, 7), 2},              //PLAT_TOP_LEFT_ANIM
     {"res/Art/topSidePlats.png", sf::IntRect(0, 0, 46, 8), 6},              //PLAT_TOP_RIGHT_ANIM
-    {"res/Art/centerPlat.png", sf::IntRect(0, 0, 64, 8), 6}                 //PLAT_CENTER_ANIM
+    {"res/Art/centerPlat.png", sf::IntRect(0, 0, 64, 8), 6},                //PLAT_CENTER_ANIM
+	{"res/Art/topCenterPlat.png", sf::IntRect(0, 0, 88, 9), 7},             //PLAT_LEFT *
+    {"res/Art/topSidePlats.png", sf::IntRect(0, 8, 30, 7), 2},              //PLAT_RIGHT *
+    {"res/Art/topSidePlats.png", sf::IntRect(0, 0, 46, 8), 6},              //PLAT_RIGHT_SMALL *
+    {"res/Art/centerPlat.png", sf::IntRect(0, 0, 64, 8), 6}                 //PLAT_GROUND *
     //* INDICATES UNFINISHED DO NOT USE
 };
