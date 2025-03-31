@@ -14,6 +14,36 @@ Bounder::Bounder()
 
 void Bounder::update()
 {
+	//5 on the counter for staying on the same plane
+	if (hitbox.getPosition().y > WINDOW_Y * WINDOW_SCALE * 3 / 4 && flapCounter >= 5)
+	{
+		vel.y -= 2 * (WINDOW_SCALE / 3.f);
+
+		if (currentPlatform == -1)
+		{
+			sprite.setFrame(1); //flapping, wings down
+			/*
+					if (isLeftPressed())
+					{
+						sprite.setFaceRight(false);
+						if (vel.x > -SPEED_MAX_X)
+							vel.x -= SPEED_INC_X;
+					}
+					else if (isRightPressed())
+					{
+						sprite.setFaceRight(true);
+						if (vel.x < SPEED_MAX_X)
+							vel.x += SPEED_INC_X;
+					}
+					*/
+		}
+		else
+			setOffGround();
+		flapCounter = 0;
+	}
+
+
+	flapCounter++;
 	Enemy::update();
 }
 
