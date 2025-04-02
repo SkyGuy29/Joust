@@ -14,6 +14,7 @@ Game::Game()
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Shadow);
 	player[0].setPosition(sf::Vector2f(100, 100));
 }
 

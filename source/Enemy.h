@@ -35,7 +35,7 @@ protected:
 	Animation sprite;
 
 	bool skid = false;
-	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0;
+	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0;
 	//player sounds
 	//iframes timer
 	//much more i'm forgetting

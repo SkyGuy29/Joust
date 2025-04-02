@@ -19,5 +19,4 @@ public:
 	void setOnGround(float, int) override;
 
 private:
-	int flapCounter = 0;
 };
