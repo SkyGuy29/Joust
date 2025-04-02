@@ -19,12 +19,14 @@ void Enemy::update(Player player[2])
 	hitbox.move(vel);
 
 	//same as in player.cpp, screen boundary collision
+	//vertical
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
 	{
 		bounceY();
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x, (hitbox.getSize().y / 2.f)));
 	}
 
+	//left side
 	if (hitbox.getPosition().x < 0)
 	{
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
@@ -35,6 +37,7 @@ void Enemy::update(Player player[2])
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_RIGHT_SIDE_SMALL);
 	}
 
+	//right side
 	if (hitbox.getPosition().x > WINDOW_X * WINDOW_SCALE)
 	{
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
