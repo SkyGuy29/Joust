@@ -3,13 +3,13 @@
 
 Game::Game()
 {
-	background.setAnimation(AnimationNames::TEMP_BACKGROUND);
-	background.setPos(sf::Vector2f(WINDOW_X * WINDOW_SCALE / 2.f + WINDOW_SCALE / 2.f, 
-		WINDOW_Y * WINDOW_SCALE / 2.f)); //don't worry about it guys it works
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		platform[i].setPlatform(i, "a");
 	}// hohoho
+	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
+	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
+	bridge.setFillColor(sf::Color(144, 72, 0));
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
@@ -25,6 +25,9 @@ void Game::update()
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
+
+	for (auto& plat : platform)
+		plat.update();
 
 	collisionUpdate(&player[0], platform);
 	collisionUpdate(&egg, platform);
@@ -53,6 +56,10 @@ void Game::nextRound()
 		//beware of the "unbeatable?" pterodactyl
 		//spawn a pterodactyl at the beginning of the round
 	}
+	else if (currentRound == 3)
+	{
+		//burn the bridge
+	}
 	else if (currentRound % 5 == 4 /* && two players */)
 	{
 		//gladiator round
@@ -67,13 +74,13 @@ void Game::nextRound()
 
 void Game::drawTo(sf::RenderWindow& window)
 {
-	player[0].drawTo(window);
+	window.draw(bridge);
+	for (auto& i : platform)
+		i.drawTo(window);
 	egg.drawTo(window);
 	for (auto& i : enemyVec)
 		i->drawTo(window);
-	
-	for (auto& i : platform)
-		i.drawTo(window);
+	player[0].drawTo(window);
 }
 
 

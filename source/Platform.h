@@ -17,6 +17,8 @@ public:
 		return hitbox.getPoint(corner) + hitbox.getPosition();
 	}
 
+	void update();
+
 	void drawTo(sf::RenderWindow&) const;
 
 private:
