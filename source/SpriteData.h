@@ -48,12 +48,12 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
 {
     //all the data follows this pattern:
     //fileName, (startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
-    {"res/Art/joustSprite.png", sf::IntRect(247, 64, 15, 18), 4},           //P1_GROUND
+    {"res/Art/joustSprite.png", sf::IntRect(248, 64, 13, 18), 4},           //P1_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(248, 82, 13, 18), 1},           //P1_SKID
-    {"res/Art/joustSprite.png", sf::IntRect(247, 102, 15, 12), 2},          //P1_FLY
-    {"res/Art/joustSprite.png", sf::IntRect(248, 136, 13, 18), 4},          //P1_BIRD_GROUND
-    {"res/Art/joustSprite.png", sf::IntRect(247, 156, 15, 12), 2},          //P1_BIRD_FLY
-    {"res/Art/joustSprite.png", sf::IntRect(247, 173, 13, 13), 3},          //DEATH
+    {"res/Art/joustSprite.png", sf::IntRect(248, 102, 13, 12), 2},          //P1_FLY
+    {"res/Art/joustSprite.png", sf::IntRect(248, 136, 11, 18), 4},          //P1_BIRD_GROUND
+    {"res/Art/joustSprite.png", sf::IntRect(248, 156, 12, 12), 2},          //P1_BIRD_FLY
+    {"res/Art/joustSprite.png", sf::IntRect(248, 173, 13, 13), 3},          //DEATH
     {"res/Art/joustSprite.png", sf::IntRect(248, 286, 7, 6), 3},            //EGG_FALL
 	{"res/Art/joustSprite.png", sf::IntRect(0, 0, 0, 0), 0},                //EGG_HATCH *   //this one is super weird
     {"res/Art/joustSprite.png", sf::IntRect(247, 194, 15, 18), 4},          //BOUNDER_GROUND
