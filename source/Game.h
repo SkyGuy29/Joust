@@ -29,6 +29,7 @@ private:
 
 	std::vector<Enemy*> enemyVec;
 	Platform platform[8];
+	sf::RectangleShape bridge;
 	//enemies
 	//eggs
 	Egg egg; //implement as a vector later

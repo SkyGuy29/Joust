@@ -32,8 +32,8 @@ void Platform::setPlatform(const int platformID, std::string file)
 		sprite.setAnimation(AnimationNames::PLAT_TOP_CENTER_ANIM);
 		break;
 	case PlatformNames::P_TOP_RIGHT:
-		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(246, 62));
-		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(291, 62));
+		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(246, 61));
+		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(291, 61));
 		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(291, 68));
 		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(272, 68));
 		sprite.setAnimation(AnimationNames::PLAT_TOP_RIGHT_ANIM);
