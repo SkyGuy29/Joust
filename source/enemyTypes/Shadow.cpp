@@ -12,9 +12,9 @@ Shadow::Shadow()
 }
 
 
-void Shadow::update()
+void Shadow::update(Player player[2])
 {
-	Enemy::update();
+	Enemy::update(player);
 
 }
 

@@ -7,7 +7,7 @@ Player::Player()
 	// - change origin to center -- done?
 	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	hitbox.setPosition(100, 100);
+	hitbox.setPosition(5000, 5000);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setAnimation(AnimationNames::P1_FLY);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol

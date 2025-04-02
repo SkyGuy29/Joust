@@ -11,6 +11,10 @@ Game::Game()
 		platform[i].setPlatform(i, "a");
 	}// hohoho
 	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	player[0].setPosition(sf::Vector2f(100, 100));
 }
 
 
@@ -20,7 +24,7 @@ void Game::update()
 	egg.update();
 
 	for (const auto& enemy : enemyVec)
-		enemy->update();
+		enemy->update(player);
 
 	collisionUpdate(&player[0], platform);
 	collisionUpdate(&egg, platform);

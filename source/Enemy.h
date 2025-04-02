@@ -1,6 +1,7 @@
 #pragma once
 #include "Collidable.h"
 #include "Animation.h"
+#include "Player.h"
 
 class Enemy : public Collidable
 {
@@ -8,7 +9,7 @@ public:
 	//Enemy();
 
 	//updates the player movement. user inputs will be handled directly in here.
-	virtual void update() override;
+	virtual void update(Player[2]);
 
 	//puts the player on top of a platform and lets it run on it.
 	//the parameter is the top of the platform.
