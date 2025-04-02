@@ -43,6 +43,7 @@ void Platform::setPlatform(const int platformID, std::string file)
 		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(59, 131));
 		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(50, 138));
 		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(14, 138));
+		sprite.setAnimation(AnimationNames::PLAT_LEFT);
 		break;
 	case PlatformNames::P_BOTTOM_MIDDLE:
 		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(100, 156));
@@ -56,18 +57,21 @@ void Platform::setPlatform(const int platformID, std::string file)
 		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(253, 122));
 		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(241, 132));
 		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(223, 132));
+		sprite.setAnimation(AnimationNames::PLAT_RIGHT);
 		break;
 	case PlatformNames::P_RIGHT_SIDE_SMALL:
-		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(250, 132));
-		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(291, 132));
+		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(250, 131));
+		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(291, 131));
 		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(291, 137));
 		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(255, 137));
+		sprite.setAnimation(AnimationNames::PLAT_RIGHT_SMALL);
 		break;
 	case PlatformNames::P_GROUND:
-		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(48, 205));
-		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(233, 205));
-		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(215, 220));
-		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(60, 220));
+		hitbox.setPoint(ConvexCorners::TOP_LEFT, sf::Vector2f(48, 204));
+		hitbox.setPoint(ConvexCorners::TOP_RIGHT, sf::Vector2f(233, 204));
+		hitbox.setPoint(ConvexCorners::BOT_RIGHT, sf::Vector2f(192, 236));
+		hitbox.setPoint(ConvexCorners::BOT_LEFT, sf::Vector2f(74, 236));
+		sprite.setAnimation(AnimationNames::PLAT_GROUND);
 		break;
 	}
 
