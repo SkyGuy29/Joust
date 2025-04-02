@@ -11,6 +11,10 @@ Game::Game()
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
 	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Bounder);
+	player[0].setPosition(sf::Vector2f(100, 100));
 }
 
 
@@ -20,7 +24,7 @@ void Game::update()
 	egg.update();
 
 	for (const auto& enemy : enemyVec)
-		enemy->update();
+		enemy->update(player);
 
 	for (auto& plat : platform)
 		plat.update();

@@ -7,7 +7,7 @@ public:
 	Hunter();
 
 	//updates the player movement. user inputs will be handled directly in here.
-	void update() override;
+	void update(Player[2]) override;
 
 	void setOffGround() override
 	{

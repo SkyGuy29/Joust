@@ -12,7 +12,7 @@
 }*/
 
 
-void Enemy::update()
+void Enemy::update(Player player[2])
 {
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);

@@ -12,9 +12,9 @@ Hunter::Hunter()
 }
 
 
-void Hunter::update()
+void Hunter::update(Player player[2])
 {
-	Enemy::update();
+	Enemy::update(player);
 }
 
 
