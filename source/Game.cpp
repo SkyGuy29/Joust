@@ -3,9 +3,6 @@
 
 Game::Game()
 {
-	background.setAnimation(AnimationNames::TEMP_BACKGROUND);
-	background.setPos(sf::Vector2f(WINDOW_X * WINDOW_SCALE / 2.f + WINDOW_SCALE / 2.f, 
-		WINDOW_Y * WINDOW_SCALE / 2.f)); //don't worry about it guys it works
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		platform[i].setPlatform(i, "a");
@@ -21,6 +18,9 @@ void Game::update()
 
 	for (const auto& enemy : enemyVec)
 		enemy->update();
+
+	for (auto& plat : platform)
+		plat.update();
 
 	collisionUpdate(&player[0], platform);
 	collisionUpdate(&egg, platform);
@@ -63,13 +63,12 @@ void Game::nextRound()
 
 void Game::drawTo(sf::RenderWindow& window)
 {
-	player[0].drawTo(window);
 	egg.drawTo(window);
 	for (auto& i : enemyVec)
 		i->drawTo(window);
-	
 	for (auto& i : platform)
 		i.drawTo(window);
+	player[0].drawTo(window);
 }
 
 
