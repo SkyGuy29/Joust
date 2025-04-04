@@ -21,20 +21,29 @@ Game::Game()
 
 void Game::update()
 {
+	static sf::Clock timer;
+	timer.restart();
+
 	player[0].update();
 	egg.update();
+	std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
 
+	std::cout << "EU: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	for (auto& plat : platform)
 		plat.update();
+	std::cout << "P:LATupdate: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	collisionUpdate(&player[0], platform);
+	std::cout << "PLVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	collisionUpdate(&egg, platform);
+	std::cout << "EGVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
+	std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }
 
 
@@ -90,6 +99,7 @@ void Game::drawTo(sf::RenderWindow& window)
 
 PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 {
+	return PlatformCollisionType::NONE;
 	//y axis collision check
 	if (hitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
 		hitbox.top + hitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
@@ -155,7 +165,7 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 
 
 
-bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
+bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 {
 	if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
 		playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
@@ -166,8 +176,11 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 
 void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
+	static sf::Clock timer, timer2;
+	timer.restart();
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
+		//timer2.restart();
 		switch (isTouching(collidable->getHitbox(), platform[i]))
 		{
 		case PlatformCollisionType::TOP:
@@ -202,12 +215,16 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			std::cout << "right high\n";
 			break;
 		case PlatformCollisionType::NONE:
+
+			//std::cout << "CLTA: " << timer2.restart().asMilliseconds() /1000. << '\n';
 			//may need to change, the player is set off ground when screen wrapping
 			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
 				if (collidable->getHitbox().left > platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x ||
 					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
 					collidable->setOffGround();
+			//std::cout << "CLTB: " << timer2.restart().asMilliseconds() / 1000. << '\n';
 			break;
 		}
 	}
+	std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }
