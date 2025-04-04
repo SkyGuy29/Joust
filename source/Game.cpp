@@ -10,6 +10,7 @@ Game::Game()
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
+	eggVec.emplace_back(new Egg);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
@@ -22,16 +23,18 @@ Game::Game()
 void Game::update()
 {
 	player[0].update();
-	egg.update();
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
+	for (const auto& egg : eggVec)
+		egg->update();
 
 	for (auto& plat : platform)
 		plat.update();
 
 	collisionUpdate(&player[0], platform);
-	collisionUpdate(&egg, platform);
+	for (const auto& egg : eggVec)
+		collisionUpdate(egg, platform);
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
@@ -78,7 +81,8 @@ void Game::drawTo(sf::RenderWindow& window)
 	window.draw(bridge);
 	for (auto& i : platform)
 		i.drawTo(window);
-	egg.drawTo(window);
+	for (auto& i : eggVec)
+		i->drawTo(window);
 	for (auto& i : enemyVec)
 		i->drawTo(window);
 	player[0].drawTo(window);
@@ -160,6 +164,12 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 	if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
 		playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 		return true;
+	return false;
+}
+
+
+bool Game::isTouchingEgg(sf::FloatRect, Egg)
+{
 	return false;
 }
 
