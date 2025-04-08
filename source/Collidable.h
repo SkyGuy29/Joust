@@ -11,7 +11,7 @@ public:
 	
 	virtual void setOnGround(float, int);
 	virtual void setOffGround() { currentPlatform = -1; }
-	virtual int getGrounded() { return currentPlatform; }
+	virtual int getGrounded() const { return currentPlatform; }
 
 	//flips the velocity of the collidable horizontally
 	virtual void bounceX() { vel.x *= -1; }
