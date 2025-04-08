@@ -168,9 +168,9 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 }
 
 
-bool Game::isTouchingEgg(sf::FloatRect, Egg)
+bool Game::isTouchingEgg(sf::FloatRect playerHitbox, Egg egg)
 {
-	return false;
+	return playerHitbox.intersects(egg.getHitbox());
 }
 
 
