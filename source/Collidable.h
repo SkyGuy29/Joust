@@ -18,12 +18,10 @@ public:
 
 	//flips the velocity of the collidable vertically
 	virtual void bounceY() { vel.y *= -1; }
-	virtual void bounceSetLeft(Platform&);
-	virtual void bounceSetRight(Platform&);
 
 	//repositions the hitbox based on the formula given in res\misc\diagonalCollisionDerivationP2.png
-	virtual void bounceSetLeft(Platform);
-	virtual void bounceSetRight(Platform);
+	virtual void bounceSetLeft(Platform&);
+	virtual void bounceSetRight(Platform&);
 	virtual void setPosition(const sf::Vector2f newPos) { hitbox.setPosition(newPos); }
 
 	sf::Vector2f getPosition() const { return hitbox.getPosition(); }

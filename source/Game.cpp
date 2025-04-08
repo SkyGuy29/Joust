@@ -23,32 +23,31 @@ Game::Game()
 void Game::update()
 {
 	static sf::Clock timer;
-	timer.restart();
+	//timer.restart();
 
 	player[0].update();
-	egg.update();
-	std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
 	for (const auto& egg : eggVec)
 		egg->update();
 
-	std::cout << "EU: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "EU: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	for (auto& plat : platform)
 		plat.update();
-	std::cout << "P:LATupdate: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "P:LATupdate: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	collisionUpdate(&player[0], platform);
-	std::cout << "PLVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
-	collisionUpdate(&egg, platform);
-	std::cout << "EGVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "PLVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	
 	for (const auto& egg : eggVec)
 		collisionUpdate(egg, platform);
+	//std::cout << "EGVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
-	std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }
 
 
@@ -105,7 +104,6 @@ void Game::drawTo(sf::RenderWindow& window)
 
 PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 {
-	return PlatformCollisionType::NONE;
 	//y axis collision check
 	if (hitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
 		hitbox.top + hitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
@@ -124,31 +122,32 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 						/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 						+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
 						return PlatformCollisionType::TOP;
-					else
+					
 					return PlatformCollisionType::RIGHT_HIGH;
 				}
 
 				//checks left diagonal
-				else if (hitbox.left + hitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
+				if (hitbox.left + hitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
 				{
 					if ((hitbox.left + hitbox.width) >= ((hitbox.top + hitbox.height - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 						* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
 						/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 						+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 						return PlatformCollisionType::TOP;
-					else
+					
 					return PlatformCollisionType::LEFT_HIGH;
 				}
-				else
+				
 				return PlatformCollisionType::TOP;
 			}
 			//std::cout << "x-axis\n";
 			//specific collision, determines behavior of interaction
 			//checks right diagonal
-			else if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
+
+			if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 			{
-				if (hitbox.left <= ((hitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
-					* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+				if (hitbox.left <= (hitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
 					/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 					+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
 					return PlatformCollisionType::RIGHT;
@@ -156,8 +155,8 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 			//checks left diagonal
 			else if (hitbox.left + hitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
 			{
-				if ((hitbox.left + hitbox.width) >= ((hitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-					* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
+				if (hitbox.left + hitbox.width >= (hitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 					/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 					+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 					return PlatformCollisionType::LEFT;
@@ -190,7 +189,7 @@ bool Game::isTouchingEgg(sf::FloatRect playerHitbox, Egg egg)
 void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
 	static sf::Clock timer, timer2;
-	timer.restart();
+	//timer.restart();
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		//timer2.restart();
@@ -239,5 +238,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			break;
 		}
 	}
-	std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	//std::cout << "CLTC: " << timer2.restart().asMilliseconds() / 1000. << '\n';
+
+	//std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }

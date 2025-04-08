@@ -21,7 +21,6 @@ public:
 private:
 	//handles collision
 	PlatformCollisionType isTouching(sf::FloatRect, Platform);
-	bool isTouchingX(sf::FloatRect, Platform);
 	bool isTouchingEgg(sf::FloatRect, Egg);
 	bool isTouchingX(sf::FloatRect&, Platform&);
 	void collisionUpdate(Collidable*, Platform[]);
