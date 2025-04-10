@@ -27,7 +27,7 @@ private:
 	void collisionUpdate(Player*, Enemy*);
 	void collisionUpdate(Enemy*, Enemy*);
 
-	int score[2] {}, lives = 5, currentRound = 1;
+	int score[2] {}, lives = 5, currentRound = 1, eggsCollected = 0;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;
