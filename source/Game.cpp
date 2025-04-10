@@ -16,6 +16,38 @@ Game::Game()
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
 	player[0].setPosition(sf::Vector2f(100, 100));
 }
 
@@ -27,6 +59,20 @@ void Game::update()
 
 	player[0].update();
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	for (int i = 0; i < enemyVec.size() - 1; i++)
+	{
+		for (int j = i + 1; j < enemyVec.size(); j++)
+		{
+			collisionUpdate(enemyVec.at(i), enemyVec.at(j));
+		}
+	}
+
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < enemyVec.size() - 1; j++)
+		{
+			collisionUpdate(&player[i], enemyVec.at(j));
+		}
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
@@ -253,11 +299,63 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 
 void Game::collisionUpdate(Player* player, Enemy* enemy)
 {
+	sf::FloatRect nextPos;
 
+	sf::FloatRect enemyBounds = enemy->getHitbox();
+	sf::FloatRect playerBounds = player->getHitbox();
+
+		nextPos = playerBounds;
+
+		nextPos.left += player->getVelocity().x;
+		nextPos.top += player->getVelocity().y;
+
+		//if (playerBounds.left > wallBounds.left + 25)
+			//wallBounds.left++;
+		//else if (playerBounds.left + 50 < wallBounds.left)
+			//wallBounds.left--;
+
+		if (enemyBounds.intersects(nextPos))
+		{
+			std::cout << "DIE\n";
+		}
 }
 
 
 void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 {
+	sf::FloatRect nextPos;
 
+	sf::FloatRect enemyOneBounds = enemyOne->getHitbox();
+	sf::FloatRect enemyTwoBounds = enemyTwo->getHitbox();
+
+	nextPos = enemyOneBounds;
+
+	nextPos.left += enemyOne->getVelocity().x;
+	nextPos.top += enemyOne->getVelocity().y;
+
+	//if (playerBounds.left > wallBounds.left + 25)
+		//wallBounds.left++;
+	//else if (playerBounds.left + 50 < wallBounds.left)
+		//wallBounds.left--;
+
+	if (enemyTwoBounds.intersects(nextPos))
+	{
+		enemyOne->bounceX();
+		enemyTwo->bounceX();
+
+		if (enemyOne->getPosition().y < enemyTwo->getPosition().y)
+		{
+			if (enemyOne->getVelocity().y > 0)
+				enemyOne->addVelocity(0, -1);
+			else
+				enemyOne->addVelocity(0, enemyOne->getVelocity().y - 1);
+		}
+		else
+		{
+			if (enemyTwo->getVelocity().y > 0)
+				enemyTwo->addVelocity(0, -1);
+			else
+				enemyTwo->addVelocity(0, enemyTwo->getVelocity().y - 1);
+		}
+	}
 }

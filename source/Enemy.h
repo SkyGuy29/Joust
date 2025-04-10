@@ -30,6 +30,8 @@ public:
 
 	virtual void drawTo(sf::RenderWindow&);
 
+	void addVelocity(int, int);
+
 protected:
 
 	Animation sprite;
