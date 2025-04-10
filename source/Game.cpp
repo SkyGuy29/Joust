@@ -100,16 +100,16 @@ void Game::drawTo(sf::RenderWindow& window)
 
 
 //private
-
-
-PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
+PlatformCollisionType Game::isTouching(Collidable* collidable, Platform &platform)
 {
+	sf::FloatRect hitbox = collidable->getHitbox();
+
 	//y axis collision check
 	if (hitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
 		hitbox.top + hitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 	{
 		//std::cout << "y-axis\n";
-		//x axis general collision check 
+		//x axis general collision check s
 		//still may not be a collision if outside the diagonal
 		if (isTouchingX(hitbox, platform) == true)
 		{
@@ -193,7 +193,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		//timer2.restart();
-		switch (isTouching(collidable->getHitbox(), platform[i]))
+		switch (isTouching(collidable, platform[i]))
 		{
 		case PlatformCollisionType::TOP:
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
@@ -248,4 +248,16 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 	//std::cout << "CLTC: " << timer2.restart().asMilliseconds() / 1000. << '\n';
 
 	//std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
+}
+
+
+void Game::collisionUpdate(Player* player, Enemy* enemy)
+{
+
+}
+
+
+void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
+{
+
 }
