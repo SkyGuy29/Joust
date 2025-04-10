@@ -176,6 +176,7 @@
     <Image Include="res\Art\leftSide.png" />
     <Image Include="res\Art\rightSide.png" />
     <Image Include="res\Art\rightSideSmall.png" />
+    <Image Include="res\Art\spawners.png" />
     <Image Include="res\art\topCenterPlat.png" />
     <Image Include="res\Art\topSidePlats.png" />
   </ItemGroup>
