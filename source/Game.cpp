@@ -96,7 +96,7 @@ void Game::update()
 
 	for (const auto& egg : eggVec)
 	{
-		if (isTouching(player[0].getHitbox(), egg))
+		if (isTouching(player[0].getHitbox(), *egg))
 		{
 			eggsCollected++;
 			if (eggsCollected < 4)
@@ -164,7 +164,7 @@ void Game::drawTo(sf::RenderWindow& window)
 
 
 //private
-PlatformCollisionType Game::isTouching(Collidable* collidable, Platform &platform)
+PlatformCollisionType Game::isTouching(Collidable* collidable, Platform& platform)
 {
 	sf::FloatRect hitbox = collidable->getHitbox();
 
@@ -178,7 +178,7 @@ PlatformCollisionType Game::isTouching(Collidable* collidable, Platform &platfor
 		if (isTouchingX(hitbox, platform) == true)
 		{
 			if (hitbox.top <= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-			{ 
+			{
 				if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 				{
 					if (hitbox.left <= ((hitbox.top + hitbox.height - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
@@ -198,7 +198,7 @@ PlatformCollisionType Game::isTouching(Collidable* collidable, Platform &platfor
 						/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 						+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 						return PlatformCollisionType::TOP;
-					else 
+					else
 						return PlatformCollisionType::LEFT_HIGH;
 				}
 				else
@@ -234,7 +234,6 @@ PlatformCollisionType Game::isTouching(Collidable* collidable, Platform &platfor
 }
 
 
-
 bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 {
 	if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
@@ -244,9 +243,9 @@ bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 }
 
 
-bool Game::isTouching(sf::FloatRect playerHitbox, Egg* egg)
+bool Game::isTouching(sf::FloatRect playerHitbox, Egg egg)
 {
-	return playerHitbox.intersects(egg->getHitbox());
+	return playerHitbox.intersects(egg.getHitbox());
 }
 
 
