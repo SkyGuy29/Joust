@@ -93,7 +93,25 @@ void Game::update()
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
-	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	for (const auto& egg : eggVec)
+	{
+		if (isTouching(player[0].getHitbox(), egg))
+		{
+			eggsCollected++;
+			if (eggsCollected < 4)
+				score[0] += eggsCollected * 250;
+			else
+				score[0] += 1000;
+
+			std::cout << score[0] << "\n";
+
+			eggVec.pop_back(); //fix later to remove the specific egg collected
+		}
+	}
+
+	if (eggVec.empty() && enemyVec.empty())
+		nextRound();
 }
 
 
@@ -226,9 +244,9 @@ bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 }
 
 
-bool Game::isTouchingEgg(sf::FloatRect playerHitbox, Egg egg)
+bool Game::isTouching(sf::FloatRect playerHitbox, Egg* egg)
 {
-	return playerHitbox.intersects(egg.getHitbox());
+	return playerHitbox.intersects(egg->getHitbox());
 }
 
 
