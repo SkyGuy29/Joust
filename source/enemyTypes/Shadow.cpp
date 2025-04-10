@@ -38,21 +38,6 @@ void Shadow::update(Player player[2])
 		if (currentPlatform == -1)
 		{
 			sprite.setFrame(1); //flapping, wings down
-			/*
-					if (isLeftPressed())
-					{
-						sprite.setFaceRight(false);
-						if (vel.x > -SPEED_MAX_X)
-							vel.x -= SPEED_INC_X;
-					}
-					else if (isRightPressed())
-					{
-						sprite.setFaceRight(true);
-						if (vel.x < SPEED_MAX_X)
-							vel.x += SPEED_INC_X;
-					}
-					*/
-
 		}
 		else
 			setOffGround();
@@ -64,21 +49,6 @@ void Shadow::update(Player player[2])
 		if (currentPlatform == -1)
 		{
 			sprite.setFrame(1); //flapping, wings down
-			/*
-					if (isLeftPressed())
-					{
-						sprite.setFaceRight(false);
-						if (vel.x > -SPEED_MAX_X)
-							vel.x -= SPEED_INC_X;
-					}
-					else if (isRightPressed())
-					{
-						sprite.setFaceRight(true);
-						if (vel.x < SPEED_MAX_X)
-							vel.x += SPEED_INC_X;
-					}
-					*/
-
 		}
 		else
 			setOffGround();

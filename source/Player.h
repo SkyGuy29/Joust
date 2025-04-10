@@ -22,8 +22,8 @@ public:
 
 	//death function and reset, remember Game handles lives
 	void setPosition(sf::Vector2f) override;
-	void bounceSetLeft(Platform) override;
-	void bounceSetRight(Platform) override;
+	void bounceSetLeft(Platform&) override;
+	void bounceSetRight(Platform&) override;
 
 	void drawTo(sf::RenderWindow&);
 

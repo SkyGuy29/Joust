@@ -20,10 +20,12 @@ public:
 
 private:
 	//handles collision
-	PlatformCollisionType isTouching(sf::FloatRect, Platform);
-	bool isTouchingX(sf::FloatRect, Platform);
-	bool isTouching(sf::FloatRect, Egg*);
+	PlatformCollisionType isTouching(Collidable*, Platform&);
+	bool isTouchingEgg(sf::FloatRect, Egg);
+	bool isTouchingX(sf::FloatRect&, Platform&);
 	void collisionUpdate(Collidable*, Platform[]);
+	void collisionUpdate(Player*, Enemy*);
+	void collisionUpdate(Enemy*, Enemy*);
 
 	int score[2] {}, lives = 5, currentRound = 1, eggsCollected = 0;
 	Player player[2]; //or just make two variables?
