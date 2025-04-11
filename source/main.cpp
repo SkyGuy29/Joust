@@ -1,8 +1,13 @@
 #include "Joust.h"
+#include <Windows.h>
 
 
 int main()
 {
+#ifdef NDEBUG
+    FreeConsole();
+#endif
+
     Joust joustGame;
 
     joustGame.run();

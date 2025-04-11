@@ -177,29 +177,40 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			collidable->bounceY();
 			collidable->setPosition(sf::Vector2f(collidable->getPosition().x,
 				platform[i].getPointPos(BOT_LEFT).y + (collidable->getSize().y / 2.f)));
-			std::cout << "bot\n";
+#ifdef DEBUG
+	std::cout << "bot\n";
+#endif
 			break;
 		case PlatformCollisionType::LEFT:
 			collidable->bounceX();
 			collidable->bounceSetLeft(platform[i]);
-			std::cout << "left\n";
+#ifdef DEBUG
+	std::cout << "left\n";
+#endif 
 			break;
 		case PlatformCollisionType::LEFT_HIGH:
 			collidable->bounceX();
 			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_LEFT).x - (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
+#ifdef DEBUG
 			std::cout << "left high\n";
+#endif
 			break;
 		case PlatformCollisionType::RIGHT:
 			collidable->bounceX();
 			collidable->bounceSetRight(platform[i]);
-			std::cout << "right\n";
+
+#ifdef DEBUG
+	std::cout << "right\n";
+#endif
 			break;
 		case PlatformCollisionType::RIGHT_HIGH:
 			collidable->bounceX();
 			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_RIGHT).x + (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
-			std::cout << "right high\n";
+#ifdef DEBUG
+	std::cout << "right high\n";
+#endif
 			break;
 		case PlatformCollisionType::NONE:
 			//may need to change, the player is set off ground when screen wrapping
