@@ -6,7 +6,7 @@
 
 
 static constexpr auto PI = 3.1415926535897932;
-static constexpr int WINDOW_SCALE = 4;
+static constexpr int WINDOW_SCALE = 6;
 static constexpr int WINDOW_X = 292; //old (SNES) is 236
 static constexpr int WINDOW_Y = 240; //old (SNES)is 194
 static constexpr float SPEED_INC_X = .5 * WINDOW_SCALE;

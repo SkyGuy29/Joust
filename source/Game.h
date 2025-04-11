@@ -20,11 +20,14 @@ public:
 
 private:
 	//handles collision
-	PlatformCollisionType isTouching(sf::FloatRect, Platform);
-	bool isTouchingX(sf::FloatRect, Platform);
+	PlatformCollisionType isTouching(Collidable*, Platform&);
+	bool isTouching(sf::FloatRect, Egg);
+	bool isTouchingX(sf::FloatRect&, Platform&);
 	void collisionUpdate(Collidable*, Platform[]);
+	void collisionUpdate(Player*, Enemy*);
+	void collisionUpdate(Enemy*, Enemy*);
 
-	int score = 0, lives = 5, currentRound = 1;
+	int score[2] {}, lives = 5, currentRound = 1, eggsCollected = 0;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;
@@ -32,7 +35,7 @@ private:
 	sf::RectangleShape bridge;
 	//enemies
 	//eggs
-	Egg egg; //implement as a vector later
+	std::vector<Egg*> eggVec;
 	//birds for the eggs
 };
 

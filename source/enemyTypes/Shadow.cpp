@@ -4,7 +4,7 @@
 Shadow::Shadow()
 {
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	hitbox.setPosition(300, 100);
+	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::SHADOW_FLY);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
@@ -38,21 +38,6 @@ void Shadow::update(Player player[2])
 		if (currentPlatform == -1)
 		{
 			sprite.setFrame(1); //flapping, wings down
-			/*
-					if (isLeftPressed())
-					{
-						sprite.setFaceRight(false);
-						if (vel.x > -SPEED_MAX_X)
-							vel.x -= SPEED_INC_X;
-					}
-					else if (isRightPressed())
-					{
-						sprite.setFaceRight(true);
-						if (vel.x < SPEED_MAX_X)
-							vel.x += SPEED_INC_X;
-					}
-					*/
-
 		}
 		else
 			setOffGround();
@@ -64,21 +49,6 @@ void Shadow::update(Player player[2])
 		if (currentPlatform == -1)
 		{
 			sprite.setFrame(1); //flapping, wings down
-			/*
-					if (isLeftPressed())
-					{
-						sprite.setFaceRight(false);
-						if (vel.x > -SPEED_MAX_X)
-							vel.x -= SPEED_INC_X;
-					}
-					else if (isRightPressed())
-					{
-						sprite.setFaceRight(true);
-						if (vel.x < SPEED_MAX_X)
-							vel.x += SPEED_INC_X;
-					}
-					*/
-
 		}
 		else
 			setOffGround();

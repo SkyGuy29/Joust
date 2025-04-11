@@ -91,7 +91,7 @@ void Enemy::setPosition(sf::Vector2f newPos)
 }
 
 
-void Enemy::bounceSetLeft(Platform platform)
+void Enemy::bounceSetLeft(Platform& platform)
 {
 	hitbox.setPosition(((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 		* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x)
@@ -100,7 +100,7 @@ void Enemy::bounceSetLeft(Platform platform)
 }
 
 
-void Enemy::bounceSetRight(Platform platform)
+void Enemy::bounceSetRight(Platform& platform)
 {
 	hitbox.setPosition((((hitbox.getPosition().y - hitbox.getSize().y / 2.f) - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 		* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
@@ -114,4 +114,10 @@ void Enemy::drawTo(sf::RenderWindow& window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
 		window.draw(hitbox);
 	sprite.drawTo(window);
+}
+
+void Enemy::addVelocity(int x, int y)
+{
+	vel.x += x;
+	vel.y += y;
 }

@@ -10,10 +10,43 @@ Game::Game()
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
+	eggVec.emplace_back(new Egg);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
+	enemyVec.emplace_back(new Shadow);
 	enemyVec.emplace_back(new Shadow);
 	player[0].setPosition(sf::Vector2f(100, 100));
 }
@@ -21,20 +54,64 @@ Game::Game()
 
 void Game::update()
 {
+	static sf::Clock timer;
+	//timer.restart();
+
 	player[0].update();
-	egg.update();
+	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	for (int i = 0; i < enemyVec.size() - 1; i++)
+	{
+		for (int j = i + 1; j < enemyVec.size(); j++)
+		{
+			collisionUpdate(enemyVec.at(i), enemyVec.at(j));
+		}
+	}
+
+	for (int i = 0; i < 2; i++)
+		for (int j = 0; j < enemyVec.size() - 1; j++)
+		{
+			collisionUpdate(&player[i], enemyVec.at(j));
+		}
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
+	for (const auto& egg : eggVec)
+		egg->update();
 
+	//std::cout << "EU: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	for (auto& plat : platform)
 		plat.update();
+	//std::cout << "P:LATupdate: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	collisionUpdate(&player[0], platform);
-	collisionUpdate(&egg, platform);
+	//std::cout << "PLVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+	
+	for (const auto& egg : eggVec)
+		collisionUpdate(egg, platform);
+	//std::cout << "EGVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
+
+	for (const auto& egg : eggVec)
+	{
+		if (isTouching(player[0].getHitbox(), *egg))
+		{
+			eggsCollected++;
+			if (eggsCollected < 4)
+				score[0] += eggsCollected * 250;
+			else
+				score[0] += 1000;
+
+			std::cout << score[0] << "\n";
+
+			eggVec.pop_back(); //fix later to remove the specific egg collected
+		}
+	}
+
+	if (eggVec.empty() && enemyVec.empty())
+		nextRound();
 }
 
 
@@ -78,7 +155,8 @@ void Game::drawTo(sf::RenderWindow& window)
 	window.draw(bridge);
 	for (auto& i : platform)
 		i.drawTo(window);
-	egg.drawTo(window);
+	for (auto& i : eggVec)
+		i->drawTo(window);
 	for (auto& i : enemyVec)
 		i->drawTo(window);
 	player[0].drawTo(window);
@@ -86,21 +164,21 @@ void Game::drawTo(sf::RenderWindow& window)
 
 
 //private
-
-
-PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
+PlatformCollisionType Game::isTouching(Collidable* collidable, Platform& platform)
 {
+	sf::FloatRect hitbox = collidable->getHitbox();
+
 	//y axis collision check
 	if (hitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
 		hitbox.top + hitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 	{
 		//std::cout << "y-axis\n";
-		//x axis general collision check 
+		//x axis general collision check s
 		//still may not be a collision if outside the diagonal
 		if (isTouchingX(hitbox, platform) == true)
 		{
 			if (hitbox.top <= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-			{ 
+			{
 				if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 				{
 					if (hitbox.left <= ((hitbox.top + hitbox.height - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
@@ -111,6 +189,7 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 					else
 						return PlatformCollisionType::RIGHT_HIGH;
 				}
+
 				//checks left diagonal
 				else if (hitbox.left + hitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
 				{
@@ -128,10 +207,11 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 			//std::cout << "x-axis\n";
 			//specific collision, determines behavior of interaction
 			//checks right diagonal
+
 			else if (hitbox.left >= platform.getPointPos(ConvexCorners::BOT_RIGHT).x)
 			{
-				if (hitbox.left <= ((hitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
-					* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x))
+				if (hitbox.left <= (hitbox.top - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_RIGHT).x - platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
 					/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 					+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x)
 					return PlatformCollisionType::RIGHT;
@@ -139,8 +219,8 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 			//checks left diagonal
 			else if (hitbox.left + hitbox.width <= platform.getPointPos(ConvexCorners::BOT_LEFT).x)
 			{
-				if ((hitbox.left + hitbox.width) >= ((hitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
-					* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x))
+				if (hitbox.left + hitbox.width >= (hitbox.top - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
+					* (platform.getPointPos(ConvexCorners::BOT_LEFT).x - platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 					/ (platform.getPointPos(ConvexCorners::BOT_LEFT).y - platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 					+ platform.getPointPos(ConvexCorners::TOP_LEFT).x)
 					return PlatformCollisionType::LEFT;
@@ -154,8 +234,7 @@ PlatformCollisionType Game::isTouching(sf::FloatRect hitbox, Platform platform)
 }
 
 
-
-bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
+bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 {
 	if (playerHitbox.left <= platform.getPointPos(ConvexCorners::TOP_RIGHT).x &&
 		playerHitbox.left + playerHitbox.width >= platform.getPointPos(ConvexCorners::TOP_LEFT).x)
@@ -164,11 +243,20 @@ bool Game::isTouchingX(sf::FloatRect playerHitbox, Platform platform)
 }
 
 
+bool Game::isTouching(sf::FloatRect playerHitbox, Egg egg)
+{
+	return playerHitbox.intersects(egg.getHitbox());
+}
+
+
 void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
+	static sf::Clock timer, timer2;
+	//timer.restart();
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
-		switch (isTouching(collidable->getHitbox(), platform[i]))
+		//timer2.restart();
+		switch (isTouching(collidable, platform[i]))
 		{
 		case PlatformCollisionType::TOP:
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
@@ -213,12 +301,89 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 #endif
 			break;
 		case PlatformCollisionType::NONE:
+			//std::cout << collidable->getGrounded() << std::endl;
+			
+			//std::cout << "CLTA: " << timer2.restart().asMilliseconds() /1000. << '\n';
 			//may need to change, the player is set off ground when screen wrapping
 			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
-				if (collidable->getHitbox().left > platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x ||
+			{
+				
+				//std::cout << "player left: " << collidable->getHitbox().left << std::endl;
+				//std::cout << "platform right: " << platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x << std::endl;
+				//std::cout << ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x)) << std::endl;
+				if ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x) || 
 					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
 					collidable->setOffGround();
+			}
+			//std::cout << "CLTB: " << timer2.restart().asMilliseconds() / 1000. << '\n';
 			break;
+		}
+	}
+	//std::cout << "CLTC: " << timer2.restart().asMilliseconds() / 1000. << '\n';
+
+	//std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
+}
+
+
+void Game::collisionUpdate(Player* player, Enemy* enemy)
+{
+	sf::FloatRect nextPos;
+
+	sf::FloatRect enemyBounds = enemy->getHitbox();
+	sf::FloatRect playerBounds = player->getHitbox();
+
+		nextPos = playerBounds;
+
+		nextPos.left += player->getVelocity().x;
+		nextPos.top += player->getVelocity().y;
+
+		//if (playerBounds.left > wallBounds.left + 25)
+			//wallBounds.left++;
+		//else if (playerBounds.left + 50 < wallBounds.left)
+			//wallBounds.left--;
+
+		if (enemyBounds.intersects(nextPos))
+		{
+			std::cout << "DIE\n";
+		}
+}
+
+
+void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
+{
+	sf::FloatRect nextPos;
+
+	sf::FloatRect enemyOneBounds = enemyOne->getHitbox();
+	sf::FloatRect enemyTwoBounds = enemyTwo->getHitbox();
+
+	nextPos = enemyOneBounds;
+
+	nextPos.left += enemyOne->getVelocity().x;
+	nextPos.top += enemyOne->getVelocity().y;
+
+	//if (playerBounds.left > wallBounds.left + 25)
+		//wallBounds.left++;
+	//else if (playerBounds.left + 50 < wallBounds.left)
+		//wallBounds.left--;
+
+	if (enemyTwoBounds.intersects(nextPos))
+	{
+		enemyOne->bounceX();
+		enemyTwo->bounceX();
+
+		if (enemyOne->getPosition().y < enemyTwo->getPosition().y)
+		{
+			if (enemyOne->getVelocity().y > 0)
+				enemyOne->addVelocity(0, -1);
+			else
+				enemyOne->addVelocity(0, enemyOne->getVelocity().y - 1);
+		}
+		else
+		{
+			if (enemyTwo->getVelocity().y > 0)
+				enemyTwo->addVelocity(0, -1);
+			else
+				enemyTwo->addVelocity(0, enemyTwo->getVelocity().y - 1);
 		}
 	}
 }
