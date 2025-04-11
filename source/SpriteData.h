@@ -31,6 +31,8 @@ enum AnimationNames
     ENEMY_BIRD_GROUND,
     ENEMY_BIRD_FLY,
     ENEMY_BIRD_SKID,
+    ENEMY_SPAWN,
+    ENEMY_SPAWN_PLAT,
     HUNTER_GROUND,
     HUNTER_FLY,
     SHADOW_GROUND,
@@ -57,9 +59,9 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/joustSprite.png", sf::IntRect(248, 102, 13, 12), 2},      //P1_FLY
     {"res/Art/joustSprite.png", sf::IntRect(248, 136, 11, 18), 4},      //P1_BIRD_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(248, 156, 12, 12), 2},      //P1_BIRD_FLY
-    {"res/Art/joustSprite.png", sf::IntRect(323, 364, 12, 18), 6},      //P1_SPAWN
+    {"res/Art/spawnAnims.png", sf::IntRect(0, 0, 13, 18), 6},           //P1_SPAWN
     {"res/Art/spawners.png", sf::IntRect(0, 0, 28, 3), 3},              //P1_SPAWN_PLAT
-    {"res/Art/joustSprite.png", sf::IntRect(323, 386, 12, 18), 6},      //P2_SPAWN
+    {"res/Art/spawnAnims.png", sf::IntRect(78, 0, 13, 18), 6},          //P2_SPAWN
     {"res/Art/spawners.png", sf::IntRect(0, 3, 28, 3), 3},              //P2_SPAWN_PLAT
     {"res/Art/joustSprite.png", sf::IntRect(248, 173, 13, 13), 3},      //DEATH
     {"res/Art/joustSprite.png", sf::IntRect(248, 286, 7, 6), 3},        //EGG_FALL
@@ -69,6 +71,8 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/joustSprite.png", sf::IntRect(247, 228, 14, 13), 4},      //ENEMY_BIRD_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(247, 243, 15, 12), 2},      //ENEMY_BIRD_FLY
     {"res/Art/joustSprite.png", sf::IntRect(247, 257, 15, 12), 1},      //ENEMY_BIRD_SKID
+    {"res/Art/spawnAnims.png", sf::IntRect(156, 0, 13, 18), 3},         //ENEMY_SPAWN
+    {"res/Art/spawners.png", sf::IntRect(0, 6, 28, 3), 3},              //ENEMY_SPAWN_PLAT
     {"res/Art/enemyAnimations.png", sf::IntRect(0, 0, 13, 18), 4},      //HUNTER_GROUND 
     {"res/Art/enemyAnimations.png", sf::IntRect(0, 18, 13, 12), 2},     //HUNTER_FLY 
     {"res/Art/enemyAnimations.png", sf::IntRect(52, 0, 13, 18), 4},     //SHADOW_GROUND 
