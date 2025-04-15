@@ -31,6 +31,8 @@ public:
 	virtual void drawTo(sf::RenderWindow&);
 
 	void addVelocity(int, int);
+	void resetVelocityX() { vel.x = 0; }
+	void resetVelocityY() { vel.y = 0; }
 
 protected:
 
