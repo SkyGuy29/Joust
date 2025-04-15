@@ -75,14 +75,14 @@ void Animation::nextSpawnFrame(int delay)
 		delayCount = 0;
 		sf::IntRect spriteRect = sprite.getTextureRect();
 
-		if (spriteRect == spriteData[currentAnimation].bounds)
+		if (spriteRect == spriteData[currentAnimation].bounds) //if they are still equal...
 		{
 			spriteRect.top -= spriteRect.height; //move it up to start the spawning
 		}
 
 		if (spriteRect.top == spriteData[currentAnimation].bounds.top) //if not at the bottom...
 		{
-			spriteRect.top--;
+			spriteRect.top++; //move it down
 		}
 
 		sprite.setTextureRect(spriteRect);
