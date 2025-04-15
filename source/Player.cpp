@@ -29,7 +29,7 @@ void Player::update()
 	}
 
 	//velocity increase and skidding
-	if (currentPlatform >= 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if ((currentPlatform >= 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) && disable == false)
 	{
 		if (isLeftPressed() || (skid == true && vel.x > 0))
 		{
@@ -72,7 +72,7 @@ void Player::update()
 	}
 	
 	//flight
-	if (!jumpKeyHeld && isJumpPressed())
+	if (!jumpKeyHeld && isJumpPressed() && disable == false)
 	{
 		jumpKeyHeld = true;
 		vel.y -= 2 * (WINDOW_SCALE / 3.f);
@@ -99,7 +99,7 @@ void Player::update()
 	}
 
 	//debug keys
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && disable == false)
 	{
 		if (isDownPressed())
 			vel.y = SPEED_INC_X;
@@ -110,7 +110,7 @@ void Player::update()
 			vel.x = 0;
 		}
 	}
-	else if (currentPlatform == -1) //gravity
+	else if (currentPlatform == -1 && gravity == true) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	//next three ifs were formerly "isTouchingBounds()" from Game, moving to here made more sense
@@ -212,6 +212,18 @@ void Player::drawTo(sf::RenderWindow& window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
 		window.draw(hitbox);
 	sprite.drawTo(window);
+}
+
+
+void Player::toggleGravity(bool temp)
+{
+	gravity = temp;
+}
+
+
+void Player::toggleDisable(bool temp)
+{
+	disable = temp;
 }
 
 

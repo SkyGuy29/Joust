@@ -17,7 +17,7 @@ Game::Game()
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Shadow);
 
-	player[0].setPosition(sf::Vector2f(100, 100));
+	player[0].setPosition(sf::Vector2f(500, 500));
 }
 
 
@@ -38,7 +38,7 @@ void Game::update()
 	}
 
 	for (int i = 0; i < 2; i++)
-		for (int j = 0; j < enemyVec.size() - 1; j++)
+		for (int j = 0; j < enemyVec.size(); j++)
 		{
 			collisionUpdate(&player[i], enemyVec.at(j));
 		}
@@ -313,7 +313,22 @@ void Game::collisionUpdate(Player* player, Enemy* enemy)
 
 		if (enemyBounds.intersects(nextPos))
 		{
-			std::cout << "DIE\n";
+			if (enemy->getPosition().y > player->getPosition().y)
+			{
+				enemy->setPosition(sf::Vector2f( 5000, 5000));
+				player->resetVelocityY();
+				player->addVelocity(0, -2);
+			}
+			else if (enemy->getPosition().y < player->getPosition().y)
+			{
+				player->resetVelocityX();
+				player->resetVelocityY();
+				player->toggleGravity(false);
+				player->toggleDisable(true);
+				enemy->resetVelocityY();
+				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
+				enemy->addVelocity(0, -2);
+			}
 		}
 }
 

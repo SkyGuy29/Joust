@@ -19,6 +19,12 @@ public:
 	//flips the velocity of the collidable vertically
 	virtual void bounceY() { vel.y *= -1; }
 
+	//resets the velocity to zero
+	virtual void resetVelocityX() { vel.x = 0; }
+	virtual void resetVelocityY() { vel.y = 0; }
+
+	virtual void addVelocity(int, int);
+
 	//repositions the hitbox based on the formula given in res\misc\diagonalCollisionDerivationP2.png
 	virtual void bounceSetLeft(Platform&);
 	virtual void bounceSetRight(Platform&);

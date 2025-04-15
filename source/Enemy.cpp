@@ -115,9 +115,3 @@ void Enemy::drawTo(sf::RenderWindow& window)
 		window.draw(hitbox);
 	sprite.drawTo(window);
 }
-
-void Enemy::addVelocity(int x, int y)
-{
-	vel.x += x;
-	vel.y += y;
-}

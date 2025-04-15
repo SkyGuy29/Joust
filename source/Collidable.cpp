@@ -26,3 +26,10 @@ void Collidable::bounceSetRight(Platform& platform)
 		/ (platform.getPointPos(ConvexCorners::BOT_RIGHT).y - platform.getPointPos(ConvexCorners::TOP_RIGHT).y)
 		+ platform.getPointPos(ConvexCorners::TOP_RIGHT).x + 50, hitbox.getPosition().y);
 }
+
+
+void Collidable::addVelocity(int x, int y)
+{
+	vel.x += x;
+	vel.y += y;
+}
