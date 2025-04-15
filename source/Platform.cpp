@@ -103,6 +103,8 @@ void Platform::setPlatform(const int platformID, std::string file)
 		}
 	}
 
+	sprite.setMode(Mode::END);
+
 	sprite.setPos(sf::Vector2f((hitbox.getPoint(ConvexCorners::TOP_LEFT).x + hitbox.getPoint(ConvexCorners::TOP_RIGHT).x) / 2,
 		(hitbox.getPoint(ConvexCorners::TOP_LEFT).y + hitbox.getPoint(ConvexCorners::BOT_LEFT).y) / 2));
 }
