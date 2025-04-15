@@ -16,38 +16,7 @@ Game::Game()
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
-	enemyVec.emplace_back(new Shadow);
+
 	player[0].setPosition(sf::Vector2f(100, 100));
 }
 
@@ -368,22 +337,29 @@ void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 
 	if (enemyTwoBounds.intersects(nextPos))
 	{
-		enemyOne->bounceX();
-		enemyTwo->bounceX();
-
-		if (enemyOne->getPosition().y < enemyTwo->getPosition().y)
+		if (enemyOne->getPosition().y + enemyOne->getSize().y / 2 < enemyTwo->getPosition().y )
 		{
-			if (enemyOne->getVelocity().y > 0)
-				enemyOne->addVelocity(0, -1);
-			else
-				enemyOne->addVelocity(0, enemyOne->getVelocity().y - 1);
+				enemyOne->resetVelocityY();
+				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
+				enemyOne->addVelocity(0, -2);
+				enemyTwo->resetVelocityY();
+				enemyTwo->setPosition(sf::Vector2f(enemyTwo->getPosition().x, enemyOne->getPosition().y + enemyOne->getSize().y));
+				enemyTwo->addVelocity(0, 2);
+			
+		}
+		else if (enemyTwo->getPosition().y + enemyTwo->getSize().y / 2 < enemyOne->getPosition().y)
+		{
+			enemyTwo->resetVelocityY();
+			//enemyTwo->setPosition(sf::Vector2f(enemyTwo->getPosition().x, enemy->getPosition().y));
+			enemyTwo->addVelocity(0, -2);
+			enemyOne->resetVelocityY();
+			enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyTwo->getPosition().y + enemyTwo->getSize().y));
+			enemyOne->addVelocity(0, 2);
 		}
 		else
 		{
-			if (enemyTwo->getVelocity().y > 0)
-				enemyTwo->addVelocity(0, -1);
-			else
-				enemyTwo->addVelocity(0, enemyTwo->getVelocity().y - 1);
+			enemyOne->bounceX();
+			enemyTwo->bounceX();
 		}
 	}
 }
