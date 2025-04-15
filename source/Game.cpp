@@ -66,6 +66,7 @@ void Game::update()
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
+	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }
 
 
@@ -196,7 +197,7 @@ bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 		return true;
 	return false;
 }
-
+	
 
 bool Game::isTouching(sf::FloatRect playerHitbox, Egg* egg)
 {
