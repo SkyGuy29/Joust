@@ -80,7 +80,7 @@ void Animation::nextSpawnFrame(int delay)
 			spriteRect.top -= spriteRect.height; //move it up to start the spawning
 		}
 
-		if (spriteRect.top == spriteData[currentAnimation].bounds.top) //if not at the bottom...
+		if (spriteRect.top != spriteData[currentAnimation].bounds.top) //if not at the bottom...
 		{
 			spriteRect.top++; //move it down
 		}
