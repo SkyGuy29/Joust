@@ -148,6 +148,7 @@
     <ClCompile Include="source\Joust.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\unusedClasses\Video.cpp" />
+    <ClCompile Include="source\Spawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\enemyTypes\Bounder.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="source\Joust.h" />
     <ClInclude Include="source\SpriteData.h" />
     <ClInclude Include="source\unusedClasses\Video.h" />
+    <ClInclude Include="source\Spawner.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\art\centerPlat.png" />
@@ -176,6 +178,7 @@
     <Image Include="res\Art\leftSide.png" />
     <Image Include="res\Art\rightSide.png" />
     <Image Include="res\Art\rightSideSmall.png" />
+    <Image Include="res\Art\spawnAnims.png" />
     <Image Include="res\Art\spawners.png" />
     <Image Include="res\art\topCenterPlat.png" />
     <Image Include="res\Art\topSidePlats.png" />
