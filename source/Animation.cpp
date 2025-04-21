@@ -68,24 +68,33 @@ void Animation::nextFrame(int delay)
 }
 
 
-void Animation::nextSpawnFrame(int delay)
+bool Animation::nextSpawnFrame(int delay)
 {
-	if (++delayCount % delay == 0)
+	switch (currentAnimation)
 	{
-		delayCount = 0;
-		sf::IntRect spriteRect = sprite.getTextureRect();
+		case AnimationNames::P1_SPAWN:
+		case AnimationNames::P2_SPAWN:
+		case AnimationNames::ENEMY_SPAWN:
+			if (++delayCount % delay == 0)
+			{
+				delayCount = 0;
+				sf::IntRect spriteRect = sprite.getTextureRect();
 
-		if (spriteRect == spriteData[currentAnimation].bounds) //if they are still equal...
-		{
-			spriteRect.top -= spriteRect.height; //move it up to start the spawning
-		}
+				if (spriteRect == spriteData[currentAnimation].bounds) //if they are still equal...
+				{
+					if (!spawnFirstLoop)
+						return true; //once the first loop is done, return true
+					
+					spawnFirstLoop = false; //this is the first loop, so don't return true yet
+					spriteRect.top -= spriteRect.height; //move it up to start the spawning
+				}
+				
+				spriteRect.top++; //move it down
 
-		if (spriteRect.top != spriteData[currentAnimation].bounds.top) //if not at the bottom...
-		{
-			spriteRect.top++; //move it down
-		}
-
-		sprite.setTextureRect(spriteRect);
+				sprite.setTextureRect(spriteRect);
+			} //no break statement needed, returns false when iteration is complete
+		default:
+			return false; //only the listed animations are allowed to spawn
 	}
 }
 

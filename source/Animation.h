@@ -49,7 +49,8 @@ public:
 
 	//moves the texture rect down to replicate spawning.
 	//does not change which frame is being displayed.
-	void nextSpawnFrame(int = 1);
+	//returns true if spawn animation is finished, false if not.
+	bool nextSpawnFrame(int = 1);
 
 	//sets the animation to a given frame.
 	//you are fully allowed to set this past the max. 
@@ -65,6 +66,7 @@ private:
 		currentFrame = 0, //THE FIRST FRAME IS 0 LIKE AN ARRAY
 		delayCount = 0;  
 	bool facingRight = true;
+	bool spawnFirstLoop = true; //used to make the spawn animation only cycle once before returning
 	Mode currentMode = Mode::LOOP;
 	AnimationNames currentAnimation = AnimationNames::DATA_COUNT;
 };
