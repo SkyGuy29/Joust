@@ -48,7 +48,7 @@ void Game::update()
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
 
-	for (const auto& egg : eggVec)
+	for (const auto& egg : eggVec) //egg collection update
 	{
 		if (isTouching(player[0].getHitbox(), egg))
 		{
@@ -63,6 +63,13 @@ void Game::update()
 			eggVec.pop_back(); //fix later to remove the specific egg collected
 		}
 	}
+
+	for (const auto& egg : eggVec) //egg hatch update
+		if (egg->getTimer() >= 20000)
+		{
+			enemyVec.emplace_back(new Shadow);
+			eggVec.pop_back(); //make it remove the specific egg
+		}
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
