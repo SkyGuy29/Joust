@@ -27,6 +27,9 @@ public:
 
 	void drawTo(sf::RenderWindow&);
 
+	void toggleGravity(bool);
+	void toggleDisable(bool);
+
 private:
 	//i hate sfml keyboard detection naming so i made a mediocre fix
 	bool isLeftPressed();
@@ -36,7 +39,7 @@ private:
 
 	Animation sprite;
 
-	bool jumpKeyHeld = false, skid = false;
+	bool jumpKeyHeld = false, skid = false, gravity = true, disable = false;
 	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0;
 	//player sounds
 	//iframes timer

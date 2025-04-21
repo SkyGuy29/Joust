@@ -30,6 +30,7 @@ public:
 
 	virtual void drawTo(sf::RenderWindow&);
 
+
 protected:
 
 	Animation sprite;

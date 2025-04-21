@@ -48,10 +48,41 @@ void Animation::nextFrame(int delay)
 		{
 			spriteRect.left += spriteRect.width;
 		}
+		else if (currentMode == Mode::END) //if set to end, do nothing
+		{
+			currentFrame = maxFrame - 1;
+		}
 		else if (currentMode == Mode::LOOP) //if set to loop, reset the counter and rect
 		{
 			currentFrame = 0;
 			spriteRect = spriteData[currentAnimation].bounds;
+		}
+		else if (currentMode == Mode::REVERSE) //if set to reverse, go backwards (untested)
+		{
+			currentFrame = 0;
+			spriteRect.left -= spriteRect.width * (maxFrame - 1);
+		}
+
+		sprite.setTextureRect(spriteRect);
+	}
+}
+
+
+void Animation::nextSpawnFrame(int delay)
+{
+	if (++delayCount % delay == 0)
+	{
+		delayCount = 0;
+		sf::IntRect spriteRect = sprite.getTextureRect();
+
+		if (spriteRect == spriteData[currentAnimation].bounds) //if they are still equal...
+		{
+			spriteRect.top -= spriteRect.height; //move it up to start the spawning
+		}
+
+		if (spriteRect.top != spriteData[currentAnimation].bounds.top) //if not at the bottom...
+		{
+			spriteRect.top++; //move it down
 		}
 
 		sprite.setTextureRect(spriteRect);

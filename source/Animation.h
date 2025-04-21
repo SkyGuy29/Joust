@@ -47,12 +47,14 @@ public:
 	//default value is 1, advances every frame
 	void nextFrame(int = 1);
 
+	//moves the texture rect down to replicate spawning.
+	//does not change which frame is being displayed.
+	void nextSpawnFrame(int = 1);
+
 	//sets the animation to a given frame.
 	//you are fully allowed to set this past the max. 
 	//The max is simply there for looping or other ends.
-	void setFrame(int newFrameCount);
-
-
+	void setFrame(int);
 
 	//draws the animation to the passed in window.
 	void drawTo(sf::RenderWindow& window) const { window.draw(sprite); }
