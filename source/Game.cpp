@@ -12,12 +12,12 @@ Game::Game()
 	bridge.setFillColor(sf::Color(144, 72, 0));
 	eggVec.emplace_back(new Egg);
 	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Shadow);
+	//enemyVec.emplace_back(new Hunter);
+	//enemyVec.emplace_back(new Hunter);
+	//enemyVec.emplace_back(new Hunter);
+	//enemyVec.emplace_back(new Shadow);
 
-	player[0].setPosition(sf::Vector2f(500, 500));
+	player[0].setPosition(sf::Vector2f(1000, 1000));
 }
 
 
