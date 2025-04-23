@@ -24,7 +24,7 @@ private:
 	bool isTouching(sf::FloatRect, Egg*);
 	bool isTouchingX(sf::FloatRect&, Platform&);
 	void collisionUpdate(Collidable*, Platform[]);
-	void collisionUpdate(Player*, Enemy*);
+	void collisionUpdate(Player*, Enemy*, int);
 	void collisionUpdate(Enemy*, Enemy*);
 
 	int score[2] {}, lives = 5, currentRound = 1, eggsCollected = 0;

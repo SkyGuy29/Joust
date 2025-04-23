@@ -17,6 +17,8 @@ Egg::Egg(sf::Vector2f startingPos, sf::Vector2f startingVel)
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(startingPos);
 	vel = startingVel;
+	if (vel.y < 0)
+		vel.y *= -.5;
 	hitbox.setFillColor(sf::Color::Cyan);
 	sprite.setAnimation(AnimationNames::EGG_FALL);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol

@@ -40,7 +40,7 @@ void Game::update()
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < enemyVec.size(); j++)
 		{
-			collisionUpdate(&player[i], enemyVec.at(j));
+			collisionUpdate(&player[i], enemyVec.at(j), j);
 		}
 
 	for (const auto& enemy : enemyVec)
@@ -303,7 +303,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 }
 
 
-void Game::collisionUpdate(Player* player, Enemy* enemy)
+void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 {
 	sf::FloatRect nextPos;
 
@@ -325,10 +325,10 @@ void Game::collisionUpdate(Player* player, Enemy* enemy)
 			if (enemy->getPosition().y > player->getPosition().y)
 			{
 				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity()));
-				enemy->setPosition(sf::Vector2f( 5000, 5000));
+				enemyVec.erase(enemyVec.begin() + pos);
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
-				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity()));
+
 			}
 			else if (enemy->getPosition().y < player->getPosition().y)
 			{
