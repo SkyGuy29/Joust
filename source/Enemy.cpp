@@ -49,7 +49,7 @@ void Enemy::update(Player player[2])
 	}
 
 
-	if (currentPlatform == -1) //gravity
+	if (currentPlatform == -1 && target >= 0) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
 	//animation speed
@@ -67,6 +67,9 @@ void Enemy::update(Player player[2])
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
 		hitbox.getPosition().y));
+
+	sprite.setFaceRight(vel.x > 0);
+	
 }
 
 

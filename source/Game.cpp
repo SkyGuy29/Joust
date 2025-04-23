@@ -4,44 +4,50 @@
 Game::Game()
 {
 	for (int i = 0; i < PLATFORM_COUNT; i++)
-	{
-		platform[i].setPlatform(i, "a");
-	}// hohoho
+		platform[i].setPlatform(i, "a"); // hohoho
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
-	eggVec.emplace_back(new Egg);
+
 	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Bounder);
+	enemyVec.emplace_back(new Hunter);
+	//enemyVec.emplace_back(new Hunter);
+	//enemyVec.emplace_back(new Hunter);
 	enemyVec.emplace_back(new Shadow);
 
-	player[0].setPosition(sf::Vector2f(500, 500));
+	font.loadFromFile("res/Fonts/Arcade.ttf");
+	font.setSmooth(false);
+	scoreText.setFont(font);
+	scoreText.setCharacterSize(15);
+	scoreText.setFillColor(sf::Color::Yellow);
+	scoreText.setString("0");
+	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, 
+		scoreText.getLocalBounds().height / 2 - WINDOW_SCALE * 4); //four
+	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	scoreText.setPosition(104 * WINDOW_SCALE, 213 * WINDOW_SCALE);
+
+	player[0].setPosition(sf::Vector2f(1000, 1000));
 }
 
 
 void Game::update()
 {
-	static sf::Clock timer;
+	//static sf::Clock timer;
 	//timer.restart();
 
 	player[0].update();
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
-	for (int i = 0; i < enemyVec.size() - 1; i++)
+	if (enemyVec.size() > 1)
 	{
-		for (int j = i + 1; j < enemyVec.size(); j++)
-		{
-			collisionUpdate(enemyVec.at(i), enemyVec.at(j));
-		}
+		for (int i = 0; i < enemyVec.size() - 1; i++)
+			for (int j = i + 1; j < enemyVec.size(); j++)
+				collisionUpdate(enemyVec.at(i), enemyVec.at(j));
 	}
 
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < enemyVec.size(); j++)
-		{
-			collisionUpdate(&player[i], enemyVec.at(j));
-		}
+			collisionUpdate(&player[i], enemyVec.at(j), j);
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
@@ -63,9 +69,9 @@ void Game::update()
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
 
-	for (const auto& egg : eggVec)
+	for (int i = 0; i < eggVec.size(); i++) //egg collection update
 	{
-		if (isTouching(player[0].getHitbox(), *egg))
+		if (isTouching(player[0].getHitbox(), eggVec[i]))
 		{
 			eggsCollected++;
 			if (eggsCollected < 4)
@@ -75,12 +81,39 @@ void Game::update()
 
 			std::cout << score[0] << "\n";
 
-			eggVec.pop_back(); //fix later to remove the specific egg collected
+			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
-	}
+	}   
+
+	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
+		if (eggVec.at(i)->getTimer() >= 20000)
+		{
+			switch (eggVec.at(i)->getType())
+			{
+			case EMPTY:
+				enemyVec.emplace_back(new Bounder(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case BOUNDER:
+				enemyVec.emplace_back(new Hunter(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case HUNTER:
+				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case SHADOW:
+				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			}
+			std::cout << eggVec.at(i)->getHitbox().getPosition().x << std::endl << eggVec.at(i)->getHitbox().getPosition().y << std::endl << std::endl;
+			eggVec.erase(eggVec.begin() + i);
+		}
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
+	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	scoreText.setString(std::to_string(score[0]));
+	//scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
+	//	scoreText.getLocalBounds().height / 2);
 }
 
 
@@ -124,11 +157,15 @@ void Game::drawTo(sf::RenderWindow& window)
 	window.draw(bridge);
 	for (auto& i : platform)
 		i.drawTo(window);
-	for (auto& i : eggVec)
+	for (const auto& i : eggVec)
 		i->drawTo(window);
-	for (auto& i : enemyVec)
+	for (const auto& i : enemyVec)
 		i->drawTo(window);
 	player[0].drawTo(window);
+	window.draw(scoreText);
+
+	std::cout << sf::Mouse::getPosition(window).x / WINDOW_SCALE << " " << sf::Mouse::getPosition(window).y / WINDOW_SCALE << "    ";
+	std::cout << scoreText.getPosition().x / WINDOW_SCALE << " " << scoreText.getPosition().y / WINDOW_SCALE << std::endl;
 }
 
 
@@ -210,11 +247,11 @@ bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 		return true;
 	return false;
 }
+	
 
-
-bool Game::isTouching(sf::FloatRect playerHitbox, Egg egg)
+bool Game::isTouching(sf::FloatRect playerHitbox, Egg *egg)
 {
-	return playerHitbox.intersects(egg.getHitbox());
+	return playerHitbox.intersects(egg->getHitbox());
 }
 
 
@@ -294,7 +331,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 }
 
 
-void Game::collisionUpdate(Player* player, Enemy* enemy)
+void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 {
 	sf::FloatRect nextPos;
 
@@ -315,9 +352,11 @@ void Game::collisionUpdate(Player* player, Enemy* enemy)
 		{
 			if (enemy->getPosition().y > player->getPosition().y)
 			{
-				enemy->setPosition(sf::Vector2f( 5000, 5000));
+				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
+				enemyVec.erase(enemyVec.begin() + pos);
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
+
 			}
 			else if (enemy->getPosition().y < player->getPosition().y)
 			{

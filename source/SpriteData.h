@@ -14,6 +14,7 @@ struct SpriteData
 //names for the data you want.
 enum AnimationNames
 {
+	NONE, //this is used to indicate no animation
     P1_GROUND,
     P1_SKID,
     P1_FLY,
@@ -54,6 +55,7 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
 {
     //all the data follows this pattern:
     //fileName, (startPixelX, startPixelY, spriteWidth, spriteHeight), frameCount
+	{"res/Art/spawners.png", sf::IntRect(100, 100, 0, 0), 0},           //NONE          //this loads a blank sprite
     {"res/Art/joustSprite.png", sf::IntRect(248, 64, 13, 18), 4},       //P1_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(248, 82, 13, 18), 1},       //P1_SKID
     {"res/Art/joustSprite.png", sf::IntRect(248, 102, 13, 12), 2},      //P1_FLY

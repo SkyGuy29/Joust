@@ -72,3 +72,12 @@ enum PlatformNames
 	P_GROUND,
     PLATFORM_COUNT
 };
+
+
+enum EnemyTypes
+{
+    EMPTY = 0,
+    BOUNDER,
+    HUNTER,
+    SHADOW
+};

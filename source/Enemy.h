@@ -30,13 +30,20 @@ public:
 
 	virtual void drawTo(sf::RenderWindow&);
 
+	virtual EnemyTypes getType()
+	{
+		return type;
+	}
+
 
 protected:
 
 	Animation sprite;
 
+	EnemyTypes type;
+
 	bool skid = false;
-	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0;
+	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0, target = -1;
 	//player sounds
 	//iframes timer
 	//much more i'm forgetting

@@ -112,7 +112,7 @@ void Platform::setPlatform(const int platformID, std::string file)
 
 void Platform::update()
 {
-	sprite.nextFrame(10);
+	//sprite.nextFrame(10);
 }
 
 void Platform::drawTo(sf::RenderWindow& window) const
