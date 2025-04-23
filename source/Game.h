@@ -31,12 +31,12 @@ private:
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;
+	std::vector<Egg*> eggVec;
 	Platform platform[8];
 	sf::RectangleShape bridge;
-	//enemies
-	//eggs
-	std::vector<Egg*> eggVec;
-	//birds for the eggs
+	sf::Font font;
+	sf::Text scoreText; //todo: make two for 2p
+	//eventually add birds for the eggs
 };
 
 // okay

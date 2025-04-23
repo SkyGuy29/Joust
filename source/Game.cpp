@@ -4,12 +4,11 @@
 Game::Game()
 {
 	for (int i = 0; i < PLATFORM_COUNT; i++)
-	{
-		platform[i].setPlatform(i, "a");
-	}// hohoho
+		platform[i].setPlatform(i, "a"); // hohoho
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
+
 	eggVec.emplace_back(new Egg);
 	enemyVec.emplace_back(new Bounder);
 	//enemyVec.emplace_back(new Hunter);
@@ -17,31 +16,36 @@ Game::Game()
 	//enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Shadow);
 
+	font.loadFromFile("res/Fonts/Arcade.ttf");
+	font.setSmooth(false);
+	scoreText.setFont(font);
+	scoreText.setCharacterSize(15);
+	scoreText.setFillColor(sf::Color::Yellow);
+	scoreText.setString("0");
+	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, 
+		scoreText.getLocalBounds().height / 2);
+	scoreText.setPosition(104 * WINDOW_SCALE - WINDOW_SCALE, 213 * WINDOW_SCALE - WINDOW_SCALE * (WINDOW_SCALE - 1));
+
 	player[0].setPosition(sf::Vector2f(1000, 1000));
 }
 
 
 void Game::update()
 {
-	static sf::Clock timer;
+	//static sf::Clock timer;
 	//timer.restart();
 
 	player[0].update();
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (int i = 0; i < enemyVec.size() - 1; i++)
-	{
 		for (int j = i + 1; j < enemyVec.size(); j++)
-		{
 			collisionUpdate(enemyVec.at(i), enemyVec.at(j));
-		}
-	}
 
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < enemyVec.size(); j++)
-		{
 			collisionUpdate(&player[i], enemyVec.at(j));
-		}
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player);
@@ -64,7 +68,6 @@ void Game::update()
 		collisionUpdate(enemy, platform);
 
 	for (const auto& egg : eggVec) //egg collection update
-	{
 		if (isTouching(player[0].getHitbox(), egg))
 		{
 			eggsCollected++;
@@ -77,7 +80,6 @@ void Game::update()
 
 			eggVec.pop_back(); //fix later to remove the specific egg collected
 		}
-	}
 
 	for (const auto& egg : eggVec) //egg hatch update
 		if (egg->getTimer() >= 20000)
@@ -89,6 +91,10 @@ void Game::update()
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
 	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	scoreText.setString(std::to_string(score[0]));
+	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
+		scoreText.getLocalBounds().height / 2);
 }
 
 
@@ -132,11 +138,12 @@ void Game::drawTo(sf::RenderWindow& window)
 	window.draw(bridge);
 	for (auto& i : platform)
 		i.drawTo(window);
-	for (auto& i : eggVec)
+	for (const auto& i : eggVec)
 		i->drawTo(window);
-	for (auto& i : enemyVec)
+	for (const auto& i : enemyVec)
 		i->drawTo(window);
 	player[0].drawTo(window);
+	window.draw(scoreText);
 }
 
 
