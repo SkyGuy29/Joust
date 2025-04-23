@@ -65,7 +65,7 @@ void Game::update()
 
 	for (const auto& egg : eggVec) //egg collection update
 	{
-		if (isTouching(player[0].getHitbox(), *egg))
+		if (isTouching(player[0].getHitbox(), egg))
 		{
 			eggsCollected++;
 			if (eggsCollected < 4)
@@ -220,9 +220,9 @@ bool Game::isTouchingX(sf::FloatRect& playerHitbox, Platform& platform)
 }
 	
 
-bool Game::isTouching(sf::FloatRect playerHitbox, Egg egg)
+bool Game::isTouching(sf::FloatRect playerHitbox, Egg *egg)
 {
-	return playerHitbox.intersects(egg.getHitbox());
+	return playerHitbox.intersects(egg->getHitbox());
 }
 
 
