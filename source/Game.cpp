@@ -80,12 +80,10 @@ void Game::update()
 	}   
 
 	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
-		if (eggVec[i]->getTimer() >= 20000)
+		if (eggVec.at(i)->getTimer() >= 20000)
 		{
-			enemyVec.emplace_back(new Shadow(egg->getHitbox().getPosition()));
-			std::cout << egg->getHitbox().getPosition().x << std::endl << egg->getHitbox().getPosition().y << std::endl << std::endl;
-			eggVec.pop_back(); //make it remove the specific egg
-			enemyVec.emplace_back(new Shadow);
+			enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+			std::cout << eggVec.at(i)->getHitbox().getPosition().x << std::endl << eggVec.at(i)->getHitbox().getPosition().y << std::endl << std::endl;
 			eggVec.erase(eggVec.begin() + i);
 		}
 
@@ -329,6 +327,7 @@ void Game::collisionUpdate(Player* player, Enemy* enemy)
 				enemy->setPosition(sf::Vector2f( 5000, 5000));
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
+				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity()));
 			}
 			else if (enemy->getPosition().y < player->getPosition().y)
 			{
