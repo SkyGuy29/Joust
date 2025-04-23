@@ -39,9 +39,12 @@ void Game::update()
 	player[0].update();
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
-	for (int i = 0; i < enemyVec.size() - 1; i++)
-		for (int j = i + 1; j < enemyVec.size(); j++)
-			collisionUpdate(enemyVec.at(i), enemyVec.at(j));
+	if (enemyVec.size() == 1)
+	{
+		for (int i = 0; i < enemyVec.size() - 1; i++)
+			for (int j = i + 1; j < enemyVec.size(); j++)
+				collisionUpdate(enemyVec.at(i), enemyVec.at(j));
+	}
 
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < enemyVec.size(); j++)
