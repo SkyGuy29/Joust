@@ -3,6 +3,7 @@
 
 Bounder::Bounder()
 {
+	type = BOUNDER;
 	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::BOUNDER_FLY);
@@ -14,6 +15,7 @@ Bounder::Bounder()
 
 Bounder::Bounder(sf::Vector2f pos)
 {
+	type = BOUNDER;
 	hitbox.setPosition(pos);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::BOUNDER_FLY);

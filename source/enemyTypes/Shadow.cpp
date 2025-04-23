@@ -3,6 +3,7 @@
 
 Shadow::Shadow()
 {
+	type = SHADOW;
 	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::SHADOW_FLY);
@@ -14,6 +15,7 @@ Shadow::Shadow()
 
 Shadow::Shadow(sf::Vector2f pos)
 {
+	type = SHADOW;
 	hitbox.setPosition(pos);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::SHADOW_FLY);

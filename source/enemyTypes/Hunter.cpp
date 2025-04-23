@@ -3,6 +3,7 @@
 
 Hunter::Hunter()
 {
+	type = HUNTER;
 	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::HUNTER_FLY);
@@ -14,6 +15,7 @@ Hunter::Hunter()
 
 Hunter::Hunter(sf::Vector2f pos)
 {
+	type = HUNTER;
 	hitbox.setPosition(pos);
 	hitbox.setFillColor(sf::Color::Yellow);
 	sprite.setAnimation(AnimationNames::HUNTER_FLY);

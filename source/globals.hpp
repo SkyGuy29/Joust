@@ -73,3 +73,12 @@ enum PlatformNames
 	P_TOP_RIGHT,
 	P_GROUND,
 };
+
+
+enum EnemyTypes
+{
+    EMPTY = 0,
+    BOUNDER,
+    HUNTER,
+    SHADOW
+};

@@ -12,8 +12,9 @@ Egg::Egg()
 	eggTimer.restart();
 }
 
-Egg::Egg(sf::Vector2f startingPos, sf::Vector2f startingVel)
+Egg::Egg(sf::Vector2f startingPos, sf::Vector2f startingVel, EnemyTypes tempType)
 {
+	type = tempType;
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(startingPos);
 	vel = startingVel;
