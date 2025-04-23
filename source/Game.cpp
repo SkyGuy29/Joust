@@ -324,6 +324,7 @@ void Game::collisionUpdate(Player* player, Enemy* enemy)
 		{
 			if (enemy->getPosition().y > player->getPosition().y)
 			{
+				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity()));
 				enemy->setPosition(sf::Vector2f( 5000, 5000));
 				player->resetVelocityY();
 				player->addVelocity(0, -2);

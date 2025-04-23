@@ -12,6 +12,18 @@ Egg::Egg()
 	eggTimer.restart();
 }
 
+Egg::Egg(sf::Vector2f startingPos, sf::Vector2f startingVel)
+{
+	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
+	hitbox.setPosition(startingPos);
+	vel = startingVel;
+	hitbox.setFillColor(sf::Color::Cyan);
+	sprite.setAnimation(AnimationNames::EGG_FALL);
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+
+	eggTimer.restart();
+}
+
 void Egg::update()
 {
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
@@ -35,10 +47,9 @@ void Egg::update()
 		sprite.nextFrame(10);
 
 	if (currentPlatform == -1)//gravity? who gives a crap about gravity?? ME!!
-	{
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
-		//vel.x = 2 * (WINDOW_SCALE / 3.f);
-	}
+	else
+		vel.x = 0;
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
 		hitbox.getPosition().y));

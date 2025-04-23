@@ -7,6 +7,7 @@ class Egg : public Collidable
 {
 public:
 	Egg();
+	Egg(sf::Vector2f, sf::Vector2f);
 	void update() override;
 	void hatch();
 	int getTimer() const { return eggTimer.getElapsedTime().asMilliseconds(); }
