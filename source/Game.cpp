@@ -63,9 +63,9 @@ void Game::update()
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
 
-	for (const auto& egg : eggVec) //egg collection update
+	for (int i = 0; i < eggVec.size(); i++) //egg collection update
 	{
-		if (isTouching(player[0].getHitbox(), egg))
+		if (isTouching(player[0].getHitbox(), eggVec[i]))
 		{
 			eggsCollected++;
 			if (eggsCollected < 4)
@@ -75,15 +75,15 @@ void Game::update()
 
 			std::cout << score[0] << "\n";
 
-			eggVec.pop_back(); //fix later to remove the specific egg collected
+			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
 	}
 
-	for (const auto& egg : eggVec) //egg hatch update
-		if (egg->getTimer() >= 20000)
+	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
+		if (eggVec[i]->getTimer() >= 20000)
 		{
 			enemyVec.emplace_back(new Shadow);
-			eggVec.pop_back(); //make it remove the specific egg
+			eggVec.erase(eggVec.begin() + i);
 		}
 
 	if (eggVec.empty() && enemyVec.empty())
