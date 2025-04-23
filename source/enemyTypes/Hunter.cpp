@@ -12,6 +12,17 @@ Hunter::Hunter()
 }
 
 
+Hunter::Hunter(sf::Vector2f pos)
+{
+	hitbox.setPosition(pos);
+	hitbox.setFillColor(sf::Color::Yellow);
+	sprite.setAnimation(AnimationNames::HUNTER_FLY);
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
+	vel.x = SPEED_INC_X * 2;
+}
+
+
 void Hunter::update(Player player[2])
 {
 	float closerPlayerF = 0;
@@ -27,6 +38,8 @@ void Hunter::update(Player player[2])
 			sf::Vector2f(player[1].getPosition().x, player[1].getPosition().x));
 		closerPlayer = 1;
 	}
+
+	target = closerPlayer;
 
 	if (currentPlatform == -1 && flapCounter >= 5)
 		sprite.setFrame(0); //flapping, wings up

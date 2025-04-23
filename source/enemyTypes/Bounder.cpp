@@ -12,6 +12,17 @@ Bounder::Bounder()
 }
 
 
+Bounder::Bounder(sf::Vector2f pos)
+{
+	hitbox.setPosition(pos);
+	hitbox.setFillColor(sf::Color::Yellow);
+	sprite.setAnimation(AnimationNames::BOUNDER_FLY);
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
+	vel.x = SPEED_INC_X;
+}
+
+
 void Bounder::update(Player player[2])
 {
 	float closerPlayerF = 0;
@@ -28,7 +39,7 @@ void Bounder::update(Player player[2])
 		closerPlayer = 1;
 	}
 	
-	std::cout << closerPlayerF << std::endl;
+	//std::cout << closerPlayerF << std::endl;
 
 	if (currentPlatform == -1 && flapCounter >= 5)
 		sprite.setFrame(0); //flapping, wings up

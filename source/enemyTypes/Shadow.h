@@ -5,6 +5,7 @@ class Shadow : public Enemy
 {
 public:
 	Shadow();
+	Shadow(sf::Vector2f);
 
 	//updates the player movement. user inputs will be handled directly in here.
 	void update(Player[2]) override;
