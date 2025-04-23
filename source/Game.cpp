@@ -88,7 +88,21 @@ void Game::update()
 	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
 		if (eggVec.at(i)->getTimer() >= 20000)
 		{
-			enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+			switch (eggVec.at(i)->getType())
+			{
+			case EMPTY:
+				enemyVec.emplace_back(new Bounder(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case BOUNDER:
+				enemyVec.emplace_back(new Hunter(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case HUNTER:
+				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			case SHADOW:
+				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
+				break;
+			}
 			std::cout << eggVec.at(i)->getHitbox().getPosition().x << std::endl << eggVec.at(i)->getHitbox().getPosition().y << std::endl << std::endl;
 			eggVec.erase(eggVec.begin() + i);
 		}
@@ -335,7 +349,7 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 		{
 			if (enemy->getPosition().y > player->getPosition().y)
 			{
-				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity()));
+				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
 				enemyVec.erase(enemyVec.begin() + pos);
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
