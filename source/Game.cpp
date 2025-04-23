@@ -21,10 +21,10 @@ Game::Game()
 	scoreText.setCharacterSize(15);
 	scoreText.setFillColor(sf::Color::Yellow);
 	scoreText.setString("0");
-	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, 
-		scoreText.getLocalBounds().height / 2);
-	scoreText.setPosition(104 * WINDOW_SCALE - WINDOW_SCALE, 213 * WINDOW_SCALE - WINDOW_SCALE * (WINDOW_SCALE - 1));
+		scoreText.getLocalBounds().height / 2 - WINDOW_SCALE * 4); //four
+	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	scoreText.setPosition(104 * WINDOW_SCALE, 213 * WINDOW_SCALE);
 
 	player[0].setPosition(sf::Vector2f(1000, 1000));
 }
@@ -98,8 +98,8 @@ void Game::update()
 	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	scoreText.setString(std::to_string(score[0]));
-	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
-		scoreText.getLocalBounds().height / 2);
+	//scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
+	//	scoreText.getLocalBounds().height / 2);
 }
 
 
@@ -149,6 +149,9 @@ void Game::drawTo(sf::RenderWindow& window)
 		i->drawTo(window);
 	player[0].drawTo(window);
 	window.draw(scoreText);
+
+	std::cout << sf::Mouse::getPosition(window).x / WINDOW_SCALE << " " << sf::Mouse::getPosition(window).y / WINDOW_SCALE << "    ";
+	std::cout << scoreText.getPosition().x / WINDOW_SCALE << " " << scoreText.getPosition().y / WINDOW_SCALE << std::endl;
 }
 
 
