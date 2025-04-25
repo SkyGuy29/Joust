@@ -12,7 +12,7 @@ Platform::Platform()
 Platform::~Platform() = default;
 
 
-void Platform::setPlatform(const int platformID, std::string file)
+void Platform::setPlatform(const int platformID)
 {
 	//loading raw hitbox pixel data
 	switch (platformID)

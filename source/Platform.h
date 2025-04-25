@@ -8,7 +8,7 @@ public:
 	Platform();
 	~Platform();
 
-	void setPlatform(const int, std::string);
+	void setPlatform(const int);
 
 	sf::ConvexShape getHitbox() const { return hitbox; }
 	

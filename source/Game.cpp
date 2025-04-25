@@ -4,7 +4,13 @@
 Game::Game()
 {
 	for (int i = 0; i < PLATFORM_COUNT; i++)
-		platform[i].setPlatform(i, "a"); // hohoho
+		platform[i].setPlatform(i); // hohoho
+
+	spawners[0].setPlatform(PlatformNames::P_TOP_MIDDLE);
+	spawners[1].setPlatform(PlatformNames::P_LEFT_SIDE);
+	spawners[2].setPlatform(PlatformNames::P_RIGHT_SIDE);
+	spawners[3].setPlatform(PlatformNames::P_GROUND);
+
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
@@ -35,6 +41,7 @@ Game::Game()
 	topScore.setPosition(204 * WINDOW_SCALE, 213 * WINDOW_SCALE); //fix position
 
 
+
 	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
 }
 
@@ -48,12 +55,10 @@ void Game::update()
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	if (enemyVec.size() > 1)
-	{
 		for (int i = 0; i < enemyVec.size() - 1; i++)
 			for (int j = i + 1; j < enemyVec.size(); j++)
 				collisionUpdate(enemyVec.at(i), enemyVec.at(j));
-	}
-
+	
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < enemyVec.size(); j++)
 			collisionUpdate(&player[i], enemyVec.at(j), j);
@@ -173,6 +178,9 @@ void Game::drawTo(sf::RenderWindow& window)
 		i->drawTo(window);
 	for (const auto& i : enemyVec)
 		i->drawTo(window);
+	for (auto& i : spawners)
+		i.drawTo(window);
+
 	player[0].drawTo(window);
 	window.draw(scoreText);
 	window.draw(topScore);
@@ -361,21 +369,32 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 
 		if (enemyBounds.intersects(nextPos))
 		{
+			//enemy death
 			if (enemy->getPosition().y > player->getPosition().y)
 			{
 				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
 				enemyVec.erase(enemyVec.begin() + pos);
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
-
 			}
+			//player death
 			else if (enemy->getPosition().y < player->getPosition().y)
 			{
+				//disable player
 				player->resetVelocityX();
 				player->resetVelocityY();
 				player->toggleGravity(false);
 				player->toggleDisable(true);
 				player->setPosition(sf::Vector2f( 100, 5000));
+				 
+				spawners[0 /* placeholder value */].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+
+				//todo: add something in player.update() for the spawn animation
+
+				player->setRespawn();
+
+				//function call that takes in a collidable and checks through possible platforms and randomly chooses one to spawn on.
+
 				enemy->resetVelocityY();
 				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
 				enemy->addVelocity(0, -2);
@@ -428,4 +447,10 @@ void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 			enemyTwo->bounceX();
 		}
 	}
+}
+
+
+void Game::choosePlatform(Collidable* collidable)
+{
+
 }

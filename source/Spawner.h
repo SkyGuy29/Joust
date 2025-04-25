@@ -11,19 +11,18 @@ public:
 	Spawner();
 	~Spawner() = default;
 
+	//sets the spawner's position to its corresponding platform. if that platform has no spawner, ignore it
+	void setPlatform(PlatformNames);
+
 	//sets the spawner's animation to the passed in animation.
 	//ignores invalid options.
 	void setSpawnAnim(AnimationNames);
-
-	//sets the spawner's position to its corresponding platform. if that platform has no spawner, ignore it
-	//DO NOT CALL UNTIL ANIM HAS BEEN SET.
-	void setPlatform(PlatformNames);
 
 	//updates the platform's animation.
 	void update() { sprite.nextFrame(10); }
 
 	//draws the platform to the passed in window.
-	void draw(sf::RenderWindow& window) { sprite.drawTo(window); }
+	void drawTo(sf::RenderWindow& window) { sprite.drawTo(window); }
 private:
 	Animation sprite;
 };
