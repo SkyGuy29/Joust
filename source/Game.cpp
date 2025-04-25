@@ -361,6 +361,7 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				player->resetVelocityY();
 				player->toggleGravity(false);
 				player->toggleDisable(true);
+				player->setPosition(sf::Vector2f( 100, 5000));
 				enemy->resetVelocityY();
 				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
 				enemy->addVelocity(0, -2);

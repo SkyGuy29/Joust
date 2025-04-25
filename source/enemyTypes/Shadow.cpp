@@ -9,7 +9,7 @@ Shadow::Shadow()
 	sprite.setAnimation(AnimationNames::SHADOW_FLY);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	vel.x = SPEED_INC_X;
+	vel.x = SPEED_INC_X * 3;
 }
 
 
@@ -21,7 +21,7 @@ Shadow::Shadow(sf::Vector2f pos)
 	sprite.setAnimation(AnimationNames::SHADOW_FLY);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	vel.x = SPEED_INC_X;
+	vel.x = SPEED_INC_X * 3;
 }
 
 
