@@ -29,7 +29,7 @@ private:
 	void collisionUpdate(Enemy*, Enemy*);
 	void choosePlatform(Collidable*);
 
-	int score[2]{}, lives = 5, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {};
+	int score[2]{}, lives = 5, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {}, activePlatCount = 4;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;

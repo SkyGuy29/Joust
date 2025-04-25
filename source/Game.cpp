@@ -439,5 +439,31 @@ void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 
 void Game::choosePlatform(Collidable* collidable)
 {
+	activePlatCount = 4;
+	//count active platforms
+	for (int i = 0; i < PLATFORM_COUNT; i++)
+	{
+		if (i == P_TOP_MIDDLE || i == P_LEFT_SIDE || i == P_RIGHT_SIDE || i == P_GROUND)
+			if (activePlatforms[i] > 0)
+				activePlatCount--;
+	}
+
+	int platNum = 0, randPlat = rand() % activePlatCount;
+
+	if (activePlatforms[P_TOP_MIDDLE] == 0)
+		if (randPlat == platNum++);
+			//choose platform
+
+	if (activePlatforms[P_LEFT_SIDE] == 0)
+		if (randPlat == platNum++);
+			//choose platform
+
+	if (activePlatforms[P_RIGHT_SIDE] == 0)
+		if (randPlat == platNum++);
+			//choose platform
+
+	if (activePlatforms[P_GROUND] == 0)
+		if (randPlat == platNum++);
+			//choose platform
 
 }
