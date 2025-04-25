@@ -1,8 +1,9 @@
 #include "Egg.h"
 
 
-Egg::Egg()
+Egg::Egg(EnemyTypes temptype)
 {
+	type = temptype;
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition((rand() % 5 + 1)*100, 100);
 	hitbox.setFillColor(sf::Color::Cyan);
@@ -58,12 +59,19 @@ void Egg::update()
 		hitbox.getPosition().y));
 
 	if (getTimer() >= 15000)
-		sprite.setAnimation(AnimationNames::EGG_HATCH);
+		hatch();
 }
 
 void Egg::hatch()
 {
-
+	sprite.setAnimation(AnimationNames::EGG_HATCH);
+	sprite.setMode(Mode::END);
+	if (sprite.getFrame() < 3)
+		sprite.nextFrame(10);
+	else if (sprite.getFrame() == 3 && type != SHADOW)
+		sprite.setFrame(4 + type);
+	else if (sprite.getFrame() == 3)//type hunter & shadow BOTH spawn shadow lords, so the above case would break for shadow eggs
+		sprite.setFrame(6);
 }
 
 void Egg::drawTo(sf::RenderWindow& window)
