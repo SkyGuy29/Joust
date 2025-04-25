@@ -30,7 +30,7 @@ public:
 	void toggleGravity(bool);
 	void toggleDisable(bool);
 
-	void respawn();
+	void setRespawn();
 
 private:
 	//i hate sfml keyboard detection naming so i made a mediocre fix

@@ -156,8 +156,6 @@ void Player::update()
 	}
 	else
 		frameCounter++;
-	//if (onGround)
-		//sprite.nextFrame();
 
 	//set the sprite to the hitbox location
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x,
@@ -227,11 +225,25 @@ void Player::toggleDisable(bool temp)
 }
 
 
-void Player::respawn()
+void Player::setRespawn()
 {
 	// respawn animation
 	sprite.setAnimation(AnimationNames::P1_SPAWN);
 
+
+	//example rand spawn
+	switch (rand() % 4)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		hitbox.setPosition(100, 100);
+		break;
+	}
 
 	// set player to spawn point
 
@@ -239,7 +251,7 @@ void Player::respawn()
 
 	// outside: set enemies to no target
 
-	// outside? reduce lives
+	// outside reduce lives
 
 
 }
