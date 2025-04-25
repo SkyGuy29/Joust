@@ -56,6 +56,7 @@ public:
 	//you are fully allowed to set this past the max. 
 	//The max is simply there for looping or other ends.
 	void setFrame(int);
+	int getFrame() const { return currentFrame; }
 
 	//draws the animation to the passed in window.
 	void drawTo(sf::RenderWindow& window) const { window.draw(sprite); }

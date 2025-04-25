@@ -227,6 +227,24 @@ void Player::toggleDisable(bool temp)
 }
 
 
+void Player::respawn()
+{
+	// respawn animation
+	sprite.setAnimation(AnimationNames::P1_SPAWN);
+
+
+	// set player to spawn point
+
+
+
+	// outside: set enemies to no target
+
+	// outside? reduce lives
+
+
+}
+
+
 bool Player::isLeftPressed()
 {
 	return sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
