@@ -263,6 +263,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 		{
 		case PlatformCollisionType::TOP:
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
+			activePlatforms[i]++;
 			break;
 		case PlatformCollisionType::BOT:
 			collidable->bounceY();
@@ -310,7 +311,7 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			//may need to change, the player is set off ground when screen wrapping
 			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
 			{
-				
+				activePlatforms[i]--;
 				//std::cout << "player left: " << collidable->getHitbox().left << std::endl;
 				//std::cout << "platform right: " << platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x << std::endl;
 				//std::cout << ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x)) << std::endl;
