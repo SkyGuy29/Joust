@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\art\centerPlat.png" />
+    <Image Include="res\Art\eggHatch.png" />
     <Image Include="res\Art\enemyAnimations.png" />
     <Image Include="res\Art\ground.png" />
     <Image Include="res\art\Joust logo.png" />
