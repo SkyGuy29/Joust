@@ -67,7 +67,7 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/spawners.png", sf::IntRect(0, 3, 28, 3), 3},              //P2_SPAWN_PLAT
     {"res/Art/joustSprite.png", sf::IntRect(248, 173, 13, 13), 3},      //DEATH
     {"res/Art/joustSprite.png", sf::IntRect(248, 286, 7, 6), 3},        //EGG_FALL
-	{"res/Art/joustSprite.png", sf::IntRect(0, 0, 0, 0), 0},            //EGG_HATCH *   //this one is super weird
+	{"res/Art/eggHatch.png", sf::IntRect(0, 0, 10, 11), 5},             //EGG_HATCH
     {"res/Art/joustSprite.png", sf::IntRect(247, 194, 15, 18), 4},      //BOUNDER_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(247, 214, 15, 12), 2},      //BOUNDER_FLY
     {"res/Art/joustSprite.png", sf::IntRect(247, 228, 14, 13), 4},      //ENEMY_BIRD_GROUND

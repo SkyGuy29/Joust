@@ -21,12 +21,12 @@ Game::Game()
 	scoreText.setCharacterSize(15);
 	scoreText.setFillColor(sf::Color::Yellow);
 	scoreText.setString("0");
-	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	scoreText.setOrigin(scoreText.getLocalBounds().width / 2, 
-		scoreText.getLocalBounds().height / 2);
-	scoreText.setPosition(104 * WINDOW_SCALE - WINDOW_SCALE, 213 * WINDOW_SCALE - WINDOW_SCALE * (WINDOW_SCALE - 1));
+		scoreText.getLocalBounds().height / 2 + 4.8); //AS IF I KNOW WHY I NEED TO ADD EXACTLY 4.8 PIXELS
+	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	scoreText.setPosition(104 * WINDOW_SCALE, 213 * WINDOW_SCALE);
 
-	player[0].setPosition(sf::Vector2f(1000, 1000));
+	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
 }
 
 
@@ -113,7 +113,7 @@ void Game::update()
 
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
-		scoreText.getLocalBounds().height / 2);
+		scoreText.getLocalBounds().height / 2 + 4.8);
 }
 
 

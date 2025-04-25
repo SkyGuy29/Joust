@@ -12,7 +12,6 @@ static constexpr int WINDOW_Y = 240; //old (SNES)is 194
 static constexpr float SPEED_INC_X = .5 * WINDOW_SCALE;
 static constexpr float SPEED_MAX_X = 2 * WINDOW_SCALE;
 static constexpr int FPS = 60;
-static constexpr int PLATFORM_COUNT = 8;
 
 
 //returns the distance between two points.
@@ -31,7 +30,6 @@ static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Ve
 {
 	const double a = distBetween(p1, p2), b = distBetween(p1, p3), c = distBetween(p2, p3);
 
-    //the law in states that (the angle opposite of c) = acos((a*a + b*b - c*c) / (2ab))
     return acos((a * a + c * c - b * b) / (2 * a * c));
 }
 //aaaaand we didnt even use it LOL
@@ -72,6 +70,7 @@ enum PlatformNames
 	P_TOP_LEFT,
 	P_TOP_RIGHT,
 	P_GROUND,
+    PLATFORM_COUNT
 };
 
 
