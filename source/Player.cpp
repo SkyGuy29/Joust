@@ -230,7 +230,6 @@ void Player::setRespawn()
 	// respawn animation
 	sprite.setAnimation(AnimationNames::P1_SPAWN);
 
-
 	//example rand spawn
 	switch (rand() % 4)
 	{

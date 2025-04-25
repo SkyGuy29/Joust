@@ -1,23 +1,6 @@
 #include "Spawner.h"
 
 
-void Spawner::setSpawnAnim(AnimationNames anim)
-{
-	switch (anim)
-	{
-	case AnimationNames::P1_SPAWN_PLAT:
-	case AnimationNames::P2_SPAWN_PLAT:
-	case AnimationNames::ENEMY_SPAWN_PLAT:
-		sprite.setAnimation(anim);
-		break;
-	default:
-		return;
-	}
-
-	sprite.setMode(Mode::LOOP);
-}
-
-
 void Spawner::setPlatform(PlatformNames plat)
 {
 	sf::Vector2f pos;
@@ -40,11 +23,28 @@ void Spawner::setPlatform(PlatformNames plat)
 		return;
 	}
 
-	pos.x += sprite.getBounds().width / 2.f; //centers the spawner on the platform
+	pos.x += spriteData[AnimationNames::P1_SPAWN_PLAT].bounds.width / 2.f; //centers the spawner on the platform
 	pos.x *= WINDOW_SCALE;
 
-	pos.y += sprite.getBounds().width / 2.f; 
+	pos.y += spriteData[AnimationNames::P1_SPAWN_PLAT].bounds.height / 2.f;
 	pos.y *= WINDOW_SCALE;
 
 	sprite.setPos(pos);
+}
+
+
+void Spawner::setSpawnAnim(AnimationNames anim)
+{
+	switch (anim)
+	{
+	case AnimationNames::P1_SPAWN_PLAT:
+	case AnimationNames::P2_SPAWN_PLAT:
+	case AnimationNames::ENEMY_SPAWN_PLAT:
+		sprite.setAnimation(anim);
+		break;
+	default:
+		return;
+	}
+
+	sprite.setMode(Mode::LOOP);
 }

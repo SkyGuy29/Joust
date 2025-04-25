@@ -3,6 +3,7 @@
 #include "Platform.h"
 #include "Enemy.h"
 #include "Egg.h"
+#include "Spawner.h"
 #include "enemyTypes/Bounder.h"
 #include "enemyTypes/Hunter.h"
 #include "enemyTypes/Shadow.h"
@@ -26,6 +27,7 @@ private:
 	void collisionUpdate(Collidable*, Platform[]);
 	void collisionUpdate(Player*, Enemy*, int);
 	void collisionUpdate(Enemy*, Enemy*);
+	void choosePlatform(Collidable*);
 
 	int score[2] {}, lives = 5, currentRound = 1, eggsCollected = 0;
 	Player player[2]; //or just make two variables?
@@ -35,7 +37,10 @@ private:
 	Platform platform[8];
 	sf::RectangleShape bridge;
 	sf::Font font;
-	sf::Text scoreText; //todo: make two for 2p
+	sf::Text scoreText; //todo: make array for 2p
+	sf::Text topScore; //holds the top score until the game is shut off, displays it on the right. todo: remove when leaderboard is added
+
+	Spawner spawners[4];
 	//eventually add birds for the eggs
 };
 
