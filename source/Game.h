@@ -36,7 +36,7 @@ private:
 	sf::RectangleShape bridge;
 	sf::Font font;
 	sf::Text scoreText; //todo: make two for 2p
-	//eventually add birds for the eggs
+	sf::Text topScore;
 };
 
 // okay

@@ -25,6 +25,15 @@ Game::Game()
 		scoreText.getLocalBounds().height / 2 + 4.8); //AS IF I KNOW WHY I NEED TO ADD EXACTLY 4.8 PIXELS
 	scoreText.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	scoreText.setPosition(104 * WINDOW_SCALE, 213 * WINDOW_SCALE);
+	topScore.setFont(font);
+	topScore.setCharacterSize(15);
+	topScore.setFillColor(sf::Color::Yellow);
+	topScore.setString("Top Score: 999");
+	topScore.setOrigin(topScore.getLocalBounds().width / 2,
+		topScore.getLocalBounds().height / 2 + 4.8);
+	topScore.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	topScore.setPosition(204 * WINDOW_SCALE, 213 * WINDOW_SCALE); //fix position
+
 
 	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
 }
@@ -114,6 +123,9 @@ void Game::update()
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
 		scoreText.getLocalBounds().height / 2 + 4.8);
+	topScore.setString(std::to_string(score[0]));
+	topScore.setOrigin(scoreText.getLocalBounds().width - topScore.getCharacterSize() / 2,
+		topScore.getLocalBounds().height / 2 + 4.8);
 }
 
 
@@ -163,6 +175,7 @@ void Game::drawTo(sf::RenderWindow& window)
 		i->drawTo(window);
 	player[0].drawTo(window);
 	window.draw(scoreText);
+	window.draw(topScore);
 }
 
 
