@@ -165,7 +165,10 @@ void Player::setOnGround(float newYValue, int platform)
 {
 	Collidable::setOnGround(newYValue, platform);
 	if (skid == false)
-		sprite.setAnimation(AnimationNames::P1_GROUND);
+	{
+		if (respawning == false)
+			sprite.setAnimation(AnimationNames::P1_GROUND);
+	}
 	else
 		sprite.setAnimation(AnimationNames::P1_SKID);
 
@@ -226,6 +229,7 @@ void Player::setRespawn(int platformNumber)
 {
 	respawning = true;
 	// respawn animation
+
 	sprite.setAnimation(AnimationNames::P1_SPAWN);
 
 	sf::Vector2f pos;
@@ -252,7 +256,7 @@ void Player::setRespawn(int platformNumber)
 	pos.x += 14; //half of spawner length
 	pos.x *= WINDOW_SCALE;
 
-	pos.y += hitbox.getSize().y / WINDOW_SCALE / 2.f; //half of player height
+	pos.y -= hitbox.getSize().y / WINDOW_SCALE / 2.f; //half of player height
 	pos.y *= WINDOW_SCALE;
 
 	hitbox.setPosition(pos);
