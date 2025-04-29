@@ -478,4 +478,6 @@ int Game::choosePlatform()
 
 	if (activePlatforms[P_GROUND] == 0 && randPlat == platNum++)
 		return 3;
+
+	return 3;
 }

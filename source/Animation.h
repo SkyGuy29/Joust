@@ -69,5 +69,5 @@ private:
 	bool facingRight = true;
 	bool spawnFirstLoop = true; //used to make the spawn animation only cycle once before returning
 	Mode currentMode = Mode::LOOP;
-	AnimationNames currentAnimation = AnimationNames::DATA_COUNT;
+	AnimationNames currentAnimation = AnimationNames::NONE;
 };
