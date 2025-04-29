@@ -27,7 +27,7 @@ private:
 	void collisionUpdate(Collidable*, Platform[]);
 	void collisionUpdate(Player*, Enemy*, int);
 	void collisionUpdate(Enemy*, Enemy*);
-	void choosePlatform(Collidable*);
+	int choosePlatform();
 
 	int score[2]{}, lives = 5, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {}, activePlatCount = 4;
 	Player player[2]; //or just make two variables?

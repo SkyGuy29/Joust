@@ -3,14 +3,11 @@
 
 Player::Player()
 {
-	//TODO:
-	// - change origin to center -- done?
-	// - set sprite to hitbox position instead of the offset
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	hitbox.setPosition(5000, 5000);
 	hitbox.setFillColor(sf::Color::Green);
 	sprite.setAnimation(AnimationNames::P1_FLY);
-	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
+	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 }
 
 
@@ -225,34 +222,39 @@ void Player::toggleDisable(bool temp)
 }
 
 
-void Player::setRespawn()
+void Player::setRespawn(int platformNumber)
 {
 	// respawn animation
 	sprite.setAnimation(AnimationNames::P1_SPAWN);
 
-	//example rand spawn
-	switch (rand() % 4)
+	sf::Vector2f pos;
+
+	// set player to spawn point
+	switch (platformNumber)
 	{
 	case 0:
+		pos = sf::Vector2f(100, 74); //taken from spawner data
 		break;
 	case 1:
+		pos = sf::Vector2f(10, 131);
 		break;
 	case 2:
+		pos = sf::Vector2f(218, 122);
 		break;
 	case 3:
-		hitbox.setPosition(100, 100);
+		pos = sf::Vector2f(114, 204);
+		break;
+	default:
 		break;
 	}
 
-	// set player to spawn point
+	pos.x += 14; //half of spawner length
+	pos.x *= WINDOW_SCALE;
 
+	pos.y += hitbox.getSize().y / WINDOW_SCALE / 2.f; //half of player height
+	pos.y *= WINDOW_SCALE;
 
-
-	// outside: set enemies to no target
-
-	// outside reduce lives
-
-
+	hitbox.setPosition(pos);
 }
 
 

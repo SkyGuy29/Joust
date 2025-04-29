@@ -11,6 +11,9 @@ Game::Game()
 	spawners[2].setPlatform(PlatformNames::P_RIGHT_SIDE);
 	spawners[3].setPlatform(PlatformNames::P_GROUND);
 
+	for (auto& spawner : spawners)
+		spawner.setSpawnAnim(AnimationNames::NONE);
+
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
@@ -39,8 +42,6 @@ Game::Game()
 		topScore.getLocalBounds().height / 2 + 4.8);
 	topScore.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	topScore.setPosition(204 * WINDOW_SCALE, 213 * WINDOW_SCALE); //fix position
-
-
 
 	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
 }
@@ -124,6 +125,9 @@ void Game::update()
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
 	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
+
+	for (auto& spawner : spawners)
+		spawner.update();
 
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
@@ -387,17 +391,15 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				player->toggleDisable(true);
 				player->setPosition(sf::Vector2f( 100, 5000));
 				 
-				spawners[0 /* placeholder value */].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
-
-				//todo: add something in player.update() for the spawn animation
-
-				player->setRespawn();
-
-				//function call that takes in a collidable and checks through possible platforms and randomly chooses one to spawn on.
+				const int randPlat = choosePlatform();
+				spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+				player->setRespawn(randPlat);
 
 				enemy->resetVelocityY();
 				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
 				enemy->addVelocity(0, -2);
+
+				lives--;
 			}
 		}
 }
@@ -450,33 +452,31 @@ void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 }
 
 
-void Game::choosePlatform(Collidable* collidable)
+int Game::choosePlatform()
 {
 	activePlatCount = 4;
+
 	//count active platforms
 	for (int i = 0; i < PLATFORM_COUNT; i++)
-	{
 		if (i == P_TOP_MIDDLE || i == P_LEFT_SIDE || i == P_RIGHT_SIDE || i == P_GROUND)
 			if (activePlatforms[i] > 0)
 				activePlatCount--;
-	}
+	
+	//randomize
+	int randPlat = rand() % activePlatCount, platNum = 0;
 
-	int platNum = 0, randPlat = rand() % activePlatCount;
 
-	if (activePlatforms[P_TOP_MIDDLE] == 0)
-		if (randPlat == platNum++);
-			//choose platform
+	//pick the spawn platform that corresponds to the random number
+	//if a platform has enemies on it, we skip it
+	if (activePlatforms[P_TOP_MIDDLE] == 0 && randPlat == platNum++)
+		return 0;
 
-	if (activePlatforms[P_LEFT_SIDE] == 0)
-		if (randPlat == platNum++);
-			//choose platform
+	if (activePlatforms[P_LEFT_SIDE] == 0 && randPlat == platNum++)
+		return 1;
 
-	if (activePlatforms[P_RIGHT_SIDE] == 0)
-		if (randPlat == platNum++);
-			//choose platform
+	if (activePlatforms[P_RIGHT_SIDE] == 0 && randPlat == platNum++)
+		return 2;
 
-	if (activePlatforms[P_GROUND] == 0)
-		if (randPlat == platNum++);
-			//choose platform
-
+	if (activePlatforms[P_GROUND] == 0 && randPlat == platNum++)
+		return 3;
 }

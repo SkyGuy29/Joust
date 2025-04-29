@@ -8,7 +8,7 @@
 class Spawner
 {
 public:
-	Spawner();
+	Spawner() = default;
 	~Spawner() = default;
 
 	//sets the spawner's position to its corresponding platform. if that platform has no spawner, ignore it
