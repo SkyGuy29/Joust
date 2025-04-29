@@ -31,6 +31,7 @@ public:
 	void toggleDisable(bool);
 
 	void setRespawn(int);
+	bool getRespawning() { return respawning; }
 
 private:
 	//i hate sfml keyboard detection naming so i made a mediocre fix
@@ -41,7 +42,7 @@ private:
 
 	Animation sprite;
 
-	bool jumpKeyHeld = false, skid = false, gravity = true, disable = false;
+	bool jumpKeyHeld = false, skid = false, gravity = true, disable = false, respawning = false;
 	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0;
 	//player sounds
 	//iframes timer

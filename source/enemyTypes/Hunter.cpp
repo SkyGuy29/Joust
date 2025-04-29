@@ -43,10 +43,25 @@ void Hunter::update(Player player[2])
 
 	target = closerPlayer;
 
+	if (player[0].getRespawning() == true && target == 0)
+		target = -1;
+
 	if (currentPlatform == -1 && flapCounter >= 5)
 		sprite.setFrame(0); //flapping, wings up
 	//5 on the counter for staying on the same plane
-	if (hitbox.getPosition().y > WINDOW_Y * WINDOW_SCALE * 3 / 4 && flapCounter >= 10)
+	if (target == -1)
+	{
+		if (flapCounter >= 10 && currentPlatform == -1)
+		{
+			sprite.setFrame(1);
+			flapCounter = 0;
+			vel.y = -1.5;
+		}
+		else if (flapCounter >= 5)
+			vel.y = 1.5;
+
+	}
+	else if (hitbox.getPosition().y > WINDOW_Y * WINDOW_SCALE * 3 / 4 && flapCounter >= 10)
 	{
 		vel.y -= 2 * (WINDOW_SCALE / 3.f);
 
@@ -60,7 +75,7 @@ void Hunter::update(Player player[2])
 			setOffGround();
 		flapCounter = 0;
 	}
-	else if (hitbox.getPosition().y > player[closerPlayer].getPosition().y && flapCounter >= 11)
+	else if (hitbox.getPosition().y > player[target].getPosition().y && flapCounter >= 11)
 	{
 		vel.y -= 1.5 * (WINDOW_SCALE / 3.f);
 		if (currentPlatform == -1)

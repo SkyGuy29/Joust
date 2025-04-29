@@ -224,6 +224,7 @@ void Player::toggleDisable(bool temp)
 
 void Player::setRespawn(int platformNumber)
 {
+	respawning = true;
 	// respawn animation
 	sprite.setAnimation(AnimationNames::P1_SPAWN);
 

@@ -389,7 +389,6 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				player->resetVelocityY();
 				player->toggleGravity(false);
 				player->toggleDisable(true);
-				player->setPosition(sf::Vector2f( 100, 5000));
 				 
 				const int randPlat = choosePlatform();
 				spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);

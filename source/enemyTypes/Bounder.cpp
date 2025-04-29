@@ -54,6 +54,9 @@ void Bounder::update(Player player[2])
 		flapCounter = 11;
 	}
 
+	if (player[0].getRespawning() == true && target == 0)
+		target = -1;
+
 
 	if (target == -1)
 	{
