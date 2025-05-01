@@ -18,12 +18,15 @@ public:
 	//ignores invalid options.
 	void setSpawnAnim(AnimationNames);
 
+	void setEnabled(bool newEn) { enabled = newEn; }
+
 	//updates the platform's animation.
 	void update() { sprite.nextFrame(10); }
 
 	//draws the platform to the passed in window.
-	void drawTo(sf::RenderWindow& window) { sprite.drawTo(window); }
+	void drawTo(sf::RenderWindow& window) { if (enabled) sprite.drawTo(window); }
 private:
 	Animation sprite;
+	bool enabled = false;
 };
 

@@ -11,18 +11,15 @@ Game::Game()
 	spawners[2].setPlatform(PlatformNames::P_RIGHT_SIDE);
 	spawners[3].setPlatform(PlatformNames::P_GROUND);
 
-	for (auto& spawner : spawners)
-		spawner.setSpawnAnim(AnimationNames::NONE);
-
 	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
 	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
 	bridge.setFillColor(sf::Color(144, 72, 0));
 
-	enemyVec.emplace_back(new Bounder);
+	//enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Hunter);
-	enemyVec.emplace_back(new Shadow);
+	//enemyVec.emplace_back(new Shadow);
 
 	font.loadFromFile("res/Fonts/Arcade.ttf");
 	font.setSmooth(false);
@@ -51,7 +48,8 @@ void Game::update()
 {
 	//static sf::Clock timer;
 	//timer.restart();
-
+	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
+		" " << activePlatforms[P_GROUND] << "\n";
 	player[0].update();
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
@@ -287,8 +285,12 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 		switch (isTouching(collidable, platform[i]))
 		{
 		case PlatformCollisionType::TOP:
+			if (collidable->getGrounded() == -1)
+			{
+				activePlatforms[i]++;
+				//std::cout << "on groundM\n";
+			}
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
-			activePlatforms[i]++;
 			break;
 		case PlatformCollisionType::BOT:
 			collidable->bounceY();
@@ -336,13 +338,16 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			//may need to change, the player is set off ground when screen wrapping
 			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
 			{
-				activePlatforms[i]--;
 				//std::cout << "player left: " << collidable->getHitbox().left << std::endl;
 				//std::cout << "platform right: " << platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x << std::endl;
 				//std::cout << ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x)) << std::endl;
-				if ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x) || 
+				if ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x) ||
 					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
+				{
+					activePlatforms[collidable->getGrounded()]--;
 					collidable->setOffGround();
+					//std::cout << "off ground\n";
+				}
 			}
 			//std::cout << "CLTB: " << timer2.restart().asMilliseconds() / 1000. << '\n';
 			break;
@@ -392,6 +397,7 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				 
 				const int randPlat = choosePlatform();
 				spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+				spawners[randPlat].setEnabled(true);
 				player->setRespawn(randPlat);
 
 				enemy->resetVelocityY();
@@ -464,24 +470,35 @@ int Game::choosePlatform()
 	//randomize
 	int randPlat = rand() % activePlatCount, platNum = 0;
 
+	std::cout << randPlat << " " << activePlatCount << "\n";
 
+	std::cout << platNum << " " << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
+		" " << activePlatforms[P_GROUND] << "\n";
 	//pick the spawn platform that corresponds to the random number
 	//if a platform has enemies on it, we skip it
 	if (activePlatforms[P_TOP_MIDDLE] == 0)
 		if (randPlat == platNum++)
 			return 0;
 
+	std::cout << platNum << "\n";
+
 	if (activePlatforms[P_LEFT_SIDE] == 0)
 		if (randPlat == platNum++)
 			return 1;
+
+	std::cout << platNum << "\n";
 
 	if (activePlatforms[P_RIGHT_SIDE] == 0)
 		if (randPlat == platNum++)
 			return 2;
 
+	std::cout << platNum << "\n";
+
 	if (activePlatforms[P_GROUND] == 0)
 		if (randPlat == platNum++)
 			return 3;
+
+	std::cout << platNum << "\n";
 
 	return 3;
 }
