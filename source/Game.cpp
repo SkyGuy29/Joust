@@ -467,17 +467,21 @@ int Game::choosePlatform()
 
 	//pick the spawn platform that corresponds to the random number
 	//if a platform has enemies on it, we skip it
-	if (activePlatforms[P_TOP_MIDDLE] == 0 && randPlat == platNum++)
-		return 0;
+	if (activePlatforms[P_TOP_MIDDLE] == 0)
+		if (randPlat == platNum++)
+			return 0;
 
-	if (activePlatforms[P_LEFT_SIDE] == 0 && randPlat == platNum++)
-		return 1;
+	if (activePlatforms[P_LEFT_SIDE] == 0)
+		if (randPlat == platNum++)
+			return 1;
 
-	if (activePlatforms[P_RIGHT_SIDE] == 0 && randPlat == platNum++)
-		return 2;
+	if (activePlatforms[P_RIGHT_SIDE] == 0)
+		if (randPlat == platNum++)
+			return 2;
 
-	if (activePlatforms[P_GROUND] == 0 && randPlat == platNum++)
-		return 3;
+	if (activePlatforms[P_GROUND] == 0)
+		if (randPlat == platNum++)
+			return 3;
 
 	return 3;
 }
