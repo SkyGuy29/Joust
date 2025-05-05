@@ -84,16 +84,18 @@ bool Animation::nextSpawnFrame(int delay)
 				if (!spawnFirstLoop && spriteRect.height == spriteData[currentAnimation].bounds.height)
 				{
 					spawnFirstLoop = true; //reset it for next spawn
-				    return true; //once the first loop is done, return true
+					return true; //once the first loop is done, return true
 				}
-				
+
 				spriteRect.height++; //move it down
+				sprite.setOrigin(sprite.getOrigin().x, sprite.getOrigin().y + 1);
 			}
 
-			if (spriteRect.height == spriteData[currentAnimation].bounds.height) //placed outside so that it can trigger before the first draw
+			if (spawnFirstLoop && spriteRect.height == spriteData[currentAnimation].bounds.height) //placed outside so that it can trigger before the first draw
 			{
 				spawnFirstLoop = false; //this is the first loop, so don't return true yet
 				spriteRect.height = 0; //move it up to start the spawning
+				sprite.setOrigin(sprite.getOrigin().x, sprite.getOrigin().y - spriteData[currentAnimation].bounds.height);
 			}
 
 			sprite.setTextureRect(spriteRect);
