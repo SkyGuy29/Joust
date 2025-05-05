@@ -164,7 +164,23 @@ void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 
 	//player run animation based on speed
 	speed = abs(vel.x) / SPEED_INC_X;
-	
+
+
+	if (sprite.getAnimation() == AnimationNames::P1_SPAWN)
+	{
+		std::cout << hitbox.getPosition().x << " " << hitbox.getPosition().y << std::endl;
+
+		if (sprite.nextSpawnFrame(3))
+		{
+			sprite.setAnimation(AnimationNames::P1_GROUND);
+			sprite.setFrame(3);
+			respawning = false;
+			disable = false;
+			gravity = true;
+		}
+	}
+
+	//animation update
 	if (currentPlatform >= 0 && frameCounter + speed * 2 >= 10)
 	{
 		sprite.nextFrame();
