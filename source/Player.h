@@ -10,7 +10,7 @@ public:
 	Player();
 	
 	//updates the player movement. user inputs will be handled directly in here.
-	void update() override;
+	void update(int activePlatforms[PlatformNames::PLATFORM_COUNT]);
 
 	//puts the player on top of a platform and lets it run on it.
 	//the parameter is the top of the platform.

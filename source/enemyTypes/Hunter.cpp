@@ -25,7 +25,7 @@ Hunter::Hunter(sf::Vector2f pos)
 }
 
 
-void Hunter::update(Player player[2])
+void Hunter::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM_COUNT])
 {
 	float closerPlayerF = 0;
 	int closerPlayer = 0;
@@ -72,7 +72,10 @@ void Hunter::update(Player player[2])
 
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 		flapCounter = 0;
 	}
 	else if (hitbox.getPosition().y > player[target].getPosition().y && flapCounter >= 11)
@@ -83,12 +86,15 @@ void Hunter::update(Player player[2])
 			sprite.setFrame(1); //flapping, wings down
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 		flapCounter = 0;
 	}
 	flapCounter++;
 
-	Enemy::update(player);
+	Enemy::update(player, activePlatforms);
 }
 
 

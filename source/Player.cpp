@@ -11,7 +11,9 @@ Player::Player()
 }
 
 
-void Player::update()
+
+
+void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 {
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
@@ -92,7 +94,10 @@ void Player::update()
 			}
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 	}
 
 	//debug keys
@@ -125,9 +130,17 @@ void Player::update()
 		hitbox.setPosition(sf::Vector2f(hitbox.getPosition().x + WINDOW_X * WINDOW_SCALE,
 			hitbox.getPosition().y));
 		if (currentPlatform == P_TOP_LEFT)
+		{
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_RIGHT);
+			activePlatforms[P_TOP_LEFT]--;
+			activePlatforms[P_TOP_RIGHT]++;
+		}
 		else if (currentPlatform == P_LEFT_SIDE)
+		{
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_RIGHT_SIDE_SMALL);
+			activePlatforms[P_LEFT_SIDE]--;
+			activePlatforms[P_RIGHT_SIDE_SMALL]++;
+		}
 	}
 
 	//right side tp
@@ -136,9 +149,17 @@ void Player::update()
 		hitbox.setPosition(sf::Vector2f(0, hitbox.getPosition().y));
 
 		if (currentPlatform == P_TOP_RIGHT)
+		{
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_TOP_LEFT);
+			activePlatforms[P_TOP_RIGHT]--;
+			activePlatforms[P_TOP_LEFT]++;
+		}
 		else if (currentPlatform == P_RIGHT_SIDE_SMALL)
+		{
 			setOnGround(hitbox.getPosition().y + hitbox.getSize().y / 2.f, P_LEFT_SIDE);
+			activePlatforms[P_RIGHT_SIDE_SMALL]--;
+			activePlatforms[P_LEFT_SIDE]++;
+		}
 	}
 
 	//player run animation based on speed

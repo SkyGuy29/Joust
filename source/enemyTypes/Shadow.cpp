@@ -25,7 +25,7 @@ Shadow::Shadow(sf::Vector2f pos)
 }
 
 
-void Shadow::update(Player player[2])
+void Shadow::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM_COUNT])
 {
 	float closerPlayerF = 0;
 	int closerPlayer = 0;
@@ -70,7 +70,10 @@ void Shadow::update(Player player[2])
 			sprite.setFrame(1); //flapping, wings down
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 		flapCounter = 0;
 	}
 	else if (hitbox.getPosition().y > player[closerPlayer].getPosition().y && flapCounter >= 13)
@@ -81,11 +84,14 @@ void Shadow::update(Player player[2])
 			sprite.setFrame(1); //flapping, wings down
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 		flapCounter = 0;
 	}
 	flapCounter++;
-	Enemy::update(player);
+	Enemy::update(player, activePlatforms);
 
 }
 

@@ -25,7 +25,7 @@ Bounder::Bounder(sf::Vector2f pos)
 }
 
 
-void Bounder::update(Player player[2])
+void Bounder::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM_COUNT])
 {
 	float closerPlayerF = 0;
 	int closerPlayer = 0;
@@ -78,12 +78,15 @@ void Bounder::update(Player player[2])
 			sprite.setFrame(1); //flapping, wings down
 		}
 		else
+		{
+			activePlatforms[currentPlatform]--;
 			setOffGround();
+		}
 		flapCounter = 0;
 	}
 	flapCounter++;
 	
-	Enemy::update(player);
+	Enemy::update(player, activePlatforms);
 }
 
 

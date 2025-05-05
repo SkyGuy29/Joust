@@ -50,7 +50,7 @@ void Game::update()
 	//timer.restart();
 	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
 		" " << activePlatforms[P_GROUND] << "\n";
-	player[0].update();
+	player[0].update(activePlatforms);
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	if (enemyVec.size() > 1)
@@ -63,7 +63,7 @@ void Game::update()
 			collisionUpdate(&player[i], enemyVec.at(j), j);
 
 	for (const auto& enemy : enemyVec)
-		enemy->update(player);
+		enemy->update(player, activePlatforms);
 	for (const auto& egg : eggVec)
 		egg->update();
 
@@ -279,13 +279,15 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
 	static sf::Clock timer, timer2;
 	//timer.restart();
+	if (!collidable)
+		return;
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
 		//timer2.restart();
 		switch (isTouching(collidable, platform[i]))
 		{
 		case PlatformCollisionType::TOP:
-			if (collidable->getGrounded() == -1)
+			if (collidable->getGrounded() == -1 && !dynamic_cast<Egg*>(collidable))
 			{
 				activePlatforms[i]++;
 				//std::cout << "on groundM\n";
@@ -344,7 +346,8 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 				if ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x) ||
 					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
 				{
-					activePlatforms[collidable->getGrounded()]--;
+					if (!dynamic_cast<Egg*>(collidable))
+						activePlatforms[collidable->getGrounded()]--;
 					collidable->setOffGround();
 					//std::cout << "off ground\n";
 				}
