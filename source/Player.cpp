@@ -293,7 +293,7 @@ void Player::setRespawn(int platformNumber)
 	pos.x += 14; //half of spawner length
 	pos.x *= WINDOW_SCALE;
 
-	pos.y -= hitbox.getSize().y / WINDOW_SCALE / 2.f; //half of player height
+	pos.y -= sprite.getBounds().height / 2.f / WINDOW_SCALE; //half of player height
 	pos.y *= WINDOW_SCALE;
 
 	hitbox.setPosition(pos);

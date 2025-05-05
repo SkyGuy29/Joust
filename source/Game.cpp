@@ -92,8 +92,6 @@ void Game::update()
 			else
 				score[0] += 1000;
 
-			std::cout << score[0] << "\n";
-
 			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
 	}   
@@ -116,7 +114,6 @@ void Game::update()
 				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
 				break;
 			}
-			std::cout << eggVec.at(i)->getHitbox().getPosition().x << std::endl << eggVec.at(i)->getHitbox().getPosition().y << std::endl << std::endl;
 			eggVec.erase(eggVec.begin() + i);
 		}
 

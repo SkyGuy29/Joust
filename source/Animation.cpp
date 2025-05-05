@@ -70,6 +70,8 @@ void Animation::nextFrame(int delay)
 
 bool Animation::nextSpawnFrame(int delay)
 {
+	sf::IntRect spriteRect = sprite.getTextureRect();
+
 	switch (currentAnimation)
 	{
 		case AnimationNames::P1_SPAWN:
@@ -78,24 +80,23 @@ bool Animation::nextSpawnFrame(int delay)
 			if (++delayCount % delay == 0) //frame counter
 			{
 				delayCount = 0;
-				sf::IntRect spriteRect = sprite.getTextureRect();
 
-				if (spriteRect.top == spriteData[currentAnimation].bounds.top) //if they are still equal...
+				if (!spawnFirstLoop && spriteRect.height == spriteData[currentAnimation].bounds.height)
 				{
-					if (!spawnFirstLoop)
-					{
-						spawnFirstLoop = true; //reset it for next spawn
-						return true; //once the first loop is done, return true
-					}
-					
-					spawnFirstLoop = false; //this is the first loop, so don't return true yet
-					spriteRect.top -= spriteRect.height; //move it up to start the spawning
+					spawnFirstLoop = true; //reset it for next spawn
+				    return true; //once the first loop is done, return true
 				}
 				
-				spriteRect.top++; //move it down
-
-				sprite.setTextureRect(spriteRect);
+				spriteRect.height++; //move it down
 			}
+
+			if (spriteRect.height == spriteData[currentAnimation].bounds.height) //placed outside so that it can trigger before the first draw
+			{
+				spawnFirstLoop = false; //this is the first loop, so don't return true yet
+				spriteRect.height = 0; //move it up to start the spawning
+			}
+
+			sprite.setTextureRect(spriteRect);
 			return false;
 		default:
 			return true; //only the listed animations are allowed to spawn
@@ -110,4 +111,19 @@ void Animation::setFrame(const int newFrame)
 	currentFrame = newFrame;
 	spriteRect.left += spriteRect.width * frameDiff;
 	sprite.setTextureRect(spriteRect);
+}
+
+
+void Animation::drawTo(sf::RenderWindow& window) const
+{
+	switch (currentAnimation)
+	{
+	case AnimationNames::P1_SPAWN:
+	case AnimationNames::P2_SPAWN:
+	case AnimationNames::ENEMY_SPAWN:
+		if (spawnFirstLoop)
+			break;
+	default:
+		window.draw(sprite);
+	}
 }

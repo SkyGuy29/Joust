@@ -59,7 +59,7 @@ public:
 	int getFrame() const { return currentFrame; }
 
 	//draws the animation to the passed in window.
-	void drawTo(sf::RenderWindow& window) const { window.draw(sprite); }
+	void drawTo(sf::RenderWindow& window) const;
 private:
 	sf::Texture image;
 	sf::Sprite sprite;
