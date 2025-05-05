@@ -8,7 +8,7 @@ public:
 	Bounder(sf::Vector2f);
 
 	//updates the player movement. user inputs will be handled directly in here.
-	void update(Player[2]) override;
+	void update(Player[2], int activePlatforms[PlatformNames::PLATFORM_COUNT]) override;
 
 	void setOffGround() override
 	{

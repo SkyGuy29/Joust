@@ -9,7 +9,7 @@ public:
 	//Enemy();
 
 	//updates the player movement. user inputs will be handled directly in here.
-	virtual void update(Player[2]);
+	virtual void update(Player[2], int activePlatforms[PlatformNames::PLATFORM_COUNT]);
 
 	//puts the player on top of a platform and lets it run on it.
 	//the parameter is the top of the platform.
