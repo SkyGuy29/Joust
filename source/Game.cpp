@@ -51,6 +51,20 @@ void Game::update()
 	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
 		" " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
+
+	if (player[0].getPosition().y >= 220 * WINDOW_SCALE)
+	{
+		player->resetVelocityX();
+		player->resetVelocityY();
+		player->toggleGravity(false);
+		player->toggleDisable(true);
+
+		const int randPlat = choosePlatform();
+		spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+		spawners[randPlat].setEnabled(true);
+		player->setRespawn(randPlat);
+	}
+
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	if (enemyVec.size() > 1)
@@ -385,6 +399,12 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				enemyVec.erase(enemyVec.begin() + pos);
 				player->resetVelocityY();
 				player->addVelocity(0, -2);
+				if (dynamic_cast<Bounder*>(enemy))
+					score[0] += 250;
+				else if (dynamic_cast<Hunter*>(enemy))
+					score[0] += 750;
+				else if (dynamic_cast<Shadow*>(enemy))
+					score[0] += 1500;
 			}
 			//player death
 			else if (enemy->getPosition().y < player->getPosition().y)
