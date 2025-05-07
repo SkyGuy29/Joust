@@ -16,7 +16,9 @@ void Enemy::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM
 {
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
-	hitbox.move(vel);
+	
+	if (disable == false)
+		hitbox.move(vel);
 
 	//same as in player.cpp, screen boundary collision
 	//vertical
@@ -68,6 +70,19 @@ void Enemy::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM
 	if (currentPlatform == -1 && target >= 0) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
+	if (sprite.getAnimation() == AnimationNames::ENEMY_SPAWN)
+	{
+		std::cout << "enemy spawn";
+		if (sprite.nextSpawnFrame(3))
+		{
+			std::cout << "enemy spawn anim";
+			sprite.setAnimation(AnimationNames::BOUNDER_GROUND);
+			sprite.setFrame(3);
+			spawn = false;
+			disable = false;
+		}
+	}
+
 	//animation speed
 	speed = abs(vel.x) / SPEED_INC_X;
 
@@ -91,6 +106,7 @@ void Enemy::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM
 
 void Enemy::setOnGround(float newYValue, int platform)
 {
+
 	Collidable::setOnGround(newYValue, platform);
 
 	//sprite.setAnimation(AnimationNames::BOUNDER_GROUND);
@@ -136,12 +152,10 @@ void Enemy::drawTo(sf::RenderWindow& window)
 }
 
 
-void Enemy::setRespawn(int platformNumber)
+void Enemy::setSpawn(int platformNumber)
 {
-	//spawning = true;
-	// respawn animation
 
-	sprite.setAnimation(AnimationNames::P1_SPAWN);
+	sprite.setAnimation(AnimationNames::ENEMY_SPAWN);
 
 	sf::Vector2f pos;
 
@@ -167,7 +181,7 @@ void Enemy::setRespawn(int platformNumber)
 	pos.x += 14; //half of spawner length
 	pos.x *= WINDOW_SCALE;
 
-	pos.y -= sprite.getBounds().height / 2.f / WINDOW_SCALE; //half of player height
+	pos.y -= sprite.getBounds().height / 2.f ; //half of player height
 	pos.y *= WINDOW_SCALE;
 
 	hitbox.setPosition(pos);

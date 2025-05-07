@@ -6,7 +6,7 @@ Hunter::Hunter()
 	type = HUNTER;
 	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
-	sprite.setAnimation(AnimationNames::HUNTER_FLY);
+	sprite.setAnimation(AnimationNames::ENEMY_SPAWN);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	vel.x = SPEED_INC_X * 2;
@@ -100,6 +100,9 @@ void Hunter::update(Player player[2], int activePlatforms[PlatformNames::PLATFOR
 
 void Hunter::setOnGround(float newYValue, int platform)
 {
-	sprite.setAnimation(AnimationNames::HUNTER_GROUND);
-	Enemy::setOnGround(newYValue, platform);
+	if (disable == false)
+	{
+		sprite.setAnimation(AnimationNames::HUNTER_GROUND);
+		Enemy::setOnGround(newYValue, platform);
+	}
 }

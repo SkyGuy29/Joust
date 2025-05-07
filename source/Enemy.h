@@ -31,16 +31,18 @@ public:
 		return type;
 	}
 
-	void setRespawn(int);
+	void setSpawn(int);
+	bool getSpawn() { return spawn; }
+	void setDisable(bool temp) { disable = temp; }
+	bool getDisable() { return disable; }
 
 
-	virtual EnemyTypes getType() { return type; }
 protected:
 	Animation sprite;
 
 	EnemyTypes type;
 
-	bool skid = false, spawn = true;
+	bool skid = false, spawn = true, disable = false;
 	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0, target = -1;
 	//player sounds
 	//iframes timer

@@ -168,7 +168,6 @@ void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 
 	if (sprite.getAnimation() == AnimationNames::P1_SPAWN)
 	{
-		std::cout << hitbox.getPosition().x << " " << hitbox.getPosition().y << std::endl;
 
 		if (sprite.nextSpawnFrame(3))
 		{
