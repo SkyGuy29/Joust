@@ -13,9 +13,7 @@ public:
 	sf::ConvexShape getHitbox() const { return hitbox; }
 	
 	sf::Vector2f getPointPos(const ConvexCorners corner) const 
-	{ 
-		return hitbox.getPoint(corner) + hitbox.getPosition();
-	}
+	{ return hitbox.getPoint(corner) + hitbox.getPosition(); }
 
 	void update();
 

@@ -17,11 +17,7 @@ public:
 
 	//lets player know that it is no longer on the ground.
 	virtual void setOffGround() override
-	{
-		//out of bounds error if called
-		Collidable::setOffGround(); sprite.setAnimation(AnimationNames::BOUNDER_FLY);
-		//this does get called right now so um yeah that's fun
-	}
+	{ Collidable::setOffGround(); sprite.setAnimation(AnimationNames::BOUNDER_FLY); }
 
 	//death function and reset, remember Game handles lives
 	virtual void setPosition(sf::Vector2f) override;
@@ -38,13 +34,13 @@ public:
 	void setRespawn(int);
 
 
+	virtual EnemyTypes getType() { return type; }
 protected:
-
 	Animation sprite;
 
 	EnemyTypes type;
 
-	bool skid = false;
+	bool skid = false, spawn = true;
 	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0, target = -1;
 	//player sounds
 	//iframes timer

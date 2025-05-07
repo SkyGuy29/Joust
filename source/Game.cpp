@@ -86,9 +86,9 @@ void Game::update()
 			for (int j = i + 1; j < enemyVec.size(); j++)
 				collisionUpdate(enemyVec.at(i), enemyVec.at(j));
 	
-	for (int i = 0; i < 2; i++)
+	for (auto& i : player)
 		for (int j = 0; j < enemyVec.size(); j++)
-			collisionUpdate(&player[i], enemyVec.at(j), j);
+			collisionUpdate(&i, enemyVec.at(j), j);
 
 	for (const auto& enemy : enemyVec)
 		enemy->update(player, activePlatforms);
