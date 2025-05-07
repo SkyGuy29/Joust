@@ -64,8 +64,8 @@ static const SpriteData spriteData[AnimationNames::DATA_COUNT] =
     {"res/Art/joustSprite.png", sf::IntRect(248, 136, 11, 18), 4},      //P1_BIRD_GROUND
     {"res/Art/joustSprite.png", sf::IntRect(248, 156, 12, 12), 2},      //P1_BIRD_FLY
     {"res/Art/spawnAnims.png", sf::IntRect(0, 0, 13, 18), 6},           //P1_SPAWN
-    {"res/Art/lives.png", sf::IntRect(0, 0, 5, 7), 1},                  //P1_LIVES
     {"res/Art/spawners.png", sf::IntRect(0, 0, 28, 3), 3},              //P1_SPAWN_PLAT
+    {"res/Art/lives.png", sf::IntRect(0, 0, 5, 7), 1},                  //P1_LIVES
     {"res/Art/spawnAnims.png", sf::IntRect(78, 0, 13, 18), 6},          //P2_SPAWN
     {"res/Art/spawners.png", sf::IntRect(0, 3, 28, 3), 3},              //P2_SPAWN_PLAT
     {"res/Art/lives.png", sf::IntRect(5, 0, 5, 7), 1},                  //P2_LIVES
