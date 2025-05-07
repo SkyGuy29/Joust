@@ -115,6 +115,54 @@ void Game::update()
 		}
 	}   
 
+	//new round enemy spawning
+	if (spawnCredits > 4 && enemyVec.at(enemyVec.size() - 1)/*.getSpawn()*/)
+	{
+		const int spawnRandomizer = rand() % 25;
+
+		if (currentRound < 3) //force bounders before round 3
+		{
+			if (spawnCredits >= 4)
+			{
+				spawnCredits -= 4;
+				//spawn a bounder
+			}
+		}
+		else if (currentRound < 11 && true) //biased to early rounds
+		{
+			if (spawnCredits >= 4)
+			{
+				spawnCredits -= 4;
+				//spawn a bounder
+			}
+		}
+
+		if (currentRound >= 6 && spawnRandomizer > currentRound * 3 - 2) //biased to late rounds
+		{
+			if (spawnCredits >= 25)
+			{
+				spawnCredits -= 25;
+				//spawn a shadow lord
+			}
+		}
+		else
+		{
+			if (spawnCredits >= 9)
+			{
+				spawnCredits -= 9;
+				//spawn a bounder
+			}
+		}
+
+		//bounders start round 1
+		//hunter start round 3
+		//bounder end round 11
+		//shadow start round 6
+		//hunter end round 25
+		
+
+	}
+
 	if (score[0] >= goalScore)
 	{
 		if (lives < 5)
@@ -163,6 +211,8 @@ void Game::update()
 void Game::nextRound()
 {
 	currentRound++;
+
+	spawnCredits = currentRound * 10;
 
 	if (currentRound % 5 == 1)
 	{
