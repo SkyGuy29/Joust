@@ -18,8 +18,18 @@ Game::Game()
 	livesAnim.setAnimation(P1_LIVES);
 	livesAnim.setPos(sf::Vector2f(122 * WINDOW_SCALE, 213 * WINDOW_SCALE));
 
+	livesText.setFont(font);
+	livesText.setCharacterSize(15);
+	livesText.setFillColor(sf::Color::Yellow);
+	livesText.setString("0");
+	livesText.setOrigin(livesText.getLocalBounds().width / 2,
+		livesText.getLocalBounds().height / 2); //AS IF I KNOW WHY I NEED TO ADD EXACTLY 4.8 PIXELS
+	livesText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	livesText.setPosition(127 * WINDOW_SCALE, 204.5 * WINDOW_SCALE);
+
 	//enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Hunter);
+	enemyVec.at(0)->setSpawn(P_TOP_MIDDLE);
 	//enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Shadow);
@@ -199,6 +209,8 @@ void Game::update()
 	for (auto& spawner : spawners)
 		spawner.update();
 
+
+	livesText.setString(std::to_string(lives));
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
 		scoreText.getLocalBounds().height / 2 + 4.8);
@@ -257,9 +269,10 @@ void Game::drawTo(sf::RenderWindow& window)
 	for (auto& i : spawners)
 		i.drawTo(window);
 
-	livesAnim.drawTo(window);
-
 	player[0].drawTo(window);
+
+	livesAnim.drawTo(window);
+	window.draw(livesText);
 	window.draw(scoreText);
 	window.draw(topScore);
 }
@@ -470,6 +483,12 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 					score[0] += 750;
 				else if (dynamic_cast<Shadow*>(enemy))
 					score[0] += 1500;
+				enemyVec.emplace_back(new Hunter);
+				const int randPlat = choosePlatform();
+				spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
+				spawners[randPlat].setEnabled(true);
+				enemyVec.at(enemyVec.size() - 1)->setDisable(true);
+				enemyVec.at(enemyVec.size() - 1)->setSpawn(P_TOP_MIDDLE);
 			}
 			//player death
 			else if (enemy->getPosition().y < player->getPosition().y)

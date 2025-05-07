@@ -6,7 +6,7 @@ Shadow::Shadow()
 	type = SHADOW;
 	hitbox.setPosition((rand() % 5 + 1) * 100, 100);
 	hitbox.setFillColor(sf::Color::Yellow);
-	sprite.setAnimation(AnimationNames::SHADOW_FLY);
+	sprite.setAnimation(AnimationNames::ENEMY_SPAWN);
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE)); //not exact lol
 	hitbox.setOrigin(hitbox.getSize().x / 2.f, hitbox.getSize().y / 2.f);
 	vel.x = SPEED_INC_X * 3;
@@ -98,6 +98,9 @@ void Shadow::update(Player player[2], int activePlatforms[PlatformNames::PLATFOR
 
 void Shadow::setOnGround(float newYValue, int platform)
 {
-	sprite.setAnimation(AnimationNames::SHADOW_GROUND);
-	Enemy::setOnGround(newYValue, platform);
+	if (disable == false)
+	{
+		sprite.setAnimation(AnimationNames::SHADOW_GROUND);
+		Enemy::setOnGround(newYValue, platform);
+	}
 }
