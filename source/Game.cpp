@@ -18,6 +18,15 @@ Game::Game()
 	livesAnim.setAnimation(P1_LIVES);
 	livesAnim.setPos(sf::Vector2f(122 * WINDOW_SCALE, 213 * WINDOW_SCALE));
 
+	livesText.setFont(font);
+	livesText.setCharacterSize(15);
+	livesText.setFillColor(sf::Color::Yellow);
+	livesText.setString("0");
+	livesText.setOrigin(livesText.getLocalBounds().width / 2,
+		livesText.getLocalBounds().height / 2); //AS IF I KNOW WHY I NEED TO ADD EXACTLY 4.8 PIXELS
+	livesText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	livesText.setPosition(127 * WINDOW_SCALE, 204.5 * WINDOW_SCALE);
+
 	//enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Hunter);
@@ -115,6 +124,12 @@ void Game::update()
 		}
 	}   
 
+	for (int i = 0; i < eggVec.size(); i++)
+	{
+		if (eggVec[i]->getHitbox().getPosition().y <= 210 * WINDOW_SCALE)
+			eggVec.erase(eggVec.begin() + i);
+	}
+
 	if (score[0] >= goalScore)
 	{
 		if (lives < 5)
@@ -151,6 +166,8 @@ void Game::update()
 	for (auto& spawner : spawners)
 		spawner.update();
 
+
+	livesText.setString(std::to_string(lives));
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
 		scoreText.getLocalBounds().height / 2 + 4.8);
@@ -207,9 +224,10 @@ void Game::drawTo(sf::RenderWindow& window)
 	for (auto& i : spawners)
 		i.drawTo(window);
 
-	livesAnim.drawTo(window);
-
 	player[0].drawTo(window);
+
+	livesAnim.drawTo(window);
+	window.draw(livesText);
 	window.draw(scoreText);
 	window.draw(topScore);
 }

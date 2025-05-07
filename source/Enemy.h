@@ -35,6 +35,8 @@ public:
 		return type;
 	}
 
+	void setRespawn(int);
+
 
 protected:
 

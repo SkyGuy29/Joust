@@ -134,3 +134,41 @@ void Enemy::drawTo(sf::RenderWindow& window)
 		window.draw(hitbox);
 	sprite.drawTo(window);
 }
+
+
+void Enemy::setRespawn(int platformNumber)
+{
+	//spawning = true;
+	// respawn animation
+
+	sprite.setAnimation(AnimationNames::P1_SPAWN);
+
+	sf::Vector2f pos;
+
+	// set player to spawn point
+	switch (platformNumber)
+	{
+	case 0:
+		pos = sf::Vector2f(100, 74); //taken from spawner data
+		break;
+	case 1:
+		pos = sf::Vector2f(10, 131);
+		break;
+	case 2:
+		pos = sf::Vector2f(218, 122);
+		break;
+	case 3:
+		pos = sf::Vector2f(114, 204);
+		break;
+	default:
+		break;
+	}
+
+	pos.x += 14; //half of spawner length
+	pos.x *= WINDOW_SCALE;
+
+	pos.y -= sprite.getBounds().height / 2.f / WINDOW_SCALE; //half of player height
+	pos.y *= WINDOW_SCALE;
+
+	hitbox.setPosition(pos);
+}
