@@ -37,7 +37,7 @@ private:
 	Platform platform[8];
 	sf::RectangleShape lava;
 	sf::Font font;
-	Animation lives;
+	Animation livesAnim;
 	sf::Text livesText; //holds the number of lives left
 	sf::Text scoreText; //todo: make array for 2p
 	sf::Text topScore; //holds the top score until the game is shut off, displays it on the right. todo: remove when leaderboard is added

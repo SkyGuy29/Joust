@@ -15,6 +15,9 @@ Game::Game()
 	lava.setPosition(0, (WINDOW_Y - 26) * WINDOW_SCALE);
 	lava.setFillColor(sf::Color(248, 32, 0));
 
+	livesAnim.setAnimation(P1_LIVES);
+	livesAnim.setPos(sf::Vector2f(122 * WINDOW_SCALE, 213 * WINDOW_SCALE));
+
 	//enemyVec.emplace_back(new Bounder);
 	enemyVec.emplace_back(new Hunter);
 	//enemyVec.emplace_back(new Hunter);
@@ -203,6 +206,8 @@ void Game::drawTo(sf::RenderWindow& window)
 		i->drawTo(window);
 	for (auto& i : spawners)
 		i.drawTo(window);
+
+	livesAnim.drawTo(window);
 
 	player[0].drawTo(window);
 	window.draw(scoreText);
