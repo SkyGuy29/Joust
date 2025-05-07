@@ -56,7 +56,7 @@ void Game::update()
 		" " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
 
-	if (player[0].getPosition().y >= 220 * WINDOW_SCALE)
+	if (player[0].getPosition().y >= 210 * WINDOW_SCALE)
 	{
 		player->resetVelocityX();
 		player->resetVelocityY();
@@ -67,6 +67,8 @@ void Game::update()
 		spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
 		spawners[randPlat].setEnabled(true);
 		player->setRespawn(randPlat);
+
+		lives--;
 	}
 
 	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
@@ -113,6 +115,14 @@ void Game::update()
 			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
 	}   
+
+	if (score[0] >= goalScore)
+	{
+		if (lives < 5)
+			lives++;
+		
+		goalScore += 20000;
+	}
 
 	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
 		if (eggVec.at(i)->getTimer() >= 20000)
