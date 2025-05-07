@@ -35,7 +35,7 @@ private:
 	std::vector<Enemy*> enemyVec;
 	std::vector<Egg*> eggVec;
 	Platform platform[8];
-	sf::RectangleShape bridge, lava;
+	sf::RectangleShape lava;
 	sf::Font font;
 	sf::Text scoreText; //todo: make array for 2p
 	sf::Text topScore; //holds the top score until the game is shut off, displays it on the right. todo: remove when leaderboard is added

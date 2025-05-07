@@ -11,10 +11,6 @@ Game::Game()
 	spawners[2].setPlatform(PlatformNames::P_RIGHT_SIDE);
 	spawners[3].setPlatform(PlatformNames::P_GROUND);
 
-	bridge.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 3 * WINDOW_SCALE));
-	bridge.setPosition(0, platform[PlatformNames::P_GROUND].getPointPos(ConvexCorners::TOP_LEFT).y);
-	bridge.setFillColor(sf::Color(144, 72, 0));
-
 	lava.setSize(sf::Vector2f(WINDOW_X * WINDOW_SCALE, 26 * WINDOW_SCALE)); //numbers from sprite data
 	lava.setPosition(0, (WINDOW_Y - 26) * WINDOW_SCALE);
 	lava.setFillColor(sf::Color(248, 32, 0));
@@ -189,7 +185,6 @@ void Game::nextRound()
 void Game::drawTo(sf::RenderWindow& window)
 {
 	window.draw(lava);
-	window.draw(bridge);
 	for (auto& i : platform)
 		i.drawTo(window);
 	for (const auto& i : eggVec)
