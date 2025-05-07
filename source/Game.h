@@ -35,7 +35,7 @@ private:
 	std::vector<Enemy*> enemyVec;
 	std::vector<Egg*> eggVec;
 	Platform platform[8];
-	sf::RectangleShape bridge, lava;
+	sf::RectangleShape lava;
 	sf::Font font;
 	Animation lives;
 	sf::Text livesText; //holds the number of lives left

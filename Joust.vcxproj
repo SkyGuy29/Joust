@@ -177,6 +177,7 @@
     <Image Include="res\art\joustSprite.png" />
     <Image Include="res\art\joust_screen.jpg" />
     <Image Include="res\Art\leftSide.png" />
+    <Image Include="res\Art\lives.png" />
     <Image Include="res\Art\rightSide.png" />
     <Image Include="res\Art\rightSideSmall.png" />
     <Image Include="res\Art\spawnAnims.png" />
