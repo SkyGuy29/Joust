@@ -126,7 +126,7 @@ void Game::update()
 	}   
 
 	//new round enemy spawning
-	if (spawnCredits > 4 && enemyVec.at(enemyVec.size() - 1)/*.getSpawn()*/)
+	if (spawnCredits > 4 && enemyVec.at(enemyVec.size() - 1)->getSpawn())
 	{
 		const int spawnRandomizer = rand() % 25;
 
