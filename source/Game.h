@@ -29,7 +29,7 @@ private:
 	void collisionUpdate(Enemy*, Enemy*);
 	int choosePlatform();
 
-	int score[2]{}, lives = 5, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {}, activePlatCount = 4;
+	int score[2]{}, lives = 4, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {}, activePlatCount = 4, goalScore = 20000;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;
@@ -37,6 +37,8 @@ private:
 	Platform platform[8];
 	sf::RectangleShape lava;
 	sf::Font font;
+	Animation lives;
+	sf::Text livesText; //holds the number of lives left
 	sf::Text scoreText; //todo: make array for 2p
 	sf::Text topScore; //holds the top score until the game is shut off, displays it on the right. todo: remove when leaderboard is added
 
