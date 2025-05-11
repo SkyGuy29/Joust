@@ -6,7 +6,7 @@
 
 
 static constexpr auto PI = 3.1415926535897932;
-static constexpr int WINDOW_SCALE = 6;
+static constexpr int WINDOW_SCALE = 3;
 static constexpr int WINDOW_X = 292; //old (SNES) is 236
 static constexpr int WINDOW_Y = 240; //old (SNES)is 194
 static constexpr float SPEED_INC_X = .5 * WINDOW_SCALE;
@@ -20,19 +20,6 @@ static float distBetween(const sf::Vector2f point1, const sf::Vector2f point2)
     const sf::Vector2f d = point1 - point2;
     return hypotf(d.x, d.y);
 }
-
-
-//uses the law of cosines to create an angle given three points.
-//the three points are used to create a triangle, and it finds an angle in that triangle.
-//the angle returned is the one that corresponds to the first parameter/point here.
-//the order of the last two does not matter.
-static float lawOfCos(const sf::Vector2f p1, const sf::Vector2f p2, const sf::Vector2f p3)
-{
-	const double a = distBetween(p1, p2), b = distBetween(p1, p3), c = distBetween(p2, p3);
-
-    return acos((a * a + c * c - b * b) / (2 * a * c));
-}
-//aaaaand we didnt even use it LOL
 
 
 //enum used for convex shapes.

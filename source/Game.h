@@ -21,6 +21,7 @@ public:
 
 private:
 	//handles collision
+	void spawnEnemy();
 	PlatformCollisionType isTouching(Collidable*, Platform&);
 	bool isTouching(sf::FloatRect, Egg*);
 	bool isTouchingX(sf::FloatRect&, Platform&);
@@ -30,7 +31,8 @@ private:
 	int choosePlatform();
 
 	int score[2]{}, lives = 4, currentRound = 1, eggsCollected = 0, activePlatforms[PlatformNames::PLATFORM_COUNT] = {},
-		activePlatCount = 4, goalScore = 20000, spawnCredits = 0;
+		activePlatCount = 4, goalScore = 20000;
+	float spawnCredits = 10;
 	Player player[2]; //or just make two variables?
 
 	std::vector<Enemy*> enemyVec;

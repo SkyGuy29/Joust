@@ -27,13 +27,6 @@ Game::Game()
 	livesText.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	livesText.setPosition(127 * WINDOW_SCALE, 204.5 * WINDOW_SCALE);
 
-	//enemyVec.emplace_back(new Bounder);
-	enemyVec.emplace_back(new Hunter);
-	enemyVec.at(0)->setSpawn(P_TOP_MIDDLE);
-	//enemyVec.emplace_back(new Hunter);
-	//enemyVec.emplace_back(new Hunter);
-	//enemyVec.emplace_back(new Shadow);
-
 	font.loadFromFile("res/Fonts/Arcade.ttf");
 	font.setSmooth(false);
 	scoreText.setFont(font);
@@ -63,6 +56,7 @@ void Game::update()
 	//timer.restart();
 	player[0].update(activePlatforms);
 
+	//death to lava
 	if (player[0].getPosition().y >= 210 * WINDOW_SCALE)
 	{
 		player->resetVelocityX();
@@ -78,32 +72,38 @@ void Game::update()
 		lives--;
 	}
 
+	//enemy-enemy interaction
 	if (enemyVec.size() > 1)
 		for (int i = 0; i < enemyVec.size() - 1; i++)
 			for (int j = i + 1; j < enemyVec.size(); j++)
 				collisionUpdate(enemyVec.at(i), enemyVec.at(j));
-	
+
+	//player-enemy interaction
 	for (auto& i : player)
 		for (int j = 0; j < enemyVec.size(); j++)
 			collisionUpdate(&i, enemyVec.at(j), j);
 
-	for (const auto& enemy : enemyVec)
+	for (const auto& enemy : enemyVec) //enemy updates
 		enemy->update(player, activePlatforms);
-	for (const auto& egg : eggVec)
+	for (const auto& egg : eggVec) //egg updates
 		egg->update();
 
-	for (auto& plat : platform)
+	for (auto& plat : platform) //platform updates
 		plat.update();
 
+	//player-platform interaction
 	collisionUpdate(&player[0], platform);
-	
+
+	//egg-platform interaction
 	for (const auto& egg : eggVec)
 		collisionUpdate(egg, platform);
 
+	//enemy-platform interaction
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
 
-	for (int i = 0; i < eggVec.size(); i++) //egg collection update
+	//egg collection update
+	for (int i = 0; i < eggVec.size(); i++) 
 	{
 		if (isTouching(player[0].getHitbox(), eggVec[i]))
 		{
@@ -115,56 +115,18 @@ void Game::update()
 
 			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
-	}   
-
-	//new round enemy spawning
-	if (spawnCredits > 4 && enemyVec.at(enemyVec.size() - 1)->getSpawn())
-	{
-		const int spawnRandomizer = rand() % 25;
-
-		if (currentRound < 3) //force bounders before round 3
-		{
-			if (spawnCredits >= 4)
-			{
-				spawnCredits -= 4;
-				//spawn a bounder
-			}
-		}
-		else if (currentRound < 11 && true) //biased to early rounds
-		{
-			if (spawnCredits >= 4)
-			{
-				spawnCredits -= 4;
-				//spawn a bounder
-			}
-		}
-
-		if (currentRound >= 6 && spawnRandomizer > currentRound * 3 - 2) //biased to late rounds
-		{
-			if (spawnCredits >= 25)
-			{
-				spawnCredits -= 25;
-				//spawn a shadow lord
-			}
-		}
-		else
-		{
-			if (spawnCredits >= 9)
-			{
-				spawnCredits -= 9;
-				//spawn a bounder
-			}
-		}
-
-		//bounders start round 1
-		//hunter start round 3
-		//bounder end round 11
-		//shadow start round 6
-		//hunter end round 25
-		
-
 	}
 
+	//new round enemy spawning
+	if (spawnCredits > 4)
+	{
+		if (enemyVec.empty())
+			spawnEnemy();
+		else if (!enemyVec.at(enemyVec.size() - 1)->getSpawn())
+			spawnEnemy();
+	}
+
+	//extra life when you get 20k points
 	if (score[0] >= goalScore)
 	{
 		if (lives < 5)
@@ -173,7 +135,8 @@ void Game::update()
 		goalScore += 20000;
 	}
 
-	for (int i = 0; i < eggVec.size(); i++) //egg hatch update
+	//egg hatch update
+	for (int i = 0; i < eggVec.size(); i++) 
 		if (eggVec.at(i)->getTimer() >= 20000)
 		{
 			switch (eggVec.at(i)->getType())
@@ -197,10 +160,11 @@ void Game::update()
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
 
+	//spawners update
 	for (auto& spawner : spawners)
 		spawner.update();
 
-
+	//text updates
 	livesText.setString(std::to_string(lives));
 	scoreText.setString(std::to_string(score[0]));
 	scoreText.setOrigin(scoreText.getLocalBounds().width - scoreText.getCharacterSize() / 2,
@@ -213,9 +177,15 @@ void Game::update()
 
 void Game::nextRound()
 {
+	int variationSum = 0;
 	currentRound++;
 
-	spawnCredits = currentRound * 10;
+	//gives some variety to the spawn credits
+	for (int i = 0; i < currentRound; i++)
+		variationSum += rand() % 5 * 0.5;
+
+	//10 is base, increases by 10% every round base then adds variaton
+	spawnCredits = 10 * currentRound * 1.1 + variationSum;
 
 	if (currentRound % 5 == 1)
 	{
@@ -270,6 +240,26 @@ void Game::drawTo(sf::RenderWindow& window)
 
 
 //private
+void Game::spawnEnemy()
+{
+	if (currentRound >= 6 && spawnCredits >= 64)
+	{
+		spawnCredits -= 64;
+		enemyVec.emplace_back(new Shadow);
+	}
+	else if (currentRound >= 3 && currentRound < 25 && spawnCredits >= 15)
+	{
+		spawnCredits -= 15;
+		enemyVec.emplace_back(new Hunter);
+	}
+	else if (currentRound < 11 && spawnCredits >= 4)
+	{
+		spawnCredits -= 4;
+		enemyVec.emplace_back(new Bounder);
+	}
+}
+
+
 PlatformCollisionType Game::isTouching(Collidable* collidable, Platform& platform)
 {
 	sf::FloatRect hitbox = collidable->getHitbox();
@@ -444,7 +434,6 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 					score[0] += 750;
 				else if (dynamic_cast<Shadow*>(enemy))
 					score[0] += 1500;
-				enemyVec.emplace_back(new Hunter);
 				const int randPlat = choosePlatform();
 				spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
 				spawners[randPlat].setEnabled(true);
