@@ -40,8 +40,6 @@ void Bounder::update(Player player[2], int activePlatforms[PlatformNames::PLATFO
 			sf::Vector2f(player[1].getPosition().x, player[1].getPosition().y));
 		closerPlayer = 1;
 	}
-	
-	//std::cout << closerPlayerF << std::endl;
 
 	if (currentPlatform == -1 && flapCounter >= 5)
 		sprite.setFrame(0); //flapping, wings up

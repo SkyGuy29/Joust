@@ -72,10 +72,8 @@ void Enemy::update(Player player[2], int activePlatforms[PlatformNames::PLATFORM
 
 	if (sprite.getAnimation() == AnimationNames::ENEMY_SPAWN)
 	{
-		std::cout << "enemy spawn";
 		if (sprite.nextSpawnFrame(3))
 		{
-			std::cout << "enemy spawn anim";
 			sprite.setAnimation(AnimationNames::BOUNDER_GROUND);
 			sprite.setFrame(3);
 			spawn = false;
@@ -114,9 +112,6 @@ void Enemy::setOnGround(float newYValue, int platform)
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 	sprite.setFaceRight(vel.x > 0);
-#ifdef DEBUG
-	std::cout << "enemy\n";
-#endif // DEBUG
 }
 
 

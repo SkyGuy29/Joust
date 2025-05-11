@@ -210,9 +210,6 @@ void Player::setOnGround(float newYValue, int platform)
 
 	sprite.setPos(sf::Vector2f(hitbox.getPosition().x, hitbox.getPosition().y));
 	sprite.setFaceRight(vel.x > 0);
-#ifdef DEBUG
-	std::cout << "Player\n";
-#endif
 }
 
 

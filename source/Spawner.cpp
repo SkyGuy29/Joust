@@ -40,8 +40,6 @@ void Spawner::setSpawnAnim(AnimationNames anim)
 	case AnimationNames::P1_SPAWN_PLAT:
 	case AnimationNames::P2_SPAWN_PLAT:
 	case AnimationNames::ENEMY_SPAWN_PLAT:
-		//std::cout << "augh\n";
-		//std::cout << sprite.getBounds().top << " " << sprite.getBounds().left << "\n";
 		sprite.setAnimation(anim);
 		break;
 	default:

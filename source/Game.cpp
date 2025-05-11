@@ -61,8 +61,6 @@ void Game::update()
 {
 	//static sf::Clock timer;
 	//timer.restart();
-	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
-		" " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
 
 	if (player[0].getPosition().y >= 210 * WINDOW_SCALE)
@@ -80,8 +78,6 @@ void Game::update()
 		lives--;
 	}
 
-	//std::cout << "update: " << timer.restart().asMilliseconds() / 1000. << '\n';
-
 	if (enemyVec.size() > 1)
 		for (int i = 0; i < enemyVec.size() - 1; i++)
 			for (int j = i + 1; j < enemyVec.size(); j++)
@@ -96,17 +92,13 @@ void Game::update()
 	for (const auto& egg : eggVec)
 		egg->update();
 
-	//std::cout << "EU: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	for (auto& plat : platform)
 		plat.update();
-	//std::cout << "P:LATupdate: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	collisionUpdate(&player[0], platform);
-	//std::cout << "PLVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 	
 	for (const auto& egg : eggVec)
 		collisionUpdate(egg, platform);
-	//std::cout << "EGVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (const auto& enemy : enemyVec)
 		collisionUpdate(enemy, platform);
@@ -204,7 +196,6 @@ void Game::update()
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
-	//std::cout << "ENVP: " << timer.restart().asMilliseconds() / 1000. << '\n';
 
 	for (auto& spawner : spawners)
 		spawner.update();
@@ -287,7 +278,6 @@ PlatformCollisionType Game::isTouching(Collidable* collidable, Platform& platfor
 	if (hitbox.top <= platform.getPointPos(ConvexCorners::BOT_LEFT).y &&
 		hitbox.top + hitbox.height >= platform.getPointPos(ConvexCorners::TOP_LEFT).y)
 	{
-		//std::cout << "y-axis\n";
 		//x axis general collision check s
 		//still may not be a collision if outside the diagonal
 		if (isTouchingX(hitbox, platform) == true)
@@ -319,7 +309,6 @@ PlatformCollisionType Game::isTouching(Collidable* collidable, Platform& platfor
 				else
 					return PlatformCollisionType::TOP;
 			}
-			//std::cout << "x-axis\n";
 			//specific collision, determines behavior of interaction
 			//checks right diagonal
 
@@ -379,7 +368,6 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			if (collidable->getGrounded() == -1 && !dynamic_cast<Egg*>(collidable))
 			{
 				activePlatforms[i]++;
-				//std::cout << "on groundM\n";
 			}
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
 			break;
@@ -387,67 +375,40 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 			collidable->bounceY();
 			collidable->setPosition(sf::Vector2f(collidable->getPosition().x,
 				platform[i].getPointPos(BOT_LEFT).y + (collidable->getSize().y / 2.f)));
-#ifdef DEBUG
-	std::cout << "bot\n";
-#endif
 			break;
 		case PlatformCollisionType::LEFT:
 			collidable->bounceX();
 			collidable->bounceSetLeft(platform[i]);
-#ifdef DEBUG
-	std::cout << "left\n";
-#endif 
 			break;
 		case PlatformCollisionType::LEFT_HIGH:
 			collidable->bounceX();
 			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_LEFT).x - (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
-#ifdef DEBUG
-			std::cout << "left high\n";
-#endif
 			break;
 		case PlatformCollisionType::RIGHT:
 			collidable->bounceX();
 			collidable->bounceSetRight(platform[i]);
-
-#ifdef DEBUG
-	std::cout << "right\n";
-#endif
 			break;
 		case PlatformCollisionType::RIGHT_HIGH:
 			collidable->bounceX();
 			collidable->setPosition(sf::Vector2f(platform[i].getPointPos(ConvexCorners::TOP_RIGHT).x + (collidable->getSize().x / 2.f),
 				collidable->getPosition().y));
-#ifdef DEBUG
-	std::cout << "right high\n";
-#endif
 			break;
 		case PlatformCollisionType::NONE:
-			//std::cout << collidable->getGrounded() << std::endl;
-			
-			//std::cout << "CLTA: " << timer2.restart().asMilliseconds() /1000. << '\n';
 			//may need to change, the player is set off ground when screen wrapping
 			if (collidable->getGrounded() >= 0 && collidable->getGrounded() < 8)
 			{
-				//std::cout << "player left: " << collidable->getHitbox().left << std::endl;
-				//std::cout << "platform right: " << platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x << std::endl;
-				//std::cout << ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x)) << std::endl;
 				if ((float)(collidable->getHitbox().left) > (float)(platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_RIGHT).x) ||
 					collidable->getHitbox().left + collidable->getHitbox().width < platform[collidable->getGrounded()].getPointPos(ConvexCorners::TOP_LEFT).x)
 				{
 					if (!dynamic_cast<Egg*>(collidable))
 						activePlatforms[collidable->getGrounded()]--;
 					collidable->setOffGround();
-					//std::cout << "off ground\n";
 				}
 			}
-			//std::cout << "CLTB: " << timer2.restart().asMilliseconds() / 1000. << '\n';
 			break;
 		}
 	}
-	//std::cout << "CLTC: " << timer2.restart().asMilliseconds() / 1000. << '\n';
-
-	//std::cout << "COLLTMR: " << timer.restart().asMilliseconds() / 1000. << '\n';
 }
 
 
@@ -574,35 +535,23 @@ int Game::choosePlatform()
 	//randomize
 	int randPlat = rand() % activePlatCount, platNum = 0;
 
-	std::cout << randPlat << " " << activePlatCount << "\n";
-
-	std::cout << platNum << " " << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " " << activePlatforms[P_RIGHT_SIDE] <<
-		" " << activePlatforms[P_GROUND] << "\n";
 	//pick the spawn platform that corresponds to the random number
 	//if a platform has enemies on it, we skip it
 	if (activePlatforms[P_TOP_MIDDLE] == 0)
 		if (randPlat == platNum++)
 			return 0;
 
-	std::cout << platNum << "\n";
-
 	if (activePlatforms[P_LEFT_SIDE] == 0)
 		if (randPlat == platNum++)
 			return 1;
-
-	std::cout << platNum << "\n";
 
 	if (activePlatforms[P_RIGHT_SIDE] == 0)
 		if (randPlat == platNum++)
 			return 2;
 
-	std::cout << platNum << "\n";
-
 	if (activePlatforms[P_GROUND] == 0)
 		if (randPlat == platNum++)
 			return 3;
-
-	std::cout << platNum << "\n";
 
 	return 3;
 }
