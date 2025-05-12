@@ -380,7 +380,13 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 		case PlatformCollisionType::TOP:
 			if (collidable->getGrounded() == -1 && !dynamic_cast<Egg*>(collidable))
 			{
-				activePlatforms[i]++;
+				if (dynamic_cast<Enemy*>(collidable))
+				{
+					if (dynamic_cast<Enemy*>(collidable)->getSpawn() == false)
+						activePlatforms[i]++;
+				}
+				else
+					activePlatforms[i]++;
 			}
 			collidable->setOnGround(platform[i].getPointPos(ConvexCorners::TOP_LEFT).y, i);
 			break;
