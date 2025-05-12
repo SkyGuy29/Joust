@@ -52,8 +52,8 @@ Game::Game()
 
 void Game::update()
 {
-	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " "
-		<< activePlatforms[P_RIGHT_SIDE] << " " << activePlatforms[P_GROUND] << "\n";
+	//std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " "
+	//	<< activePlatforms[P_RIGHT_SIDE] << " " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
 
 	//death to lava
@@ -174,8 +174,11 @@ void Game::update()
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
-	//else
-		//std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
+	else
+		std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
+
+	if (eggVec.size() == 1)
+		std::cout << "Egg pos: " << eggVec.at(0)->getPosition().x << " " << " " << eggVec.at(0)->getPosition().y << std::endl;
 
 	//spawners update
 	for (auto& spawner : spawners)
