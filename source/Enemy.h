@@ -42,7 +42,7 @@ protected:
 
 	EnemyTypes type;
 
-	bool skid = false, spawn = true, disable = false;
+	bool skid = false, spawn = true, disable = true;
 	int leftTimer = 0, rightTimer = 0, speed = 0, frameCounter = 0, flapCounter = 0, target = -1;
 	//player sounds
 	//iframes timer

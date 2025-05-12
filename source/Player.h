@@ -29,9 +29,10 @@ public:
 
 	void toggleGravity(bool);
 	void toggleDisable(bool);
+	bool getDisable() const { return disable; }
 
 	void setRespawn(int);
-	bool getRespawning() { return respawning; }
+	bool getRespawning() const { return respawning; }
 
 private:
 	//i hate sfml keyboard detection naming so i made a mediocre fix

@@ -52,8 +52,6 @@ Game::Game()
 
 void Game::update()
 {
-	//static sf::Clock timer;
-	//timer.restart();
 	player[0].update(activePlatforms);
 
 	//death to lava
@@ -65,9 +63,12 @@ void Game::update()
 		player->toggleDisable(true);
 
 		const int randPlat = choosePlatform();
-		spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
-		spawners[randPlat].setEnabled(true);
 		player->setRespawn(randPlat);
+		if (randPlat != -1)
+		{
+			spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+			spawners[randPlat].setEnabled(true);
+		}
 
 		lives--;
 	}
@@ -105,7 +106,7 @@ void Game::update()
 	//egg collection update
 	for (int i = 0; i < eggVec.size(); i++) 
 	{
-		if (isTouching(player[0].getHitbox(), eggVec[i]))
+		if (isTouching(player[0].getHitbox(), eggVec.at(i)))
 		{
 			eggsCollected++;
 			if (eggsCollected < 4)
@@ -117,13 +118,23 @@ void Game::update()
 		}
 	}
 
+	const int randPlat = choosePlatform();
+
+	//spawns player once there is an active platform
+	if (player[0].getDisable() && !player[0].getRespawning() && countActivePlatforms() > 0)
+	{
+		player[0].setRespawn(randPlat);
+		spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+		spawners[randPlat].setEnabled(true);
+	}
+
 	//new round enemy spawning
-	if (spawnCredits > 4)
+	if (randPlat != -1 && spawnCredits > 4)
 	{
 		if (enemyVec.empty())
-			spawnEnemy();
+			spawnEnemy(randPlat);
 		else if (!enemyVec.at(enemyVec.size() - 1)->getSpawn())
-			spawnEnemy();
+			spawnEnemy(randPlat);
 	}
 
 	//extra life when you get 20k points
@@ -136,7 +147,8 @@ void Game::update()
 	}
 
 	//egg hatch update
-	for (int i = 0; i < eggVec.size(); i++) 
+	for (int i = 0; i < eggVec.size(); i++)
+	{
 		if (eggVec.at(i)->getTimer() >= 20000)
 		{
 			switch (eggVec.at(i)->getType())
@@ -156,9 +168,12 @@ void Game::update()
 			}
 			eggVec.erase(eggVec.begin() + i);
 		}
+	}
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
+	else
+		std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
 
 	//spawners update
 	for (auto& spawner : spawners)
@@ -184,7 +199,7 @@ void Game::nextRound()
 	for (int i = 0; i < currentRound; i++)
 		variationSum += rand() % 5 * 0.5;
 
-	//10 is base, increases by 10% every round base then adds variaton
+	//10 is base, increases by 10% every round base then adds variation
 	spawnCredits = 10 * currentRound * 1.1 + variationSum;
 
 	if (currentRound % 5 == 1)
@@ -240,23 +255,35 @@ void Game::drawTo(sf::RenderWindow& window)
 
 
 //private
-void Game::spawnEnemy()
+void Game::spawnEnemy(int randPlat)
 {
 	if (currentRound >= 6 && spawnCredits >= 64)
 	{
 		spawnCredits -= 64;
 		enemyVec.emplace_back(new Shadow);
+		enemyVec.at(enemyVec.size() - 1)->setSpawn(randPlat);
+		spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
+		spawners[randPlat].setEnabled(true);
 	}
 	else if (currentRound >= 3 && currentRound < 25 && spawnCredits >= 15)
 	{
 		spawnCredits -= 15;
 		enemyVec.emplace_back(new Hunter);
+		enemyVec.at(enemyVec.size() - 1)->setSpawn(randPlat);
+		spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
+		spawners[randPlat].setEnabled(true);
 	}
 	else if (currentRound < 11 && spawnCredits >= 4)
 	{
 		spawnCredits -= 4;
 		enemyVec.emplace_back(new Bounder);
+		enemyVec.at(enemyVec.size() - 1)->setSpawn(randPlat);
+		spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
+		spawners[randPlat].setEnabled(true);
 	}
+
+	std::cout << currentRound << std::endl;
+	std::cout << spawnCredits << std::endl;
 }
 
 
@@ -404,63 +431,50 @@ void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 
 void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 {
-	sf::FloatRect nextPos;
+	sf::FloatRect enemyBounds = enemy->getHitbox(),
+	playerBounds = player->getHitbox(), nextPos = playerBounds;
 
-	sf::FloatRect enemyBounds = enemy->getHitbox();
-	sf::FloatRect playerBounds = player->getHitbox();
+	nextPos.left += player->getVelocity().x;
+	nextPos.top += player->getVelocity().y;
 
-		nextPos = playerBounds;
-
-		nextPos.left += player->getVelocity().x;
-		nextPos.top += player->getVelocity().y;
-
-		//if (playerBounds.left > wallBounds.left + 25)
-			//wallBounds.left++;
-		//else if (playerBounds.left + 50 < wallBounds.left)
-			//wallBounds.left--;
-
-		if (enemyBounds.intersects(nextPos))
+	if (enemyBounds.intersects(nextPos))
+	{
+		//enemy death
+		if (enemy->getPosition().y > player->getPosition().y)
 		{
-			//enemy death
-			if (enemy->getPosition().y > player->getPosition().y)
-			{
-				eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
-				enemyVec.erase(enemyVec.begin() + pos);
-				player->resetVelocityY();
-				player->addVelocity(0, -2);
-				if (dynamic_cast<Bounder*>(enemy))
-					score[0] += 250;
-				else if (dynamic_cast<Hunter*>(enemy))
-					score[0] += 750;
-				else if (dynamic_cast<Shadow*>(enemy))
-					score[0] += 1500;
-				const int randPlat = choosePlatform();
-				spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
-				spawners[randPlat].setEnabled(true);
-				enemyVec.at(enemyVec.size() - 1)->setDisable(true);
-				enemyVec.at(enemyVec.size() - 1)->setSpawn(P_TOP_MIDDLE);
-			}
-			//player death
-			else if (enemy->getPosition().y < player->getPosition().y)
-			{
-				//disable player
-				player->resetVelocityX();
-				player->resetVelocityY();
-				player->toggleGravity(false);
-				player->toggleDisable(true);
-				 
-				const int randPlat = choosePlatform();
-				spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
-				spawners[randPlat].setEnabled(true);
-				player->setRespawn(randPlat);
-
-				enemy->resetVelocityY();
-				//enemyOne->setPosition(sf::Vector2f(enemyOne->getPosition().x, enemyOne->getPosition().y));
-				enemy->addVelocity(0, -2);
-
-				lives--;
-			}
+			eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
+			enemyVec.erase(enemyVec.begin() + pos);
+			player->resetVelocityY();
+			player->addVelocity(0, -2);
+			if (dynamic_cast<Bounder*>(enemy))
+				score[0] += 250;
+			else if (dynamic_cast<Hunter*>(enemy))
+				score[0] += 750;
+			else if (dynamic_cast<Shadow*>(enemy))
+				score[0] += 1500;
 		}
+		//player death
+		else if (enemy->getPosition().y < player->getPosition().y)
+		{
+			//disable player
+			player->resetVelocityX();
+			player->resetVelocityY();
+			player->toggleGravity(false);
+			player->toggleDisable(true);
+			 
+			const int randPlat = choosePlatform();
+			player->setRespawn(randPlat);
+			if (randPlat == -1)
+				return;
+			spawners[randPlat].setSpawnAnim(AnimationNames::P1_SPAWN_PLAT);
+			spawners[randPlat].setEnabled(true);
+
+			enemy->resetVelocityY();
+			enemy->addVelocity(0, -2);
+
+			lives--;
+		}
+	}
 }
 
 
@@ -511,7 +525,7 @@ void Game::collisionUpdate(Enemy* enemyOne, Enemy* enemyTwo)
 }
 
 
-int Game::choosePlatform()
+int Game::countActivePlatforms()
 {
 	activePlatCount = 4;
 
@@ -520,9 +534,20 @@ int Game::choosePlatform()
 		if (i == P_TOP_MIDDLE || i == P_LEFT_SIDE || i == P_RIGHT_SIDE || i == P_GROUND)
 			if (activePlatforms[i] > 0)
 				activePlatCount--;
-	
+
+	return activePlatCount;
+}
+
+
+int Game::choosePlatform()
+{
 	//randomize
-	int randPlat = rand() % activePlatCount, platNum = 0;
+	int randPlat, activePlatCount = countActivePlatforms(), platNum = 0;
+
+	if (activePlatCount != 0)
+		randPlat = rand() % activePlatCount;
+	else 
+		return -1;
 
 	//pick the spawn platform that corresponds to the random number
 	//if a platform has enemies on it, we skip it
@@ -539,8 +564,8 @@ int Game::choosePlatform()
 			return 2;
 
 	if (activePlatforms[P_GROUND] == 0)
-		if (randPlat == platNum++)
+		if (randPlat == platNum)
 			return 3;
 
-	return 3;
+	return -1;
 }

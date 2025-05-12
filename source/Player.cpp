@@ -115,7 +115,6 @@ void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 	else if (currentPlatform == -1 && gravity == true) //gravity
 		vel.y += .125 * (WINDOW_SCALE / 3.f);
 
-	//next three ifs were formerly "isTouchingBounds()" from Game, moving to here made more sense
 	//these three ifs detail interactions with the boundaries of the screen
 	//top boundary
 	if (hitbox.getPosition().y - hitbox.getSize().y / 2.f < 0)
@@ -165,10 +164,9 @@ void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 	//player run animation based on speed
 	speed = abs(vel.x) / SPEED_INC_X;
 
-
+	//respawning
 	if (sprite.getAnimation() == AnimationNames::P1_SPAWN)
 	{
-
 		if (sprite.nextSpawnFrame(3))
 		{
 			sprite.setAnimation(AnimationNames::P1_GROUND);
@@ -240,9 +238,12 @@ void Player::bounceSetRight(Platform& platform)
 
 void Player::drawTo(sf::RenderWindow& window)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
-		window.draw(hitbox);
-	sprite.drawTo(window);
+	if (!(respawning == false && disable))
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+			window.draw(hitbox);
+		sprite.drawTo(window);
+	}
 }
 
 
@@ -260,6 +261,9 @@ void Player::toggleDisable(bool temp)
 
 void Player::setRespawn(int platformNumber)
 {
+	if (platformNumber == -1)
+		return; //early exit if there are no active platforms
+
 	respawning = true;
 	// respawn animation
 
