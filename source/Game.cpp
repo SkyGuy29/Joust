@@ -52,6 +52,8 @@ Game::Game()
 
 void Game::update()
 {
+	std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " "
+		<< activePlatforms[P_RIGHT_SIDE] << " " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
 
 	//death to lava
@@ -172,8 +174,8 @@ void Game::update()
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
-	else
-		std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
+	//else
+		//std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
 
 	//spawners update
 	for (auto& spawner : spawners)
@@ -281,9 +283,6 @@ void Game::spawnEnemy(int randPlat)
 		spawners[randPlat].setSpawnAnim(AnimationNames::ENEMY_SPAWN_PLAT);
 		spawners[randPlat].setEnabled(true);
 	}
-
-	std::cout << currentRound << std::endl;
-	std::cout << spawnCredits << std::endl;
 }
 
 
@@ -372,13 +371,10 @@ bool Game::isTouching(sf::FloatRect playerHitbox, Egg *egg)
 
 void Game::collisionUpdate(Collidable* collidable, Platform platform[])
 {
-	static sf::Clock timer, timer2;
-	//timer.restart();
 	if (!collidable)
 		return;
 	for (int i = 0; i < PLATFORM_COUNT; i++)
 	{
-		//timer2.restart();
 		switch (isTouching(collidable, platform[i]))
 		{
 		case PlatformCollisionType::TOP:

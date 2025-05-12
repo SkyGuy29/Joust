@@ -11,8 +11,6 @@ Player::Player()
 }
 
 
-
-
 void Player::update(int activePlatforms[PlatformNames::PLATFORM_COUNT])
 {
 	hitbox.setSize(sf::Vector2f(sprite.getBounds().width * WINDOW_SCALE, sprite.getBounds().height * WINDOW_SCALE));
