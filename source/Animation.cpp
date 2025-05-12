@@ -39,19 +39,15 @@ void Animation::setFaceRight(const bool right)
 
 void Animation::nextFrame(int delay)
 {
-	if(++delayCount % delay == 0)
+	if (++delayCount % delay == 0) //this will trigger once every (delay) frames
 	{
 		delayCount = 0;
 		sf::IntRect spriteRect = sprite.getTextureRect();
 
 		if (currentFrame++ < maxFrame - 1) //if not out of bounds...
-		{
 			spriteRect.left += spriteRect.width;
-		}
 		else if (currentMode == Mode::END) //if set to end, do nothing
-		{
 			currentFrame = maxFrame - 1;
-		}
 		else if (currentMode == Mode::LOOP) //if set to loop, reset the counter and rect
 		{
 			currentFrame = 0;

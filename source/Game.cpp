@@ -23,7 +23,7 @@ Game::Game()
 	livesText.setFillColor(sf::Color::Yellow);
 	livesText.setString("0");
 	livesText.setOrigin(livesText.getLocalBounds().width / 2,
-		livesText.getLocalBounds().height / 2); //AS IF I KNOW WHY I NEED TO ADD EXACTLY 4.8 PIXELS
+		livesText.getLocalBounds().height / 2);
 	livesText.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	livesText.setPosition(127 * WINDOW_SCALE, 204.5 * WINDOW_SCALE);
 
@@ -47,6 +47,15 @@ Game::Game()
 	topScore.setPosition(204 * WINDOW_SCALE, 213 * WINDOW_SCALE); //fix position
 
 	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
+}
+
+
+Game::~Game()
+{
+	for (auto& enemy : enemyVec)
+		delete enemy;
+	for (auto& egg : eggVec)
+		delete egg;
 }
 
 
@@ -116,6 +125,7 @@ void Game::update()
 			else
 				score[0] += 1000;
 
+			delete eggVec.at(i);
 			eggVec.erase(eggVec.begin()+i); //fix later to remove the specific egg collected
 		}
 	}
@@ -168,17 +178,21 @@ void Game::update()
 				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
 				break;
 			}
+
+			delete eggVec.at(i);
 			eggVec.erase(eggVec.begin() + i);
 		}
 	}
 
 	if (eggVec.empty() && enemyVec.empty())
 		nextRound();
+	/*
 	else
 		std::cout << "Eggs: " << eggVec.size() << " Enemies: " << enemyVec.size() << " AC: " << countActivePlatforms() << std::endl;
 
 	if (eggVec.size() == 1)
 		std::cout << "Egg pos: " << eggVec.at(0)->getPosition().x << " " << " " << eggVec.at(0)->getPosition().y << std::endl;
+	*/
 
 	//spawners update
 	for (auto& spawner : spawners)
@@ -448,7 +462,8 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 		if (enemy->getPosition().y > player->getPosition().y)
 		{
 			eggVec.emplace_back(new Egg(enemy->getPosition(), enemy->getVelocity(), enemy->getType()));
-			enemyVec.erase(enemyVec.begin() + pos);
+
+
 			player->resetVelocityY();
 			player->addVelocity(0, -2);
 			if (dynamic_cast<Bounder*>(enemy))
@@ -457,6 +472,9 @@ void Game::collisionUpdate(Player* player, Enemy* enemy, int pos)
 				score[0] += 750;
 			else if (dynamic_cast<Shadow*>(enemy))
 				score[0] += 1500;
+
+			delete enemyVec.at(pos);
+			enemyVec.erase(enemyVec.begin() + pos);
 		}
 		//player death
 		else if (enemy->getPosition().y < player->getPosition().y)
