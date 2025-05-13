@@ -40,12 +40,14 @@ private:
 	std::vector<Enemy*> enemyVec;
 	std::vector<Egg*> eggVec;
 	Platform platform[8];
-	sf::RectangleShape lava;
+	sf::RectangleShape lava, gameOver;
 	sf::Font font;
 	Animation livesAnim;
 	sf::Text livesText, //holds the number of lives left. todo: make array for 2p
-	scoreText, topScore; //holds the top score until the game is shut off, displays it on the right.
-	//todo: remove topScore when leaderboard is added
+		scoreText, topScore, //holds the top score until the game is shut off, displays it on the right.
+		//todo: remove topScore when leaderboard is added
+		gameOverText; //shows game over text when the game is over
+
 
 	Spawner spawners[4];
 	//eventually add birds for the eggs

@@ -46,6 +46,21 @@ Game::Game()
 	topScore.setScale(WINDOW_SCALE, WINDOW_SCALE);
 	topScore.setPosition(204 * WINDOW_SCALE, 213 * WINDOW_SCALE); //fix position
 
+	gameOverText.setFont(font);
+	gameOverText.setCharacterSize(30);
+	gameOverText.setFillColor(sf::Color::White);
+	gameOverText.setString("Game Over");
+	gameOverText.setOrigin(gameOverText.getLocalBounds().width / 2,
+		gameOverText.getLocalBounds().height / 2);
+	gameOverText.setScale(WINDOW_SCALE, WINDOW_SCALE);
+	gameOverText.setPosition(292 / 2 * WINDOW_SCALE, 240 / 2 * WINDOW_SCALE);
+
+	gameOver.setSize(sf::Vector2f(292 * WINDOW_SCALE, 240 * WINDOW_SCALE));
+	gameOver.setOrigin(gameOver.getLocalBounds().width / 2,
+		gameOver.getLocalBounds().height / 2);
+	gameOver.setFillColor(sf::Color::Black);
+	gameOver.setPosition(292 / 2 * WINDOW_SCALE, 240 / 2 * WINDOW_SCALE);
+
 	player[0].setPosition(sf::Vector2f(166 * WINDOW_SCALE, 166 * WINDOW_SCALE));
 }
 
@@ -61,6 +76,7 @@ Game::~Game()
 
 void Game::update()
 {
+
 	//std::cout << activePlatforms[P_TOP_MIDDLE] << " " << activePlatforms[P_LEFT_SIDE] << " "
 	//	<< activePlatforms[P_RIGHT_SIDE] << " " << activePlatforms[P_GROUND] << "\n";
 	player[0].update(activePlatforms);
@@ -270,6 +286,12 @@ void Game::drawTo(sf::RenderWindow& window)
 	window.draw(livesText);
 	window.draw(scoreText);
 	window.draw(topScore);
+
+	if (lives <= 0)
+	{
+		window.draw(gameOver);
+		window.draw(gameOverText);
+	}
 }
 
 
