@@ -194,7 +194,7 @@ void Game::update()
 				enemyVec.emplace_back(new Shadow(eggVec.at(i)->getHitbox().getPosition()));
 				break;
 			}
-
+			enemyVec.at(enemyVec.size() - 1)->setDisable(false);
 			delete eggVec.at(i);
 			eggVec.erase(eggVec.begin() + i);
 		}
